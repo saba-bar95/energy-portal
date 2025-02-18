@@ -5,6 +5,7 @@ header {
   color: #1e1e1e;
   justify-content: center;
   display: flex;
+  position: relative;
 
   .header-container {
     display: flex;
@@ -32,6 +33,10 @@ header {
         display: flex;
         gap: 15px;
 
+        .bold {
+          font-weight: 600;
+        }
+
         h1 {
           font-size: 14px;
           font-weight: 500;
@@ -45,6 +50,40 @@ header {
 
           img {
             margin-top: 5px;
+          }
+        }
+
+        .sections-container {
+          width: max-content;
+          position: absolute;
+          top: 100%;
+          background-color: #ffffff;
+          padding: 20px;
+          font-size: 14px;
+
+          ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            li {
+              cursor: pointer;
+            }
+
+            li:not(:last-child) {
+              border-bottom: 1px solid #efefef;
+              padding-bottom: 10px;
+            }
+          }
+
+          .selected {
+            background-color: #f2f6ff;
+            border: 1px solid #a0bfff;
+            border-radius: 6px;
+          }
+          p {
+            padding: 15px;
           }
         }
       }

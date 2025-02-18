@@ -1,0 +1,13 @@
+@import url("./fonts.scss");
+@import url("/src/assets/components/Header/Header.scss");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: FiraGORegular;
+  background-color: #f4f4f7;
+}
