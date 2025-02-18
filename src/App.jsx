@@ -1,4 +1,4 @@
-import Header from "./assets/components/Header/header";
+import Header from "./assets/components/Header/Header";
 import { createContext, useState } from "react";
 import Section from "./assets/components/Section/Section";
 import Footer from "./assets/components/Footer/Footer";
