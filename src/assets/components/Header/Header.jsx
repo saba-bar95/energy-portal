@@ -7,10 +7,10 @@ import facebook from "/src/assets/images/header/facebook-icon.svg";
 import linkedin from "/src/assets/images/header/linkedin-icon.svg";
 import x from "/src/assets/images/header/x-icon.svg";
 import georgianFlag from "/src/assets/images/header/georgian-flag.svg";
-import britishFlag from "/src/assets/images/header/british-flag.svg";
+// import britishFlag from "/src/assets/images/header/british-flag.svg";
 import downVectorBlack from "/src/assets/images/header/down-vector-black.svg";
 import upVectorBlack from "/src/assets/images/header/up-vector-black.svg";
-import upVectorGray from "/src/assets/images/header/up-vector-gray.svg";
+// import upVectorGray from "/src/assets/images/header/up-vector-gray.svg";
 import downVectorGray from "/src/assets/images/header/down-vector-gray.svg";
 import sections from "../../../../sections";
 import { SectionsContext } from "../../../App";
@@ -18,7 +18,7 @@ import { SectionsContext } from "../../../App";
 const Header = () => {
   const [isSectionsOpen, setIsSectionsOpen] = useState(false);
   const [selectedSection, setSelectedSection] = useState(null);
-  const [isLanguageOpen, setIsLanguageOpen] = useState(null);
+  // const [isLanguageOpen, setIsLanguageOpen] = useState(null);
   const { setSectionID } = useContext(SectionsContext);
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const Header = () => {
     navigate("/ka");
   };
 
-  const handleLanguageChange = () => {};
+  // const handleLanguageChange = () => {};
 
   return (
     <>
