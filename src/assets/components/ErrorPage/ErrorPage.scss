@@ -1,0 +1,24 @@
+.error-page {
+  margin: auto;
+  text-align: center;
+  padding: 30px;
+
+  p {
+    margin-top: 10px;
+  }
+
+  button {
+    margin: 20px;
+    font-family: inherit;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.5s ease, transform 0.5s ease; /* Add transition */
+  }
+
+  /* Optional: Add hover effect */
+  button:hover {
+    background-color: #e5ff00; /* Change to your desired hover color */
+    transform: translateX(3px); /* Slightly enlarge the button */
+  }
+}
