@@ -3,14 +3,12 @@ import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import sakstatLogo from "/src/assets/images/header/sakstat-logo.svg";
 import sakstatText from "/src/assets/images/header/sakstat-text.svg";
-import facebook from "/src/assets/images/header/facebook-icon.svg";
-import linkedin from "/src/assets/images/header/linkedin-icon.svg";
-import x from "/src/assets/images/header/x-icon.svg";
 import downVectorBlack from "/src/assets/images/header/down-vector-black.svg";
 import upVectorBlack from "/src/assets/images/header/up-vector-black.svg";
 import sections from "../../../../sections";
 import { SectionsContext } from "../../../App";
 import LanguageChanger from "../LanguageChanger/LanguageChanger";
+import Socials from "../Socials/Socials";
 
 const Header = () => {
   const [isSectionsOpen, setIsSectionsOpen] = useState(false);
@@ -78,9 +76,7 @@ const Header = () => {
               )}
             </div>
             <div className="socials">
-              <img src={facebook} alt="facebook-icon" />
-              <img src={x} alt="x-icon" />
-              <img src={linkedin} alt="linkedin-icon" />
+              <Socials />
               <LanguageChanger />
             </div>
           </div>

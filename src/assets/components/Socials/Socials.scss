@@ -1,0 +1,13 @@
+.icons {
+  display: flex;
+  gap: 30px;
+
+  img {
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Smooth transition for transform */
+
+    &:hover {
+      transform: scale(1.2); /* Scale up the icon on hover */
+    }
+  }
+}
