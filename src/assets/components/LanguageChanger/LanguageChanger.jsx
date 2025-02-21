@@ -3,8 +3,8 @@ import britishFlag from "/src/assets/images/header/british-flag.svg";
 import upVectorGray from "/src/assets/images/header/up-vector-gray.svg";
 import downVectorGray from "/src/assets/images/header/down-vector-gray.svg";
 import { useEffect, useState } from "react";
-import text from "../../../../text";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
+import text from "./text";
 
 const LanguageChanger = () => {
   const params = useParams();
@@ -26,7 +26,7 @@ const LanguageChanger = () => {
   useEffect(() => {
     const currentPath = location.pathname.split("/").slice(2).join("/");
     navigate(`/${language}/${currentPath}`);
-  }, [language]);
+  }, [language, location.pathname, navigate]);
 
   const hovered = isLanguageOpen ? "hovered" : "";
 
@@ -39,7 +39,7 @@ const LanguageChanger = () => {
             className="flag-img"
             alt="flag"
           />
-          <p>{text[language].header.language}</p>
+          <p>{text[language].language}</p>
           <img
             src={isLanguageOpen ? upVectorGray : downVectorGray}
             alt="vector"
@@ -54,9 +54,7 @@ const LanguageChanger = () => {
                 className="flag-img"
               />
               <p>
-                {language === "ka"
-                  ? text["en"].header.language
-                  : text["ka"].header.language}
+                {language === "ka" ? text["en"].language : text["ka"].language}
               </p>
             </div>
           </div>
