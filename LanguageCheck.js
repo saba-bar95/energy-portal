@@ -1,10 +1,10 @@
 // src/LanguageCheck.js
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const LanguageCheck = ({ children }) => {
   const navigate = useNavigate();
-  const language = window.location.pathname.split("/")[1];
+  const { language } = useParams(); // Use useParams to get the language
 
   useEffect(() => {
     if (language !== "ka" && language !== "en") {

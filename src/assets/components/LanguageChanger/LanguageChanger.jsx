@@ -4,11 +4,12 @@ import upVectorGray from "/src/assets/images/header/up-vector-gray.svg";
 import downVectorGray from "/src/assets/images/header/down-vector-gray.svg";
 import { useEffect, useState } from "react";
 import text from "../../../../text";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 const LanguageChanger = () => {
+  const params = useParams();
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const [language, setLanguage] = useState("ka");
+  const [language, setLanguage] = useState(params.language);
 
   const navigate = useNavigate();
   const location = useLocation();
