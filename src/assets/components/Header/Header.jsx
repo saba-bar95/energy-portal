@@ -1,4 +1,3 @@
-import text from "../../../../text";
 import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import sakstatLogo from "/src/assets/images/header/sakstat-logo.svg";
@@ -9,6 +8,7 @@ import sections from "../../../../sections";
 import { SectionsContext } from "../../../App";
 import LanguageChanger from "../LanguageChanger/LanguageChanger";
 import Socials from "../Socials/Socials";
+import text from "./text";
 
 const Header = () => {
   const [isSectionsOpen, setIsSectionsOpen] = useState(false);
@@ -46,12 +46,12 @@ const Header = () => {
           <div className="left">
             <div className="texts">
               <h1 onClick={handleHeaderClick} style={{ cursor: "pointer" }}>
-                {text[language].header.header1}
+                {text[language].header1}
               </h1>
               <h1
                 className={`choose-section ${isSectionsOpen ? "bold" : ""}`}
                 onClick={handleSectionOpen}>
-                {text[language].header.header2}
+                {text[language].header2}
                 {!isSectionsOpen && <img src={downVectorBlack} alt="" />}
                 {isSectionsOpen && <img src={upVectorBlack} alt="" />}
               </h1>
