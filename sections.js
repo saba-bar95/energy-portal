@@ -1,16 +1,20 @@
 const sections = [
   {
-    name: "ენერგეტიკული ბალანსის ვიზუალიზაცია",
+    name_ka: "ენერგეტიკული ბალანსის ვიზუალიზაცია",
+    name_en: "Energy balance visualization",
     id: 1,
     href: "visualization",
   },
   {
-    name: "ყოველთვიური ენერგეტიკის სტატისტიკა",
+    name_ka: "ყოველთვიური ენერგეტიკის სტატისტიკა",
+    name_en: "Monthly energy statistics",
     id: 2,
     href: "statistics",
   },
   {
-    name: "ენერგორესურსების მოხმარება შინამეურნეობებში",
+    name_ka: "ენერგორესურსების მოხმარება შინამეურნეობებში",
+    name_en: "Energy consumption in households",
+
     id: 3,
     href: "consumption",
   },
