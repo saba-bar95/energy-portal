@@ -12,8 +12,9 @@ import Socials from "../Socials/Socials";
 
 const Header = () => {
   const [isSectionsOpen, setIsSectionsOpen] = useState(false);
-  const [selectedSection, setSelectedSection] = useState(null);
-  const { setSectionID } = useContext(SectionsContext);
+  const { setSectionID, selectedSection, setSelectedSection } =
+    useContext(SectionsContext);
+
   const navigate = useNavigate();
   const { language } = useParams();
 

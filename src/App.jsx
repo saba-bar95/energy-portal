@@ -8,10 +8,17 @@ export const SectionsContext = createContext(null);
 
 function App() {
   const [sectionID, setSectionID] = useState(null);
+  const [selectedSection, setSelectedSection] = useState(null);
 
   return (
     <>
-      <SectionsContext.Provider value={{ sectionID, setSectionID }}>
+      <SectionsContext.Provider
+        value={{
+          sectionID,
+          setSectionID,
+          selectedSection,
+          setSelectedSection,
+        }}>
         <Header />
         <main>
           <Section />
