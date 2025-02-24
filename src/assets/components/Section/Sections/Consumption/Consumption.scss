@@ -1,0 +1,96 @@
+@import url("/src/assets/components/Section/Sections/Consumption/Heating/Heating.scss");
+@import url("/src/assets/components/Section/Sections/Consumption/Conditioning/Conditioning.scss");
+@import url("/src/assets/components/Section/Sections/Consumption/HotWater/HotWater.scss");
+@import url("/src/assets/components/Section/Sections/Consumption/Cooking/Cooking.scss");
+@import url("/src/assets/components/Section/Sections/Consumption/EnergyConsumption/EnergyConsumption.scss");
+
+.consumption {
+  background: linear-gradient(to right, #1e3c72, #2a5298);
+  color: #ffffff;
+  font-feature-settings: "case" on;
+  display: flex;
+  flex-direction: column;
+
+  .container {
+    padding: 50px 200px 0 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 80px;
+
+    .links {
+      a {
+        text-decoration: none;
+      }
+
+      ul {
+        display: flex;
+        list-style-type: none;
+        justify-content: start;
+        gap: 100px;
+
+        .wrapper {
+          position: relative;
+          background-color: transparent;
+          display: flex;
+
+          li {
+            padding: 15px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            color: #ffffff;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: inherit;
+          }
+
+          li.selected {
+            background-color: #ffffff;
+            color: #3c77f2;
+            font-weight: 700;
+
+            // &::before,
+            // &::after {
+            //   content: "";
+            //   position: absolute;
+            //   bottom: 0;
+            //   right: -20px;
+            //   width: 20px;
+            //   height: 20px;
+            //   background-color: inherit;
+            // }
+
+            // &::after {
+            //   left: -20px;
+            // }
+
+            // &::before {
+            //   right: -20px;
+            // }
+          }
+
+          span {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            background-color: inherit;
+            bottom: 0;
+            z-index: 99;
+            border-bottom-right-radius: 20px;
+          }
+
+          .left-span {
+            left: -20px;
+          }
+
+          .right-span {
+            right: -20px;
+          }
+        }
+      }
+    }
+  }
+}
