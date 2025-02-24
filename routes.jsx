@@ -7,6 +7,11 @@ import Consumption from "./src/assets/components/Section/Sections/Consumption/Co
 import HomePage from "./src/assets/components/HomePage/HomePage";
 import LanguageCheck from "./LanguageCheck";
 import ErrorPage from "./src/assets/components/ErrorPage/ErrorPage";
+import Heating from "./src/assets/components/Section/Sections/Consumption/Heating/Heating";
+import Conditioning from "./src/assets/components/Section/Sections/Consumption/Conditioning/Conditioning";
+import HotWater from "./src/assets/components/Section/Sections/Consumption/HotWater/HotWater";
+import Cooking from "./src/assets/components/Section/Sections/Consumption/Cooking/Cooking";
+import EnergyConsumption from "./src/assets/components/Section/Sections/Consumption/EnergyConsumption/EnergyConsumption";
 
 const routes = [
   {
@@ -36,6 +41,32 @@ const routes = [
       {
         path: "consumption", // No leading slash
         element: <Consumption />,
+        children: [
+          {
+            path: "", // This will match /:language/consumption
+            element: <Navigate to="heating" replace />, // Redirect to heating
+          },
+          {
+            path: "heating",
+            element: <Heating />,
+          },
+          {
+            path: "conditioning",
+            element: <Conditioning />,
+          },
+          {
+            path: "hot-water",
+            element: <HotWater />,
+          },
+          {
+            path: "cooking",
+            element: <Cooking />,
+          },
+          {
+            path: "energy-consumption",
+            element: <EnergyConsumption />,
+          },
+        ],
       },
     ],
   },
