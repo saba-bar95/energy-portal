@@ -36,8 +36,8 @@ const Consumption = () => {
               })}
             </ul>
           </div>
-          <Outlet />
         </div>
+        <Outlet />
       </div>
     </>
   );
