@@ -29,6 +29,10 @@
         justify-content: start;
         gap: 100px;
 
+        a {
+          display: flex;
+        }
+
         .wrapper {
           position: relative;
           background-color: transparent;

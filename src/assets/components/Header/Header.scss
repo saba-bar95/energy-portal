@@ -1,17 +1,13 @@
 header {
   background-color: #ffffff;
   max-width: 2500px;
-  padding: 20px;
   color: #1e1e1e;
-  justify-content: center;
-  display: flex;
   position: relative;
 
   .header-container {
+    padding: 20px 200px;
     display: flex;
-    max-width: 1400px;
     justify-content: space-between;
-    width: 70%;
     align-items: center;
 
     .right {
