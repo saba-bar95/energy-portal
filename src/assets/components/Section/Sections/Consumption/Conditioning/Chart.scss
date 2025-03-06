@@ -1,0 +1,84 @@
+.main-chart {
+  background-color: #fff;
+  border-radius: 24px;
+  padding: 30px 30px 40px 0;
+
+  .header-container {
+    display: flex;
+    padding-left: 30px;
+    margin-bottom: 20px;
+    gap: 30px;
+    align-items: start;
+
+    .text-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      h2 {
+        font-size: 16px;
+        color: #1e1e1e;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      h3 {
+        font-size: 14px;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .text {
+    font-size: 14px;
+    display: flex;
+    gap: 5px;
+
+    .before-span {
+      width: 14px;
+      height: 14px;
+      background-color: currentColor;
+    }
+  }
+
+  .custom-tooltip {
+    padding: 20px 40px 20px 20px !important;
+    background-color: #111729;
+    color: #ffffff;
+    border-radius: 14px;
+    font-family: FiraGOLight;
+
+    .tooltip-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+
+  .recharts-responsive-container {
+    .recharts-legend-wrapper {
+      position: initial !important;
+
+      .legend-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+
+        p {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 14px;
+
+          span {
+            width: 14px;
+            height: 14px;
+            background-color: currentColor;
+          }
+        }
+      }
+    }
+  }
+}
