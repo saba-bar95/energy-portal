@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import "./Chart.scss";
 import {
   BarChart,
   ResponsiveContainer,
@@ -76,11 +75,13 @@ const Chart = ({ data }) => {
 
   return (
     <div style={{ width: "100%", height: "100%" }} className="main-chart">
-      <h2>
+      <div className="header-container">
         <img src={data.icon} alt="" />
-        {data[`title_${language}`]}
-      </h2>
-      <h3>%</h3>
+        <div className="text-wrapper">
+          <h2>{data[`title_${language}`]}</h2>
+          <h3>%</h3>
+        </div>
+      </div>
       <ResponsiveContainer height={600}>
         <BarChart data={sortedData} layout="vertical" height={500} barGap={0}>
           <XAxis
@@ -99,7 +100,13 @@ const Chart = ({ data }) => {
           <Bar dataKey="total" fill={data.color[0]} name="Total" barSize={24}>
             <LabelList dataKey="name_ge" content={CustomLabel} />
           </Bar>
-          <Bar dataKey="city" fill={data.color[1]} name="City" barSize={24} />
+          <Bar
+            dataKey="city"
+            fill={data.color[1]}
+            name="City"
+            barSize={24}
+            minPointSize={10}
+          />
           <Bar
             dataKey="village"
             fill={data.color[2]}
