@@ -28,8 +28,6 @@ const Consumption = () => {
                         className={selectedId === link.id ? "selected" : ""}>
                         {link.name}
                       </li>
-                      <span className="right-span"></span>
-                      <span className="left-span"></span>
                     </div>
                   </Link>
                 );
