@@ -97,7 +97,12 @@ const Chart = ({ data }) => {
           />
           <Tooltip content={CustomTooltip} />
           <Legend content={CustomLegend} />
-          <Bar dataKey="total" fill={data.color[0]} name="Total" barSize={24}>
+          <Bar
+            dataKey="total"
+            fill={data.color[0]}
+            name="Total"
+            barSize={24}
+            minPointSize={1}>
             <LabelList dataKey="name_ge" content={CustomLabel} />
           </Bar>
           <Bar
@@ -105,13 +110,14 @@ const Chart = ({ data }) => {
             fill={data.color[1]}
             name="City"
             barSize={24}
-            minPointSize={10}
+            minPointSize={1}
           />
           <Bar
             dataKey="village"
             fill={data.color[2]}
             name="Village"
             barSize={24}
+            minPointSize={1}
           />
         </BarChart>
       </ResponsiveContainer>
