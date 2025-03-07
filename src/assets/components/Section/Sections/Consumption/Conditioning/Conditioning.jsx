@@ -57,7 +57,7 @@ const Conditioning = () => {
 
   return (
     <div className="conditioning-container">
-      {chartData[0] && <SecondChart data={chartsConfig[0]} />}
+      {chartData[0] && <FirstChart data={chartsConfig[0]} />}
       {chartData[1] && <SecondChart data={chartsConfig[1]} />}
     </div>
   );
