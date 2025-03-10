@@ -4,13 +4,13 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
 } from "recharts";
 import { useParams } from "react-router-dom";
 import "./Chart.scss";
+import Download from "../../../../Download/Download";
 
 const SecondChart = ({ data }) => {
   const { language } = useParams();
@@ -107,6 +107,7 @@ const SecondChart = ({ data }) => {
           <h2>{data[`title_${language}`]}</h2>
           <h3>{data[`unit_${language}`]}</h3>
         </div>
+        <Download />
       </div>
 
       <ResponsiveContainer height={600}>
@@ -120,7 +121,6 @@ const SecondChart = ({ data }) => {
             left: 20,
             bottom: 5,
           }}>
-          <CartesianGrid strokeDasharray="3 3" horizontal={false} />
           <XAxis
             dataKey="name_ge"
             tickLine={false}

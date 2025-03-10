@@ -4,7 +4,6 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
@@ -12,6 +11,7 @@ import {
 } from "recharts";
 import { useParams } from "react-router-dom";
 import "./Chart.scss";
+import Download from "../../../../Download/Download";
 
 const SecondChart = ({ data }) => {
   const { language } = useParams();
@@ -109,6 +109,7 @@ const SecondChart = ({ data }) => {
           <h2>{data[`title_${language}`]}</h2>
           <h3>{data[`unit_${language}`]}</h3>
         </div>
+        <Download />
       </div>
 
       <ResponsiveContainer height={600}>

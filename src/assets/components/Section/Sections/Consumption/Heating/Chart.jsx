@@ -10,6 +10,7 @@ import {
   LabelList,
 } from "recharts";
 import { useParams } from "react-router-dom";
+import Download from "../../../../Download/Download";
 
 const Chart = ({ data }) => {
   const { language } = useParams();
@@ -81,6 +82,7 @@ const Chart = ({ data }) => {
           <h2>{data[`title_${language}`]}</h2>
           <h3>%</h3>
         </div>
+        <Download />
       </div>
       <ResponsiveContainer height={600}>
         <BarChart data={sortedData} layout="vertical" height={500} barGap={0}>
