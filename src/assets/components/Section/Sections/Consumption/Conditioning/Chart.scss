@@ -10,6 +10,11 @@
     gap: 30px;
     align-items: start;
 
+    .download-container {
+      flex: 1;
+      text-align: end;
+    }
+
     .text-wrapper {
       display: flex;
       flex-direction: column;
