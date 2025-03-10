@@ -1,10 +1,10 @@
 import { Link, Outlet, useParams } from "react-router-dom";
-import text from "./text";
 import { useState } from "react";
+import links from "./links";
 
 const Consumption = () => {
   const { language } = useParams();
-  const [selectedId, setSelected] = useState(text[language].links[0].id);
+  const [selectedId, setSelected] = useState(links[language].links[0].id);
 
   const handleLinkSelect = (id) => {
     setSelected(id);
@@ -14,10 +14,10 @@ const Consumption = () => {
     <>
       <div className="consumption">
         <div className="container">
-          <h1>{text[language].header}</h1>
+          <h1>{links[language].header}</h1>
           <div className="links">
             <ul>
-              {text[language].links.map((link) => {
+              {links[language].links.map((link) => {
                 return (
                   <Link key={link.id} to={link.link}>
                     <div className="wrapper" key={link.id}>
