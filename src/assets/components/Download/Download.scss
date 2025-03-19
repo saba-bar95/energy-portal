@@ -1,20 +1,27 @@
 .download-container {
   position: relative;
+  display: flex;
+  flex: 1;
+  justify-content: end;
+
   .svg-container {
     svg {
       cursor: pointer;
 
-      // Set default stroke width
       rect {
         stroke: #e0e0e0; // Default border color
         stroke-width: 1; // Default border thickness
       }
 
-      // Change the border color and thickness on hover
       &:hover rect {
         stroke: #3c77f2; // Change to your desired hover color
         stroke-width: 1.2; // Increase border thickness on hover
       }
+    }
+
+    &.selected rect {
+      stroke: #3c77f2; // Same as hover color
+      stroke-width: 1.2; // Same as hover thickness
     }
   }
 
@@ -29,6 +36,7 @@
     flex-direction: column;
     right: 0;
     z-index: 1;
+    top: 40px;
 
     .divider {
       height: 1px; /* Thickness of the divider */

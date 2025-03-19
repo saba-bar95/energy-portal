@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
 import "./Download.scss";
 import { useState, useRef, useEffect } from "react";
 import downloadPNG from "./downloadPNG";
 import downloadJPG from "./downloadJPG";
 import downloadExcel from "./downloadExcel";
 
-const Download = ({ data }) => {
+const Download = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null); // Create a ref for the dropdown
 
@@ -15,6 +14,9 @@ const Download = ({ data }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
+      if (event.target.closest(".svg-container")) {
+        return;
+      }
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setOpen(false);
       }
@@ -29,9 +31,16 @@ const Download = ({ data }) => {
     };
   }, []);
 
+  const selected = open ? "selected" : "";
+
   return (
     <div className="download-container">
-      <div className="svg-container" onClick={handleToggle}>
+      <div
+        className={`svg-container ${selected}`} // Apply the selected class conditionally
+        onClick={(event) => {
+          event.stopPropagation();
+          handleToggle();
+        }}>
         <svg
           width="36"
           height="32"
@@ -78,7 +87,7 @@ const Download = ({ data }) => {
             <div
               className="wrapper"
               onClick={() => {
-                downloadExcel(data);
+                downloadExcel();
               }}>
               <svg
                 width="16"
@@ -156,7 +165,6 @@ const Download = ({ data }) => {
             </div>
           </div>
           <div className="divider"></div>
-
           <div className="lower">
             <div className="wrapper" onClick={downloadJPG}>
               <svg
