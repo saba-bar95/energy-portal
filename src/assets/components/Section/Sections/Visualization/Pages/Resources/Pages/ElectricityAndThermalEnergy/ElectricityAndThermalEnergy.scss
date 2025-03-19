@@ -14,3 +14,15 @@
   display: flex; /* Use flexbox to allow children to grow */
   flex-direction: column; /* Stack children vertically */
 }
+
+.chart-5 {
+  padding-bottom: 60px;
+
+  .legend-container {
+    gap: 20px !important;
+    flex-wrap: wrap !important;
+    margin-top: -50px !important;
+    justify-content: normal !important;
+    padding: 0 50px !important;
+  }
+}

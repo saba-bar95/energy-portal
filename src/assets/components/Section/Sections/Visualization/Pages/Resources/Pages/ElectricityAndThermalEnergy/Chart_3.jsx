@@ -8,13 +8,16 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 import { useParams } from "react-router-dom";
 import Download from "../../../../../../../Download/Download";
+import fetchDataWithCodes from "../../../../../../../../../../fetchDataWithCodes";
 
 const Chart_3 = () => {
   const { language } = useParams();
   const [data, setData] = useState([]);
+  const chartID = 9;
 
   const text = {
     ka: {
@@ -48,14 +51,7 @@ const Chart_3 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://192.168.1.27:3000/api/resourceswithcodes/9"
-        );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const rawData = await response.json();
+        const rawData = await fetchDataWithCodes(chartID);
 
         const filteredData = rawData.filter(
           (item) =>
@@ -139,7 +135,7 @@ const Chart_3 = () => {
   return (
     <>
       {data.length > 0 && (
-        <div className="main-chart">
+        <div className="main-chart chart-3">
           <div className="header-container">
             <svg
               width="26"
@@ -158,7 +154,7 @@ const Chart_3 = () => {
             </div>
             <Download />
           </div>
-          <ResponsiveContainer height={600}>
+          <ResponsiveContainer height={300}>
             <BarChart
               data={data}
               margin={{
@@ -171,13 +167,19 @@ const Chart_3 = () => {
                 dataKey="year"
                 tickLine={false}
                 padding={{ right: 15, left: 15 }}
+                axisLine={{ stroke: "#B7B7B7" }}
               />
-              <YAxis tickLine={false} padding={{ top: 30 }} />
+              <YAxis
+                tickLine={false}
+                padding={{ top: 30 }}
+                axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
+              />
               <Tooltip content={CustomTooltip} />
               <Legend content={CustomLegend} />
-              <Bar dataKey="ელექტროენერგია" fill="#30B0C7" barSize={20} />
-              <Bar dataKey="გეოთერმული" fill="#138C00" barSize={20} />
-              <Bar dataKey="მზე" fill="#ED4C5C" barSize={20} />
+              <CartesianGrid horizontal={false} strokeDasharray="3 3" />
+              <Bar dataKey="ელექტროენერგია" fill="#30B0C7" barSize={30} />
+              <Bar dataKey="გეოთერმული" fill="#138C00" barSize={30} />
+              <Bar dataKey="მზე" fill="#ED4C5C" barSize={30} />
             </BarChart>
           </ResponsiveContainer>
         </div>

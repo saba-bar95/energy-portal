@@ -6,22 +6,26 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
   ResponsiveContainer,
+  LabelList,
+  CartesianGrid,
 } from "recharts";
 import { useParams } from "react-router-dom";
+import YearsDropdown from "../../../../../../../YearDropdown/YearDropdown";
 import Download from "../../../../../../../Download/Download";
+import fetchDataWithCodes from "../../../../../../../../../../fetchDataWithCodes";
 
 const Chart_4 = () => {
   const { language } = useParams();
   const [data, setData] = useState([]);
+  const [year, setYear] = useState(2023);
+  const chartID = 10;
 
   const text = {
     ka: {
       title: "ელექტროენერგიის საბოლოო მოხმარება მრეწველობის სექტორში",
       unit: "ათასი ტნე",
     },
-
     en: {
       title: "Final electricity consumption in the industrial sector",
       unit: "Thousand tons",
@@ -48,18 +52,11 @@ const Chart_4 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://192.168.1.27:3000/api/resourceswithcodes/7"
+        const rawData = await fetchDataWithCodes(chartID);
+
+        const filteredData = rawData.filter(
+          (item) => item.name_ge !== "სულ" && item.name !== 1
         );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const rawData = await response.json();
-
-        const filteredData = rawData.filter((item) => item.name_ge !== "სულ");
-
-        console.log(filteredData);
 
         setData(filteredData);
       } catch (error) {
@@ -67,12 +64,92 @@ const Chart_4 = () => {
       }
     };
     fetchData();
-  }, [years]);
+  }, []);
+
+  // Prepare data for the selected year and reverse the order
+  const chartData = useMemo(() => {
+    return data
+      .map((item) => ({
+        name_ka: item.name_ge,
+        name_en: item.name_en, // Use English name for the chart
+        value: item[`y_${year}`] || 0, // Get the value for the selected year
+      }))
+      .reverse(); // Reverse the order of the data
+  }, [data, year]);
+
+  const customNameLabel = (props) => {
+    const { x, y, value } = props;
+    return (
+      <text x={x + 5} y={y - 10}>
+        {value}
+      </text>
+    );
+  };
+
+  const renderCustomizedLabel = (props) => {
+    const { x, y, width, value } = props;
+    const rectWidth = 50; // Width of the rectangle
+    const rectHeight = 25; // Set this to match the barSize
+
+    return (
+      <g>
+        <rect
+          x={x + width + 10} // Positioning the rectangle to the right of the bar
+          y={y} // Align the rectangle with the bar
+          width={rectWidth}
+          height={rectHeight}
+          fill="#EFEFEF" // Rectangle color
+          rx={5} // Rounded corners
+        />
+        <text
+          x={x + width + 10 + rectWidth / 2} // Center the text inside the rectangle
+          y={y + rectHeight / 2} // Align the text vertically in the middle of the rectangle
+          fill="#1E1E1E" // Text color
+          textAnchor="middle"
+          dominantBaseline="middle">
+          {value.toFixed(1)}
+        </text>
+      </g>
+    );
+  };
+
+  const CustomTooltip = ({ active, payload }) => {
+    if (!active || !payload || !payload.length) return null;
+
+    return (
+      <div className="custom-tooltip">
+        <div className="tooltip-container">
+          {payload.map(({ name, value, color }, index) => {
+            const displayName =
+              name === "imports"
+                ? language === "en"
+                  ? payload[index].payload.name_en
+                  : payload[index].payload.name_ka
+                : language === "en"
+                ? payload[index].payload.name_en
+                : payload[index].payload.name_ka;
+
+            return (
+              <p key={`item-${index}`} className="text">
+                <span style={{ color }} className="before-span">
+                  ■
+                </span>
+                {displayName} :
+                <span style={{ fontWeight: 900, marginLeft: "5px" }}>
+                  {value.toFixed(1)}
+                </span>
+              </p>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
       {data.length > 0 && (
-        <div className="main-chart">
+        <div className="main-chart chart-4">
           <div className="header-container">
             <svg
               width="26"
@@ -97,17 +174,40 @@ const Chart_4 = () => {
               <h2>{text[language].title}</h2>
               <h3>{text[language].unit}</h3>
             </div>
-            <Download />
+            <div className="years-wrapper">
+              <YearsDropdown years={years} year={year} setYear={setYear} />
+              <Download />
+            </div>
           </div>
-          <ResponsiveContainer height={600}>
+          <ResponsiveContainer height="100%">
             <BarChart
-              data={data}
+              data={chartData}
+              layout="vertical" // Set layout to vertical for horizontal bars
               margin={{
                 top: 20,
                 right: 30,
                 left: 20,
                 bottom: 5,
-              }}></BarChart>
+              }}>
+              <XAxis type="number" tickLine={false} />
+              <YAxis
+                dataKey={`name_${language}`}
+                type="category"
+                tick={false}
+                padding={{ top: 30, bottom: 20 }}
+                axisLine={false}
+              />
+              <CartesianGrid horizontal={false} strokeDasharray="3 3" />
+              <Tooltip content={CustomTooltip} />
+              <Bar dataKey="value" fill="#3498DB" barSize={25}>
+                <LabelList
+                  dataKey={`name_${language}`}
+                  content={customNameLabel}
+                />{" "}
+                <LabelList dataKey="value" content={renderCustomizedLabel} />
+                {/* Labels on top of bars */}
+              </Bar>
+            </BarChart>
           </ResponsiveContainer>
         </div>
       )}

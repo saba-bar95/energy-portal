@@ -8,13 +8,16 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 import { useParams } from "react-router-dom";
 import Download from "../../../../../../../Download/Download";
+import fetchDataWithCodes from "../../../../../../../../../../fetchDataWithCodes";
 
 const Chart_1 = () => {
   const { language } = useParams();
   const [data, setData] = useState([]);
+  const chartID = 7;
 
   const text = {
     ka: {
@@ -48,14 +51,7 @@ const Chart_1 = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://192.168.1.27:3000/api/resourceswithcodes/7"
-        );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const rawData = await response.json();
+        const rawData = await fetchDataWithCodes(chartID);
 
         const filteredData = rawData
           .filter(
@@ -196,7 +192,7 @@ const Chart_1 = () => {
             </div>
             <Download />
           </div>
-          <ResponsiveContainer height={600}>
+          <ResponsiveContainer height={380}>
             <BarChart
               data={data}
               margin={{
@@ -208,11 +204,16 @@ const Chart_1 = () => {
               <XAxis
                 dataKey="year"
                 tickLine={false}
-                padding={{ right: 15, left: 15 }}
+                axisLine={{ stroke: "#B7B7B7" }}
               />
-              <YAxis tickLine={false} padding={{ top: 30 }} />
+              <YAxis
+                tickLine={false}
+                padding={{ top: 30 }}
+                axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
+              />
               <Tooltip content={CustomTooltip} />
               <Legend content={CustomLegend} />
+              <CartesianGrid horizontal={false} strokeDasharray="3 3" />
               <Bar dataKey="ჰიდრო" stackId="a" fill="#5654D4" />
               <Bar dataKey="თბო" stackId="a" fill="#3FC8E4" />
               <Bar dataKey="ქარი" stackId="a" fill="#007C90" />
