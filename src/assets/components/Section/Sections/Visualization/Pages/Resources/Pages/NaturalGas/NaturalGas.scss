@@ -1,0 +1,16 @@
+.natural-gas {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+
+  .legend-container {
+    padding: 0 100px;
+    gap: 20px !important;
+    flex-wrap: wrap !important;
+    justify-content: normal !important;
+  }
+}
+
+#gas-3 {
+  margin-top: -20px !important;
+}
