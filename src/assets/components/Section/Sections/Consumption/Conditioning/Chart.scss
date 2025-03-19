@@ -3,6 +3,13 @@
   border-radius: 24px;
   padding: 30px 30px 40px 0;
 
+  .years-wrapper {
+    display: flex;
+    flex: 1;
+    justify-content: end;
+    gap: 30px;
+  }
+
   .header-container {
     display: flex;
     padding-left: 30px;
@@ -10,15 +17,11 @@
     gap: 30px;
     align-items: start;
 
-    .download-container {
-      flex: 1;
-      text-align: end;
-    }
-
     .text-wrapper {
       display: flex;
       flex-direction: column;
       gap: 10px;
+      min-height: 70px;
 
       h2 {
         font-size: 16px;

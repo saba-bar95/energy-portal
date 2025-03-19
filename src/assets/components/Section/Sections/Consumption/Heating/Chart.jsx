@@ -21,15 +21,16 @@ const Chart = ({ data }) => {
       <div className="legend-container">
         <p>
           <span style={{ color: data.color[0] }}>■</span>
-          სულ
+
+          {language === "ka" ? "სულ" : "Total"}
         </p>
         <p>
           <span style={{ color: data.color[1] }}>■</span>
-          ქალაქად
+          {language === "ka" ? "ქალაქად" : "City"}
         </p>
         <p>
           <span style={{ color: data.color[2] }}>■</span>
-          სოფლად
+          {language === "ka" ? "სოფლად" : "Village"}
         </p>
       </div>
     );
@@ -75,7 +76,7 @@ const Chart = ({ data }) => {
   };
 
   return (
-    <div style={{ width: "100%", height: "100%" }} className="main-chart">
+    <div style={{ width: "100%" }} className="main-chart">
       <div className="header-container">
         <img src={data.icon} alt="" />
         <div className="text-wrapper">
@@ -92,7 +93,7 @@ const Chart = ({ data }) => {
             tickLine={false}
           />
           <YAxis
-            dataKey="name_ge"
+            dataKey={language === "ka" ? "name_ge" : "name_en"}
             type="category"
             tick={false}
             padding={{ top: 30 }}
@@ -105,7 +106,10 @@ const Chart = ({ data }) => {
             name="Total"
             barSize={24}
             minPointSize={1}>
-            <LabelList dataKey="name_ge" content={CustomLabel} />
+            <LabelList
+              dataKey={language === "ka" ? "name_ge" : "name_en"}
+              content={CustomLabel}
+            />
           </Bar>
           <Bar
             dataKey="city"

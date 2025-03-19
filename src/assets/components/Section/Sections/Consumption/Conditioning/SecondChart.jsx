@@ -20,15 +20,16 @@ const SecondChart = ({ data }) => {
       <div className="legend-container">
         <p>
           <span style={{ color: data.color[0] }}>■</span>
-          სულ
+
+          {language === "ka" ? "სულ" : "Total"}
         </p>
         <p>
           <span style={{ color: data.color[1] }}>■</span>
-          ქალაქად
+          {language === "ka" ? "ქალაქად" : "City"}
         </p>
         <p>
           <span style={{ color: data.color[2] }}>■</span>
-          სოფლად
+          {language === "ka" ? "სოფლად" : "Village"}
         </p>
       </div>
     );
@@ -100,7 +101,7 @@ const SecondChart = ({ data }) => {
   };
 
   return (
-    <div style={{ width: "100%", height: "100%" }} className="main-chart">
+    <div style={{ width: "100%" }} className="main-chart">
       <div className="header-container">
         <img src={data.icon} alt="" />
         <div className="text-wrapper">
@@ -122,7 +123,7 @@ const SecondChart = ({ data }) => {
             bottom: 5,
           }}>
           <XAxis
-            dataKey="name_ge"
+            dataKey={language === "ka" ? "name_ge" : "name_en"}
             tickLine={false}
             tick={<CustomXAxisTick />}
           />
