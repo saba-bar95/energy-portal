@@ -1,8 +1,10 @@
 header {
   background-color: #ffffff;
-  max-width: 2500px;
   color: #1e1e1e;
-  position: relative;
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  box-shadow: 0 4px 8px #0003;
 
   .header-container {
     padding: 20px 200px;
