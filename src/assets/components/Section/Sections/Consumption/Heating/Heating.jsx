@@ -34,7 +34,8 @@ const Heating = () => {
     const getData = async () => {
       const dataPromises = chartsConfig.map(async (chart) => {
         const respData = await fetchData(chart.householdID);
-        return respData.slice(0, -1);
+
+        return respData.filter((el) => el.name_ge !== "სულ");
       });
       const results = await Promise.all(dataPromises);
       setChartData(results);

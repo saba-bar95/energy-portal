@@ -85,7 +85,7 @@ const Chart = ({ data }) => {
         </div>
         <Download />
       </div>
-      <ResponsiveContainer height={600}>
+      <ResponsiveContainer height={800}>
         <BarChart data={sortedData} layout="vertical" height={500} barGap={0}>
           <XAxis
             type="number"
@@ -104,7 +104,7 @@ const Chart = ({ data }) => {
             dataKey="total"
             fill={data.color[0]}
             name="Total"
-            barSize={24}
+            // barSize={24}
             minPointSize={1}>
             <LabelList
               dataKey={language === "ka" ? "name_ge" : "name_en"}
@@ -115,14 +115,14 @@ const Chart = ({ data }) => {
             dataKey="city"
             fill={data.color[1]}
             name="City"
-            barSize={24}
+            // barSize={24}
             minPointSize={1}
           />
           <Bar
             dataKey="village"
             fill={data.color[2]}
             name="Village"
-            barSize={24}
+            // barSize={24}
             minPointSize={1}
           />
         </BarChart>
