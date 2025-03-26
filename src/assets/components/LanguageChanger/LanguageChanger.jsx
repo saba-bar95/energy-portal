@@ -9,7 +9,7 @@ import text from "./text";
 const LanguageChanger = () => {
   const params = useParams();
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const [language, setLanguage] = useState(params.language);
+  const [language, setLanguage] = useState(params.language); // Initialize from params
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,14 +19,21 @@ const LanguageChanger = () => {
   };
 
   const toggleLanguage = () => {
-    setLanguage(language === "ka" ? "en" : "ka");
+    const newLanguage = language === "ka" ? "en" : "ka";
+    setLanguage(newLanguage);
     setIsLanguageOpen(false);
   };
 
   useEffect(() => {
+    // Only navigate if the language has changed
     const currentPath = location.pathname.split("/").slice(2).join("/");
     navigate(`/${language}/${currentPath}`);
   }, [language, location.pathname, navigate]);
+
+  // Update the language state when the component mounts
+  useEffect(() => {
+    setLanguage(params.language);
+  }, [params.language]);
 
   const hovered = isLanguageOpen ? "hovered" : "";
 
