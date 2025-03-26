@@ -20,18 +20,18 @@ const links = {
   en: {
     links: [
       {
-        name: "Electricity and thermal energy",
+        name: "Electricity and heat",
         id: 1,
         link: "electricityandthermalenergy",
       },
       { name: "Natural gas", id: 2, link: "naturalgas" },
       { name: "Coal", id: 3, link: "coal" },
       {
-        name: "Oil and petroleum products",
+        name: "Oil and oil products",
         id: 4,
-        link: "oilandpetroleumproducts",
+        link: "oilandoilproducts",
       },
-      { name: "Biofuels and waste", id: 5, link: "biofuelsandwaste" },
+      { name: "Biofuel and waste", id: 5, link: "biofuelandwaste" },
     ],
   },
 };

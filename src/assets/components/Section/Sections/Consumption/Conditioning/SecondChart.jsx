@@ -25,11 +25,11 @@ const SecondChart = ({ data }) => {
         </p>
         <p>
           <span style={{ color: data.color[1] }}>■</span>
-          {language === "ka" ? "ქალაქად" : "City"}
+          {language === "ka" ? "ქალაქად" : "Urban"}
         </p>
         <p>
           <span style={{ color: data.color[2] }}>■</span>
-          {language === "ka" ? "სოფლად" : "Village"}
+          {language === "ka" ? "სოფლად" : "City"}
         </p>
       </div>
     );
@@ -60,8 +60,14 @@ const SecondChart = ({ data }) => {
                 ■
               </span>
               {language === "en"
-                ? capitalizeFirstLetter(name)
-                : getGeorgianName(name)}{" "}
+                ? capitalizeFirstLetter(
+                    name === "city"
+                      ? "Urban"
+                      : name === "village"
+                      ? "Rural"
+                      : name
+                  )
+                : getGeorgianName(name)}
               :
               <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                 {value.toFixed(1)}

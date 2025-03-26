@@ -26,11 +26,11 @@ const SecondChart = ({ data }) => {
         </p>
         <p>
           <span style={{ color: data.color[1] }}>■</span>
-          {language === "ka" ? "ქალაქად" : "City"}
+          {language === "ka" ? "ქალაქად" : "Urban"}
         </p>
         <p>
           <span style={{ color: data.color[2] }}>■</span>
-          {language === "ka" ? "სოფლად" : "Village"}
+          {language === "ka" ? "სოფლად" : "Rural"}
         </p>
       </div>
     );
@@ -52,20 +52,28 @@ const SecondChart = ({ data }) => {
       return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
+    const originalValues = payload[0].payload.originalValues;
+
     return (
       <div className="custom-tooltip">
         <div className="tooltip-container">
-          {payload.map(({ name, value, color }, index) => (
+          {payload.map(({ name, color }, index) => (
             <p key={`item-${index}`} className="text">
               <span style={{ color }} className="before-span">
                 ■
               </span>
               {language === "en"
-                ? capitalizeFirstLetter(name)
-                : getGeorgianName(name)}{" "}
+                ? capitalizeFirstLetter(
+                    name === "city"
+                      ? "Urban"
+                      : name === "village"
+                      ? "Rural"
+                      : name
+                  )
+                : getGeorgianName(name)}
               :
               <span style={{ fontWeight: 900, marginLeft: "5px" }}>
-                {value.toFixed(1)}
+                {originalValues[name].toFixed(1)} {/* Use original values */}
               </span>
             </p>
           ))}
@@ -90,6 +98,12 @@ const SecondChart = ({ data }) => {
       total: (item.total / total) * 100,
       city: (item.city / total) * 100,
       village: (item.village / total) * 100,
+      originalValues: {
+        // Store original values for tooltip
+        total: item.total,
+        city: item.city,
+        village: item.village,
+      },
     };
   });
 

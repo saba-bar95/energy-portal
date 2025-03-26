@@ -14,7 +14,10 @@ const Consumption = () => {
     <>
       <div className="consumption">
         <div className="container">
-          <h1>{links[language].header}</h1>
+          <h1>
+            {links[language].header}
+            <span>(2022)</span>
+          </h1>
           <div className="links">
             <ul>
               {links[language].links.map((link) => {

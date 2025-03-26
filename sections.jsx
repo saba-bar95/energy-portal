@@ -83,7 +83,7 @@ const sections = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, corrupti? Odio consequuntur ipsa nobis quia!",
   },
   {
-    name_ka: "ყოველთვიური ენერგეტიკის სტატისტიკა",
+    name_ka: "ყოველთვიური ენერგეტიკული სტატისტიკა",
     name_en: "Monthly energy statistics",
     id: 2,
     href: "statistics",

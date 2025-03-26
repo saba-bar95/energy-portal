@@ -6,39 +6,42 @@ import secondChartIcon from "/src/assets/images/sections/consumption/2-chart-ico
 
 const Heating = () => {
   const [chartData, setChartData] = useState([null, null]);
+  const [loading, setLoading] = useState(true); // New loading state
 
   const chartsConfig = useMemo(
     () => [
       {
         householdID: 99,
         title_ka:
-          "შინამეურნეობების საცხოვრისის განაწილება გათბობის ტიპების მიხედვით",
-        title_en: "Distribution of household dwellings by heating type",
+          "შინამეურნეობების საცხოვრისის განაწილება გათბობის ძირითადი ტიპების მიხედვით",
+        title_en: "Distribution of households by main type of heating system",
         icon: firstChartIcon,
         color: ["#3498DB", "#6CD68C", "#ED4C5C"],
       },
       {
         householdID: 100,
         title_ka:
-          "შინამეურნეობების წილი გათბობის ინდივიდუალური საშუალებებში გამოყენებული ენერგორესურსების მიხედვით",
+          "შინამეურნეობების წილი გათბობის ინდივიდუალურ საშუალებებში გამოყენებული ენერგორესურსების მიხედვით",
         title_en:
-          "Share of households by energy resources used in individual heating systems",
+          "Share of households by energy commodities used for individual heating facilities",
         icon: secondChartIcon,
         color: ["#556EB0", "#6FAEA9", "#FF9F0A"],
       },
     ],
     []
-  ); // Empty dependency array means it will only be created once
+  );
 
   useEffect(() => {
     const getData = async () => {
+      setLoading(true); // Set loading to true before fetching data
       const dataPromises = chartsConfig.map(async (chart) => {
         const respData = await fetchData(chart.householdID);
-
+        console.log(respData);
         return respData.filter((el) => el.name_ge !== "სულ");
       });
       const results = await Promise.all(dataPromises);
       setChartData(results);
+      setLoading(false); // Set loading to false after data is fetched
     };
 
     getData();
@@ -46,14 +49,21 @@ const Heating = () => {
 
   return (
     <div className="heating-container">
-      {chartData.map(
-        (data, index) =>
-          data && (
-            <Chart
-              key={chartsConfig[index].householdID}
-              data={{ ...chartsConfig[index], data }}
-            />
-          )
+      {loading ? ( // Render loading container if loading is true
+        <div className="loading-container">
+          <p style={{ fontSize: "20px" }}>Loading...</p>{" "}
+          {/* You can customize this loading message or add a spinner */}
+        </div>
+      ) : (
+        chartData.map(
+          (data, index) =>
+            data && (
+              <Chart
+                key={chartsConfig[index].householdID}
+                data={{ ...chartsConfig[index], data }}
+              />
+            )
+        )
       )}
     </div>
   );

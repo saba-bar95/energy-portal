@@ -8,8 +8,8 @@ import EnergyConsumption from "./EnergyConsumption/EnergyConsumption";
 const consumptionRoutes = [
   { path: "", element: <Navigate to="heating" replace /> }, // Default to heating
   { path: "heating", element: <Heating /> },
-  { path: "conditioning", element: <Conditioning /> },
-  { path: "hot-water", element: <HotWater /> },
+  { path: "air-conditioning", element: <Conditioning /> },
+  { path: "water-heating", element: <HotWater /> },
   { path: "cooking", element: <Cooking /> },
   { path: "energy-consumption", element: <EnergyConsumption /> },
 ];

@@ -4,9 +4,12 @@ import FirstChart from "./FirstChart";
 import SecondChart from "./SecondChart";
 import firstChartIcon from "/src/assets/images/sections/conditioning/1-chart-icon.svg";
 import secondChartIcon from "/src/assets/images/sections/conditioning/2-chart-icon.svg";
+import "./Chart.scss";
+import "./Conditioning.scss";
 
 const Conditioning = () => {
   const [chartData, setChartData] = useState([null, null]);
+  const [loading, setLoading] = useState(true); // New loading state
 
   const chartsConfig = [
     {
@@ -14,22 +17,21 @@ const Conditioning = () => {
       title_ka:
         "შინამეურნეობების განაწილება საცხოვრისის კონდიცირების სისტემით უზრუნველყოფილი ფართობის მიხედვით",
       title_en:
-        "Distribution of households by area provided with air conditioning system in their dwellings",
-      measurement_ka: "კვ/მ",
-      measurement_en: "sq/m",
+        "Distribution of households by conditioned area in the dwelling ",
+      measurement_ka: "კვ.მ",
+      measurement_en: "sq.m",
       icon: firstChartIcon,
       color: ["#3498DB", "#6CD68C", "#ED4C5C"],
       data: chartData[0],
-      unit_ka: "კვ/მ",
-      unit_en: "sq/m",
+      unit_ka: "კვ.მ",
+      unit_en: "sq.m",
     },
 
     {
       householdID: 102,
       title_ka:
         "შინამეურნეობის საცხოვრისის კონდიცირების სისტემით გაგრილების საშუალო ხანგრძლივობა",
-      title_en:
-        "Average duration of cooling with household air conditioning system",
+      title_en: "Average duration of dwelling conditioning",
       measurement_ka: "საათი",
       measurement_en: "hour",
       icon: secondChartIcon,
@@ -44,12 +46,19 @@ const Conditioning = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const dataPromises = chartsConfig.map(async (chart) => {
-        const respData = await fetchLegendCodes(chart.householdID);
-        return respData.slice(0, -1);
-      });
-      const results = await Promise.all(dataPromises);
+      setLoading(true); // Set loading to true before fetching data
+
+      const results = await Promise.all(
+        chartsConfig.map(async (chart) => {
+          const respData = await fetchLegendCodes(chart.householdID);
+          // return  respData.slice(0, -1)
+
+          return chart.householdID === 101 ? respData.slice(0, -1) : respData;
+        })
+      );
+
       setChartData(results);
+      setLoading(false); // Set loading to false after data is fetched
     };
 
     fetchData();
@@ -57,8 +66,17 @@ const Conditioning = () => {
 
   return (
     <div className="conditioning-container">
-      {chartData[0] && <FirstChart data={chartsConfig[0]} />}
-      {chartData[1] && <SecondChart data={chartsConfig[1]} />}
+      {loading ? ( // Render loading container if loading is true
+        <div className="loading-container">
+          <p style={{ fontSize: "20px" }}>Loading...</p>{" "}
+          {/* You can customize this loading message or add a spinner */}
+        </div>
+      ) : (
+        <>
+          {chartData[0] && <FirstChart data={chartsConfig[0]} />}
+          {chartData[1] && <SecondChart data={chartsConfig[1]} />}
+        </>
+      )}
     </div>
   );
 };

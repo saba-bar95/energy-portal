@@ -11,7 +11,7 @@ const links = {
   },
 
   en: {
-    header: "Visualization of energy balance",
+    header: "Energy balance visualization",
     links: [
       { name: "Energy resources", id: 1, link: "resources" },
       { name: "By flow", id: 2, link: "flows" },

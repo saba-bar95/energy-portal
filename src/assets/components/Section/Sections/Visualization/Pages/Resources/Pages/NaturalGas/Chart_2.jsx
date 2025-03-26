@@ -26,7 +26,7 @@ const Chart_2 = () => {
     },
     en: {
       title: "Natural gas import",
-      unit: "Thousand tons",
+      unit: "ktoe",
     },
   };
 

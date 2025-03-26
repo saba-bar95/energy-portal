@@ -28,7 +28,7 @@ const Chart_4 = () => {
     },
     en: {
       title: "Final consumption of natural gas in the industrial sector",
-      unit: "Thousand tons",
+      unit: "ktoe",
     },
   };
 

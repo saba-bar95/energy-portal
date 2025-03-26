@@ -30,7 +30,7 @@ const Chart_3 = () => {
 
     en: {
       title: "Final consumption of natural gas by sector",
-      unit: "Thousand tons",
+      unit: "ktoe",
     },
   };
 

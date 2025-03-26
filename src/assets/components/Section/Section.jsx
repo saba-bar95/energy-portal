@@ -1,8 +1,8 @@
 // src/assets/components/Section/Section.js
-import sections from "../../../../sections";
 import { useContext, useEffect } from "react";
 import { SectionsContext } from "../../../App";
 import { useNavigate, useParams } from "react-router-dom";
+import sections from "../../../../sections";
 
 const Section = () => {
   const { sectionID } = useContext(SectionsContext);
@@ -16,7 +16,7 @@ const Section = () => {
         navigate(`/${language}/${section.href}`);
       }
     }
-  }, [sectionID, navigate]);
+  }, [sectionID, navigate, language]);
 
   return null;
 };

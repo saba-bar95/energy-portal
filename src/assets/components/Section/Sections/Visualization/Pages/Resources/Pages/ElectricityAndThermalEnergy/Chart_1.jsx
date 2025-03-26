@@ -26,8 +26,8 @@ const Chart_1 = () => {
     },
 
     en: {
-      title: "Electricity and thermal energy production",
-      unit: "Thousand tons",
+      title: "Electricity and heat production",
+      unit: "ktoe",
     },
   };
 
@@ -62,12 +62,6 @@ const Chart_1 = () => {
             // Transform the name_ge property
             let newNameGe = item.name_ge;
             switch (item.name_ge) {
-              case "ჰიდროელექტროსადგურები":
-                newNameGe = "ჰიდრო";
-                break;
-              case "თბოელექტროსადგურები":
-                newNameGe = "თბო";
-                break;
               case "ქარის ელექტროსადგურები":
                 newNameGe = "ქარი";
                 break;
@@ -143,17 +137,26 @@ const Chart_1 = () => {
 
   const CustomLegend = ({ payload }) => {
     return (
-      <div className="legend-container">
+      <div
+        className="legend-container"
+        style={{
+          flexWrap: "wrap",
+          gap: "20px",
+          marginTop: "-30px",
+          marginLeft: "100px",
+          justifyContent: "start",
+          width: "80%",
+        }}>
         {payload.map((entry, index) => {
           const displayName =
             language === "ka"
               ? entry.dataKey
-              : entry.dataKey === "ჰიდრო"
-              ? "Hydro"
-              : entry.dataKey === "თბო"
-              ? "Thermal"
+              : entry.dataKey === "ჰიდროელექტროსადგურები"
+              ? "Hydro Power Plants"
+              : entry.dataKey === "თბოელექტროსადგურები"
+              ? "Thermal Power Plants"
               : entry.dataKey === "ქარი"
-              ? "Wind"
+              ? "Wind Power Plants"
               : entry.dataKey === "გეოთერმული"
               ? "Geothermal"
               : entry.dataKey === "მზე"
@@ -192,7 +195,7 @@ const Chart_1 = () => {
             </div>
             <Download />
           </div>
-          <ResponsiveContainer height={380}>
+          <ResponsiveContainer height={420}>
             <BarChart
               data={data}
               margin={{
@@ -214,8 +217,8 @@ const Chart_1 = () => {
               <Tooltip content={CustomTooltip} />
               <Legend content={CustomLegend} />
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
-              <Bar dataKey="ჰიდრო" stackId="a" fill="#5654D4" />
-              <Bar dataKey="თბო" stackId="a" fill="#3FC8E4" />
+              <Bar dataKey="ჰიდროელექტროსადგურები" stackId="a" fill="#5654D4" />
+              <Bar dataKey="თბოელექტროსადგურები" stackId="a" fill="#3FC8E4" />
               <Bar dataKey="ქარი" stackId="a" fill="#007C90" />
               <Bar dataKey="გეოთერმული" stackId="a" fill="#ED4C5C" />
               <Bar dataKey="მზე" stackId="a" fill="#FF9F0A" />

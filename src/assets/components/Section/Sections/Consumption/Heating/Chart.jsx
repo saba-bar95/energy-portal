@@ -11,8 +11,11 @@ import {
 } from "recharts";
 import { useParams } from "react-router-dom";
 import Download from "../../../../Download/Download";
+import "./Heating.scss";
 
 const Chart = ({ data }) => {
+  const barSize = data.householdID === 100 ? 15 : 24;
+
   const { language } = useParams();
   const sortedData = data.data.sort((a, b) => b.total - a.total);
 
@@ -21,16 +24,15 @@ const Chart = ({ data }) => {
       <div className="legend-container">
         <p>
           <span style={{ color: data.color[0] }}>■</span>
-
           {language === "ka" ? "სულ" : "Total"}
         </p>
         <p>
           <span style={{ color: data.color[1] }}>■</span>
-          {language === "ka" ? "ქალაქად" : "City"}
+          {language === "ka" ? "ქალაქად" : "Urban"}
         </p>
         <p>
           <span style={{ color: data.color[2] }}>■</span>
-          {language === "ka" ? "სოფლად" : "Village"}
+          {language === "ka" ? "სოფლად" : "Rural"}
         </p>
       </div>
     );
@@ -64,7 +66,14 @@ const Chart = ({ data }) => {
               <span style={{ color }} className="before-span">
                 ■
               </span>
-              {language === "en" ? name : getGeorgianName(name)} :
+              {language === "en"
+                ? name === "City"
+                  ? "Urban"
+                  : name === "Village"
+                  ? "Rural"
+                  : name
+                : getGeorgianName(name)}
+              :
               <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                 {value.toFixed(1)}
               </span>
@@ -85,7 +94,7 @@ const Chart = ({ data }) => {
         </div>
         <Download />
       </div>
-      <ResponsiveContainer height={800}>
+      <ResponsiveContainer height={580}>
         <BarChart data={sortedData} layout="vertical" height={500} barGap={0}>
           <XAxis
             type="number"
@@ -104,7 +113,7 @@ const Chart = ({ data }) => {
             dataKey="total"
             fill={data.color[0]}
             name="Total"
-            // barSize={24}
+            barSize={barSize}
             minPointSize={1}>
             <LabelList
               dataKey={language === "ka" ? "name_ge" : "name_en"}
@@ -115,14 +124,14 @@ const Chart = ({ data }) => {
             dataKey="city"
             fill={data.color[1]}
             name="City"
-            // barSize={24}
+            barSize={barSize}
             minPointSize={1}
           />
           <Bar
             dataKey="village"
             fill={data.color[2]}
             name="Village"
-            // barSize={24}
+            barSize={barSize}
             minPointSize={1}
           />
         </BarChart>

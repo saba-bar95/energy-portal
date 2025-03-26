@@ -1,15 +1,22 @@
-@import url("/src/assets/components/Section/Sections/Consumption/Heating/Heating.scss");
-@import url("/src/assets/components/Section/Sections/Consumption/Conditioning/Conditioning.scss");
-@import url("/src/assets/components/Section/Sections/Consumption/HotWater/HotWater.scss");
-@import url("/src/assets/components/Section/Sections/Consumption/Cooking/Cooking.scss");
-@import url("/src/assets/components/Section/Sections/Consumption/EnergyConsumption/EnergyConsumption.scss");
-
 .consumption {
   background: linear-gradient(to right, #1e3c72, #2a5298);
   color: #ffffff;
   font-feature-settings: "case" on;
   display: flex;
   flex-direction: column;
+
+  h1 {
+    font-family: FiraGORegular;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 10px;
+      font-size: 0.8em;
+    }
+  }
 
   .container {
     padding: 50px 200px 0 200px;

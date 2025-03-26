@@ -21,13 +21,14 @@ const Chart_3 = () => {
 
   const text = {
     ka: {
-      title: "ელექტრო და თბოენერგიის საბოლოო მოხმარება სახეების მიხედვით",
+      title:
+        "ელექტროენერგიის და თბოენერგიის საბოლოო მოხმარება სახეების მიხედვით",
       unit: "ათასი ტნე",
     },
 
     en: {
-      title: "Final consumption of electricity and thermal energy by type",
-      unit: "Thousand tons",
+      title: "Final consumption of Electricity and heat by type",
+      unit: "ktoe",
     },
   };
 

@@ -21,12 +21,12 @@ const Chart_2 = () => {
 
   const text = {
     ka: {
-      title: "საერთაშორისო ვაჭრობა",
+      title: "ელექტროენერგიით საერთაშორისო ვაჭრობა",
       unit: "ათასი ტნე",
     },
     en: {
-      title: "International trade",
-      unit: "Thousand tons",
+      title: "International Trade with Electricity",
+      unit: "ktoe",
     },
   };
 
@@ -187,7 +187,7 @@ const Chart_2 = () => {
             </filter>
           </svg>
 
-          <ResponsiveContainer height={380}>
+          <ResponsiveContainer height={420}>
             <LineChart data={data}>
               <XAxis
                 dataKey="year"

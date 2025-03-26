@@ -19,7 +19,7 @@ const Chart_4 = () => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [year, setYear] = useState(2023);
-  const chartID = 10;
+  const chartID = 11;
 
   const text = {
     ka: {
@@ -28,7 +28,7 @@ const Chart_4 = () => {
     },
     en: {
       title: "Final electricity consumption in the industrial sector",
-      unit: "Thousand tons",
+      unit: "ktoe",
     },
   };
 
@@ -55,27 +55,29 @@ const Chart_4 = () => {
         const rawData = await fetchDataWithCodes(chartID);
 
         const filteredData = rawData.filter(
-          (item) => item.name_ge !== "სულ" && item.name !== 1
+          (item) => item.name_ge !== "სულ" && item.name === 1
         );
 
-        setData(filteredData);
+        const chartData = () => {
+          return filteredData
+            .map((item) => {
+              return {
+                name_ka: item.name_ge,
+                name_en: item.name_en, // Use English name for the chart
+                value: item[`y_${year}`],
+              };
+            })
+
+            .reverse(); // Reverse the order of the data
+        };
+
+        setData(chartData);
       } catch (error) {
         console.log("Fetch error:", error);
       }
     };
     fetchData();
-  }, []);
-
-  // Prepare data for the selected year and reverse the order
-  const chartData = useMemo(() => {
-    return data
-      .map((item) => ({
-        name_ka: item.name_ge,
-        name_en: item.name_en, // Use English name for the chart
-        value: item[`y_${year}`] || 0, // Get the value for the selected year
-      }))
-      .reverse(); // Reverse the order of the data
-  }, [data, year]);
+  }, [year]);
 
   const customNameLabel = (props) => {
     const { x, y, value } = props;
@@ -181,7 +183,7 @@ const Chart_4 = () => {
           </div>
           <ResponsiveContainer height="100%">
             <BarChart
-              data={chartData}
+              data={data}
               layout="vertical" // Set layout to vertical for horizontal bars
               margin={{
                 top: 20,

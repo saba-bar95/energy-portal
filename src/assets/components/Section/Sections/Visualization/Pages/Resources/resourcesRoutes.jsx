@@ -13,8 +13,8 @@ const resourcesRoutes = [
   },
   { path: "naturalgas", element: <NaturalGas /> },
   { path: "coal", element: <Coal /> },
-  { path: "oilandpetroleumproducts", element: <OilAndPetroleumProducts /> },
-  { path: "biofuelsandwaste", element: <BiofuelsAndWaste /> },
+  { path: "oilandoilproducts", element: <OilAndPetroleumProducts /> },
+  { path: "biofuelandwaste", element: <BiofuelsAndWaste /> },
 ];
 
 export default resourcesRoutes;

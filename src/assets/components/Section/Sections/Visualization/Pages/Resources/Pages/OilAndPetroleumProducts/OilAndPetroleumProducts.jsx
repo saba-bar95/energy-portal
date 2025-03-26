@@ -1,5 +1,3 @@
-import "./OilAndPetroleumProducts.scss";
-
 const OilAndPetroleumProducts = () => {
   return (
     <div className="container">

@@ -1,6 +1,6 @@
 const links = {
   ka: {
-    header: "ყოველთვიური ენერგეტიკის სტატისტიკა",
+    header: "ყოველთვიური ენერგეტიკული სტატისტიკა",
     links: [
       { name: "ელექტროენერგია", id: 1, link: "electricity" },
       { name: "ბუნებრივი გაზი", id: 2, link: "naturalgas" },
