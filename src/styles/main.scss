@@ -6,6 +6,7 @@
 @import url("/src/assets/components/LanguageChanger/LanguageChanger.scss");
 @import url("/src/assets/components/Section/Sections/Consumption/Consumption.scss");
 @import url("/src/assets/components/Section/Sections/Visualization/Visualization.scss");
+@import url("/src/assets/components/Section/Sections/Statistics/Statistics.scss");
 
 * {
   margin: 0;
@@ -14,6 +15,7 @@
 }
 
 body {
-  font-family: FiraGORegular;
+  font-family: FiraGOLight;
+  font-weight: 500;
   background-color: #f4f4f7;
 }
