@@ -1,0 +1,104 @@
+.homepage-container {
+  display: flex;
+  flex-direction: column;
+
+  .upper {
+    padding: 0 200px;
+    height: 600px; /* or any height you need */
+    background-size: cover; /* Optional: to cover the entire element */
+    background-position: 30% center;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .texts {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      h1 {
+        font-feature-settings: "case" on;
+        color: #084e99;
+        font-weight: 800;
+        font-family: FiraGOBold;
+        font-size: 45px;
+      }
+
+      p {
+        color: #1e1e1e;
+        line-height: 30px;
+        font-size: 16px;
+        font-family: FiraGOLight;
+      }
+    }
+
+    .sections {
+      position: absolute;
+      bottom: 0; /* Aligns to the bottom of the .upper */
+      transform: translateY(50%);
+      display: flex;
+      padding-right: 200px;
+      gap: 40px;
+
+      .wrapper {
+        padding: 40px 30px;
+        border-radius: 40px;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .para {
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          justify-content: space-between;
+
+          h1 {
+            font-feature-settings: "case" on;
+            font-size: 18px;
+            line-height: 28px;
+          }
+
+          .svg-container {
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 24px;
+          }
+        }
+        p {
+          font-size: 12px;
+          width: 60%;
+          line-height: 20px;
+          color: #efefef;
+        }
+
+        .learn-more {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          transition: 0.5s ease;
+
+          p {
+            width: initial;
+          }
+
+          &:hover {
+            transform: translateX(10px);
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .lower {
+    padding: 220px 200px 120px 200px;
+    display: flex;
+    background-color: #ffffff;
+  }
+}

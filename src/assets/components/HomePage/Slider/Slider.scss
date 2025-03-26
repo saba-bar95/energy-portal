@@ -1,0 +1,144 @@
+.slider {
+  display: flex;
+  flex-direction: column; // Stack elements vertically
+  align-items: center; // Center align items
+  justify-content: center;
+  width: 100%;
+  font-feature-settings: "case" on;
+  gap: 50px;
+
+  .top-side {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .slide {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      h2 {
+        color: #1e1e1e;
+        font-family: FiraGOBold;
+        letter-spacing: 0.01em;
+        font-size: 25px;
+      }
+
+      h3 {
+        font-size: 23px;
+        margin-top: -5px;
+      }
+    }
+
+    .navigation {
+      display: flex;
+      gap: 10px;
+
+      button {
+        display: flex;
+        padding: 10px;
+        border-radius: 14px;
+        outline: none;
+        border: none;
+        background-color: #d5e3f2; // Default background color
+        cursor: pointer;
+
+        &.disabled {
+          background-color: #e9e9e9; // Background color when disabled
+          cursor: not-allowed; // Change cursor to indicate disabled state
+        }
+      }
+    }
+  }
+
+  .content-container {
+    background-color: #f5f4f7;
+    width: 100%;
+    padding: 30px 20px;
+    border-radius: 40px;
+
+    .widget-container {
+      display: flex;
+      gap: 25px;
+
+      .widget-wrapper {
+        background-color: #ffffffcc;
+        padding: 10px;
+        border-radius: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        justify-content: space-between;
+
+        .top {
+          display: flex;
+          gap: 15px;
+
+          h3 {
+            font-size: 15px;
+          }
+        }
+
+        .middle {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+
+          h2 {
+            color: #1e1e1e;
+            font-family: FiraGOMedium;
+          }
+        }
+
+        .bottom {
+          display: flex;
+          justify-content: space-around;
+          gap: 15px;
+          align-items: center;
+
+          .left {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+          }
+
+          span {
+            font-size: 12px;
+            color: #1e1e1e;
+            letter-spacing: 0.5px;
+          }
+
+          .green {
+            color: #1dbf73;
+            font-weight: 900;
+          }
+
+          .red {
+            color: #ed4c5c;
+            font-weight: 900;
+          }
+        }
+      }
+    }
+  }
+
+  .dots {
+    display: flex;
+    gap: 10px; // Space between dots
+
+    .dot {
+      width: 14px; // Width of the dot
+      height: 14px; // Height of the dot
+      border-radius: 14px; // Make it circular
+      border: 2px solid #084e99;
+      cursor: pointer; // Change cursor to pointer on hover
+
+      &.active {
+        background-color: #084e99; // Active dot color
+        width: 58px;
+      }
+    }
+  }
+}
