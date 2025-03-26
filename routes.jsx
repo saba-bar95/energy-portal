@@ -9,6 +9,7 @@ import LanguageCheck from "./LanguageCheck";
 import ErrorPage from "./src/assets/components/ErrorPage/ErrorPage";
 import consumptionRoutes from "./src/assets/components/Section/Sections/Consumption/consumptionRoutes";
 import visualizationRoutes from "./src/assets/components/Section/Sections/Visualization/visualizationRoutes";
+import statisticsRoutes from "./src/assets/components/Section/Sections/Statistics/statisticsRoutes";
 
 const routes = [
   { path: "/", element: <Navigate to="/ka" replace /> }, // Redirect to /ka
@@ -26,7 +27,11 @@ const routes = [
         element: <Visualization />,
         children: visualizationRoutes,
       },
-      { path: "statistics", element: <Statistics /> },
+      {
+        path: "statistics",
+        element: <Statistics />,
+        children: statisticsRoutes,
+      },
       {
         path: "consumption",
         element: <Consumption />,
