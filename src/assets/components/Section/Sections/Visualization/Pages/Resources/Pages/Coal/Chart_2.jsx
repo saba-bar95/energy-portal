@@ -16,8 +16,6 @@ const Chart_2 = () => {
       try {
         const rawData = await fetchDataWithCodes(chartID);
 
-        console.log(rawData);
-
         setData(rawData);
       } catch (error) {
         console.log(error);
