@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import sakstatLogo from "/src/assets/images/header/sakstat-logo.svg";
-import sakstatText from "/src/assets/images/header/sakstat-text.svg";
+import sakstatLogoEn from "/src/assets/images/header/sakstat-logo-en.png";
 import downVectorBlack from "/src/assets/images/header/down-vector-black.svg";
 import upVectorBlack from "/src/assets/images/header/up-vector-black.svg";
 import sections from "../../../../sections";
@@ -40,8 +40,13 @@ const Header = () => {
       <header>
         <div className="header-container">
           <div className="right">
-            <img src={sakstatLogo} alt="sakstat-logo" />
-            <img src={sakstatText} alt="sakstat-text" className="text" />
+            <img
+              src={language === "ka" ? sakstatLogo : sakstatLogoEn}
+              alt="sakstat-logo"
+              onClick={handleHeaderClick}
+              style={{ cursor: "pointer", maxWidth: "120px" }}
+            />
+            <h1>{text[language].sakstat}</h1>
           </div>
           <div className="left">
             <div className="texts">
