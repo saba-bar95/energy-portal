@@ -23,7 +23,7 @@ const Heating = () => {
         title_ka:
           "შინამეურნეობების წილი გათბობის ინდივიდუალურ საშუალებებში გამოყენებული ენერგორესურსების მიხედვით",
         title_en:
-          "Share of households by energy commodities used for individual heating facilities",
+          "Share of households by energy resources used in individual heating systems",
         icon: secondChartIcon,
         color: ["#556EB0", "#6FAEA9", "#FF9F0A"],
       },
