@@ -16,7 +16,7 @@ import Download from "../../../../../../../Download/Download";
 
 const Chart_2 = () => {
   const [data, setData] = useState([]);
-  const chartIDs = useMemo(() => [15, 16], []);
+  const chartIDs = useMemo(() => [15, 7], []);
   const { language } = useParams();
 
   const text = {
@@ -37,20 +37,20 @@ const Chart_2 = () => {
         const results = await Promise.all(promises);
 
         const filteredResults = results.flat().filter((item) => {
-          return !Object.keys(item).some(
-            (key) => key.startsWith("y_") && item[key] === 100
-          );
+          // Condition to keep items
+          const keepItem =
+            item.chart_id === 15 || (item.chart_id === 7 && item.name === 3);
+
+          // Condition to check if all y_ values are 100
+          const all100 = Object.keys(item)
+            .filter((key) => key.startsWith("y_"))
+            .every((key) => item[key] === 100);
+
+          // Return true if the item should be kept and it's not all 100s
+          return keepItem && !all100;
         });
 
-        // Modify the Georgian name for chart_id 16
-        const modifiedResults = filteredResults.map((item) => {
-          if (item.chart_id === 16) {
-            return { ...item, name_ge: "წარმოება", name_en: "Production" };
-          }
-          return item;
-        });
-
-        setData(modifiedResults);
+        setData(filteredResults);
       } catch (err) {
         console.error("Fetch error:", err);
       }
@@ -69,19 +69,18 @@ const Chart_2 = () => {
       };
 
       const item15 = data.find((item) => item.chart_id === 15);
-      const item16 = data.find((item) => item.chart_id === 16);
+      const item7 = data.find((item) => item.chart_id === 7);
 
-      if (item15 && item16) {
+      if (item15 && item7) {
         const value15 = item15[`y_${year}`];
-        const value16 = item16[`y_${year}`];
+        const value7 = item7[`y_${year}`];
 
-        yearData["chart_id_15"] = ((value15 - value16) / value15) * 100;
-        yearData["chart_id_16"] = (value16 / value15) * 100;
-
+        yearData["chart_id_15"] = ((value15 - value7) / value15) * 100;
+        yearData["chart_id_7"] = (value7 / value15) * 100;
         yearData["name_15_en"] = item15.name_en;
         yearData["name_15_ge"] = item15.name_ge;
-        yearData["name_16_en"] = item16.name_en;
-        yearData["name_16_ge"] = item16.name_ge;
+        yearData["name_7_en"] = item7.name_en;
+        yearData["name_7_ge"] = item7.name_ge;
       }
 
       return yearData;
@@ -102,13 +101,16 @@ const Chart_2 = () => {
                 : payload[index].payload[`name_${chartId}_en`];
 
             // Find the original value from the 'data' state
-            const year = payload[index].payload.year; // Get the year
+            const year = payload[index].payload.year;
             const originalItem = data.find(
               (item) => item.chart_id === parseInt(chartId)
             );
             const originalValue = originalItem
               ? originalItem[`y_${year}`]
               : "N/A";
+
+            // Modify the displayed percentage for chart_id_15
+            const displayValue = chartId === "15" ? 100 : value;
 
             return (
               <p key={`item-${index}`} className="text">
@@ -117,7 +119,7 @@ const Chart_2 = () => {
                 </span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
-                  {value.toFixed(1)}% ({originalValue.toFixed(1)})
+                  {displayValue.toFixed(1)}% ({originalValue.toFixed(1)})
                 </span>
               </p>
             );
@@ -209,7 +211,7 @@ const Chart_2 = () => {
             stackId="a"
           />
           <Bar
-            dataKey="chart_id_16"
+            dataKey="chart_id_7"
             fill="#FF9F0A"
             name={
               language === "ka"
