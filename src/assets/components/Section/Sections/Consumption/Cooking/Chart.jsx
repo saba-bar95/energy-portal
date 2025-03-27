@@ -97,11 +97,7 @@ const Chart = ({ data }) => {
       </div>
       <ResponsiveContainer height={580}>
         <BarChart data={sortedData} layout="vertical" height={500} barGap={0}>
-          <XAxis
-            type="number"
-            ticks={[0, 20, 40, 60, 80, 100]}
-            tickLine={false}
-          />
+          <XAxis type="number" tickLine={false} />
           <YAxis
             dataKey={language === "ka" ? "name_ge" : "name_en"}
             type="category"
