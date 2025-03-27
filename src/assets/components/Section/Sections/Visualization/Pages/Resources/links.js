@@ -11,9 +11,9 @@ const links = {
       {
         name: "ნავთობი და ნავთობპროდუქტები",
         id: 4,
-        link: "oilandpetroleumproducts",
+        link: "oilandoilproducts",
       },
-      { name: "ბიოსაწვავი და ნარჩენები", id: 5, link: "biofuelsandwaste" },
+      { name: "ბიოსაწვავი და ნარჩენები", id: 5, link: "biofuelandwaste" },
     ],
   },
 

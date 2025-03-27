@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import ElectricityAndThermalEnergy from "./Pages/ElectricityAndThermalEnergy/ElectricityAndThermalEnergy";
 import NaturalGas from "./Pages/NaturalGas/NaturalGas";
 import Coal from "./Pages/Coal/Coal";
-import OilAndPetroleumProducts from "./Pages/OilAndPetroleumProducts/OilAndPetroleumProducts";
+import OilAndPetroleumProducts from "./Pages/OilAndOilProducts/OilAndOilProducts";
 import BiofuelsAndWaste from "./Pages/BiofuelsAndWaste/BiofuelsAndWaste";
 
 const resourcesRoutes = [
