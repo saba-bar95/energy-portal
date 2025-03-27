@@ -36,19 +36,33 @@ const Chart_2 = () => {
         const promises = chartIDs.map((id) => fetchDataWithCodes(id));
         const results = await Promise.all(promises);
 
-        const filteredResults = results.flat().filter((item) => {
-          // Condition to keep items
-          const keepItem =
-            item.chart_id === 15 || (item.chart_id === 7 && item.name === 3);
+        const filteredResults = results
+          .flat()
+          .filter((item) => {
+            // Condition to keep items
+            const keepItem =
+              item.chart_id === 15 || (item.chart_id === 7 && item.name === 3);
 
-          // Condition to check if all y_ values are 100
-          const all100 = Object.keys(item)
-            .filter((key) => key.startsWith("y_"))
-            .every((key) => item[key] === 100);
+            // Condition to check if all y_ values are 100
+            const all100 = Object.keys(item)
+              .filter((key) => key.startsWith("y_"))
+              .every((key) => item[key] === 100);
 
-          // Return true if the item should be kept and it's not all 100s
-          return keepItem && !all100;
-        });
+            // Return true if the item should be kept and it's not all 100s
+            return keepItem && !all100;
+          })
+          .map((item) => {
+            if (item.chart_id === 7) {
+              return {
+                ...item,
+                name_ge: "ადგილობრივი წარმოება",
+                name_en: "Domestic production",
+              };
+            }
+            return item;
+          });
+
+        console.log(filteredResults);
 
         setData(filteredResults);
       } catch (err) {
@@ -177,7 +191,7 @@ const Chart_2 = () => {
         </div>
         <Download />
       </div>
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer>
         <BarChart
           data={chartData}
           margin={{
@@ -201,22 +215,23 @@ const Chart_2 = () => {
           <Legend content={CustomLegend} />
           <CartesianGrid strokeDasharray="3 3" horizontal={false} />
           <Bar
-            dataKey="chart_id_15"
-            fill="#5654D4"
-            name={
-              language === "ka"
-                ? chartData[0]?.name_15_ge
-                : chartData[0]?.name_15_en
-            }
-            stackId="a"
-          />
-          <Bar
             dataKey="chart_id_7"
             fill="#FF9F0A"
             name={
               language === "ka"
                 ? chartData[0]?.name_16_ge
                 : chartData[0]?.name_16_en
+            }
+            stackId="a"
+          />
+
+          <Bar
+            dataKey="chart_id_15"
+            fill="#5654D4"
+            name={
+              language === "ka"
+                ? chartData[0]?.name_15_ge
+                : chartData[0]?.name_15_en
             }
             stackId="a"
           />
