@@ -36,7 +36,6 @@ const Heating = () => {
       setLoading(true); // Set loading to true before fetching data
       const dataPromises = chartsConfig.map(async (chart) => {
         const respData = await fetchData(chart.householdID);
-        console.log(respData);
         return respData.filter((el) => el.name_ge !== "სულ");
       });
       const results = await Promise.all(dataPromises);
