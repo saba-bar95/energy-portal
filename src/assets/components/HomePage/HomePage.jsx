@@ -36,19 +36,18 @@ const HomePage = () => {
                 key={i}
                 style={{
                   background: section.background,
+                }}
+                onClick={() => {
+                  handleSectionSelect(section.id);
                 }}>
                 <div className="para">
                   <h1>{section[`name_${language}`]}</h1>
                   <div className="svg-container">{section.svg}</div>
                 </div>
                 <p>{section[`para_${language}`]}</p>
-                <div
-                  className="learn-more"
-                  onClick={() => {
-                    handleSectionSelect(section.id);
-                  }}>
-                  <p> {language === "ka" ? "გაიგე მეტი" : "Learn more"} </p>
-                  <svg
+                <div className="learn-more">
+                  {/* <p> {language === "ka" ? "გაიგე მეტი" : "Learn more"} </p> */}
+                  {/* <svg
                     className="w-6 h-6 text-gray-800 dark:text-white"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +62,7 @@ const HomePage = () => {
                       strokeWidth="2"
                       d="M19 12H5m14 0-4 4m4-4-4-4"
                     />
-                  </svg>
+                  </svg> */}
                 </div>
               </div>
             );
