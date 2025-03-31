@@ -76,6 +76,10 @@
           display: flex;
           gap: 15px;
 
+          svg {
+            flex-shrink: 0;
+          }
+
           h3 {
             font-size: 15px;
           }
@@ -89,6 +93,11 @@
           h2 {
             color: #1e1e1e;
             font-family: FiraGOMedium;
+            font-size: 1.3em;
+          }
+
+          h3 {
+            font-size: 0.9em;
           }
         }
 
@@ -126,17 +135,18 @@
 
   .dots {
     display: flex;
-    gap: 10px; // Space between dots
+    gap: 10px;
 
     .dot {
-      width: 14px; // Width of the dot
-      height: 14px; // Height of the dot
-      border-radius: 14px; // Make it circular
+      width: 14px;
+      height: 14px;
+      border-radius: 14px;
       border: 2px solid #084e99;
-      cursor: pointer; // Change cursor to pointer on hover
+      cursor: pointer;
+      transition: width 0.5s ease, background-color 0.5s ease; // Add transition
 
       &.active {
-        background-color: #084e99; // Active dot color
+        background-color: #084e99;
         width: 58px;
       }
     }

@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
-import fetchDataWithCodes from "../../../../../fetchDataWithCodes";
 import { useParams } from "react-router-dom";
+import AnimatedNumber from "./AnimatedNumber";
 
 const Svg1 = () => {
   return (
@@ -89,113 +89,89 @@ const Svg5 = () => {
 const EnergyProduction = () => {
   const { language } = useParams();
   const [data, setData] = useState([]);
+  const lastYear = 2023;
 
   const widgets = useMemo(
     () => [
       {
         name_ka: "ელექტროენერგია",
         name_en: "Electricity",
-        chartID: 7,
-        chartName: 1,
-        legendCode: 42,
+        legendCode: 43,
         svg: <Svg1 />,
         unit_ka: "გვტ.სთ",
-        unit_en: "გვტ.სთ",
+        unit_en: "GWh",
       },
       {
         name_ka: "ბუნებრივი გაზი",
         name_en: "Natural Gas",
-        chartID: 7,
-        chartName: 2,
-        legendCode: 7,
+        legendCode: 2,
         svg: <Svg2 />,
-        unit_ka: "მლნ.მ3",
-        unit_en: "მლნ.მ3",
+        unit_ka: "მლნ.მ³",
+        unit_en: "mil.m³",
       },
       {
         name_ka: "ქვანახშირი",
         name_en: "Coal",
-        chartID: 7,
-        chartName: 3,
-        legendCode: 7,
+        legendCode: 3,
         svg: <Svg3 />,
-        unit_ka: "ტონა",
-        unit_en: "ტონა",
+        unit_ka: "ათასი ტონა",
+        unit_en: "thousand tons",
       },
       {
         name_ka: "ნავთობპროდუქტები",
         name_en: "Oil and oil products",
-        chartID: 7,
-        chartName: 4,
-        legendCode: 42,
+        legendCode: 36,
         svg: <Svg4 />,
-        unit_ka: "ტონა",
-        unit_en: "ტონა",
+        unit_ka: "ათასი ტონა",
+        unit_en: "thousand tons",
       },
       {
         name_ka: "ბიოსაწვავი და ნარჩენები",
         name_en: "Biofuels and waste",
-        chartID: 7,
-        chartName: 5,
-        legendCode: 42,
+        legendCode: 5,
         svg: <Svg5 />,
-        unit_ka: "ტნე",
-        unit_en: "ტნე",
+        unit_ka: "ათასი ტნე",
+        unit_en: "ktoe",
       },
     ],
     []
-  ); // Empty dependency array means it will only be created once
-
-  const lastYear = 2023;
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const allData = await Promise.all(
           widgets.map(async (widget) => {
-            const rawData = await fetchDataWithCodes(widget.chartID);
-            const filteredData = rawData.filter(
-              (item) =>
-                item.legend_code === widget.legendCode &&
-                item.name === widget.chartName
+            const response = await fetch(
+              `http://192.168.1.27:3000/api/energyProduction/${widget.legendCode}`
             );
 
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            const rawData = await response.json();
             return {
               name_ka: widget.name_ka,
-              name_en: widget.name_en, // or widget.name_ka based on your needs
-              data: filteredData,
+              name_en: widget.name_en,
+              data: rawData,
             };
           })
         );
 
-        setData(allData); // Set the fetched data for all widgets
+        setData(allData);
       } catch (error) {
         console.log("Fetch error:", error);
       }
     };
 
     fetchData();
-  }, [widgets]); // Add an empty dependency array to run this effect only once
+  }, [widgets]);
 
   return (
     <div className="widget-container">
       {data.map((widgetData, index) => {
         const currentName = widgetData[`name_${language}`];
-        const beforeLastYearValue = widgetData.data[0][`y_${lastYear - 1}`];
-        const lastYearValue = widgetData.data[0][`y_${lastYear}`];
-
-        // Initialize percentageChange
-        let percentageChange = 0;
-        if (beforeLastYearValue !== undefined && beforeLastYearValue !== 0) {
-          percentageChange =
-            ((lastYearValue - beforeLastYearValue) / beforeLastYearValue) * 100;
-        } else {
-          console.warn(
-            `Cannot calculate percentage change for ${currentName} because the value for the year ${
-              lastYear - 1
-            } is zero or undefined.`
-          );
-        }
+        const percentageChange = widgetData.data[0].growthRate;
 
         const isNameInWidgets = widgets.find(
           (widget) => widget[`name_${language}`] === currentName
@@ -209,7 +185,12 @@ const EnergyProduction = () => {
               <h3>{currentName}</h3>
             </div>
             <div className="middle">
-              <h2>{lastYearValue.toFixed(1)}</h2>
+              <h2>
+                <AnimatedNumber
+                  targetValue={widgetData.data[0][`y_${lastYear}`]}
+                  duration={1000}
+                />
+              </h2>
               <h3>{isNameInWidgets[`unit_${language}`]}</h3>
             </div>
             <div className="bottom">
@@ -262,7 +243,11 @@ const EnergyProduction = () => {
                   )}
                 </p>
                 <p className={percentageChange > 0 ? "green" : "red"}>
-                  {percentageChange.toFixed(1)}%
+                  <AnimatedNumber
+                    targetValue={percentageChange.toFixed(1)}
+                    duration={1000}
+                  />
+                  %
                 </p>
               </div>
               <span>
