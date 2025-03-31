@@ -1,0 +1,12 @@
+.oil-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  .chart-1 {
+    grid-column: 1/-1;
+  }
+
+  #chart-ss {
+    margin-top: -80px !important;
+  }
+}
