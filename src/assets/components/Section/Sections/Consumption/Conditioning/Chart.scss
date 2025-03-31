@@ -17,6 +17,10 @@
     gap: 30px;
     align-items: start;
 
+    svg {
+      flex-shrink: 0;
+    }
+
     .text-wrapper {
       display: flex;
       flex-direction: column;
