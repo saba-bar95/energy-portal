@@ -62,8 +62,6 @@ const Chart_2 = () => {
             return item;
           });
 
-        console.log(filteredResults);
-
         setData(filteredResults);
       } catch (err) {
         console.error("Fetch error:", err);
