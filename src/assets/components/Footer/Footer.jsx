@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Socials from "../Socials/Socials";
 import sections from "../../../../sections";
 import { useContext } from "react";
@@ -7,7 +7,6 @@ import text from "./text";
 
 const Footer = () => {
   const { language } = useParams();
-  const location = useLocation();
 
   const { setSectionID, setSelectedSection } = useContext(SectionsContext);
 
