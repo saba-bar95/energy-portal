@@ -1,12 +1,17 @@
+/* eslint-disable react/prop-types */
 import "./Download.scss";
 import { useState, useRef, useEffect } from "react";
 import downloadPNG from "./downloadPNG";
 import downloadJPG from "./downloadJPG";
 import downloadExcel from "./downloadExcel";
+import downloadPDF from "./downloadPDF";
+import { useParams } from "react-router-dom";
 
-const Download = () => {
+const Download = ({ data, filename }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null); // Create a ref for the dropdown
+
+  const { language } = useParams();
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -87,7 +92,7 @@ const Download = () => {
             <div
               className="wrapper"
               onClick={() => {
-                downloadExcel();
+                downloadExcel(data, filename, language);
               }}>
               <svg
                 width="16"
@@ -135,7 +140,11 @@ const Download = () => {
               </svg>
               <p>Excel</p>
             </div>
-            <div className="wrapper">
+            <div
+              className="wrapper"
+              onClick={() => {
+                downloadPDF(data, filename, language);
+              }}>
               <svg
                 width="16"
                 height="18"
