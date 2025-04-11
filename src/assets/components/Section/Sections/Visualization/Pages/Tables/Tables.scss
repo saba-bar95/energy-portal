@@ -1,0 +1,24 @@
+.tables {
+  background-color: #f4f4f7;
+  color: black;
+  padding: 50px 200px 200px 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    color: #6f6f6f;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .selected {
+      color: black;
+    }
+  }
+}
