@@ -11,22 +11,6 @@ const YearDropdown = ({ years, year, setYear }) => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setOpen(false);
-  //     }
-  //   };
-
-  //   // Attach the event listener
-  //   document.addEventListener("mousedown", handleClickOutside);
-
-  //   // Cleanup the event listener on component unmount
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
   useEffect(() => {
     if (open) {
       const selectedElement =
@@ -113,15 +97,15 @@ const YearDropdown = ({ years, year, setYear }) => {
               ) => (
                 <div
                   className={`wrapper ${
-                    selectedYear === +year.replace("y_", "") ? "selected" : ""
+                    selectedYear === +year ? "selected" : ""
                   }`} // Add selected class
                   key={i}
                   onClick={() => {
-                    setYear(+year.replace("y_", ""));
-                    setSelectedYear(+year.replace("y_", "")); // Set the selected year
+                    setYear(+year);
+                    setSelectedYear(+year); // Set the selected year
                     setOpen(false);
                   }}>
-                  {selectedYear === +year.replace("y_", "") ? (
+                  {selectedYear === +year ? (
                     <svg
                       width="16"
                       height="16"
@@ -164,7 +148,7 @@ const YearDropdown = ({ years, year, setYear }) => {
                       />
                     </svg>
                   )}
-                  <p>{year.replace("y_", "")}</p>
+                  <p>{year}</p>
                 </div>
               )
             )}
