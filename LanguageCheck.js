@@ -7,8 +7,8 @@ const LanguageCheck = ({ children }) => {
   const { language } = useParams(); // Use useParams to get the language
 
   useEffect(() => {
-    if (language !== "ka" && language !== "en") {
-      navigate("/ka");
+    if (language !== "ge" && language !== "en") {
+      navigate("/ge");
     }
   }, [language, navigate]);
 

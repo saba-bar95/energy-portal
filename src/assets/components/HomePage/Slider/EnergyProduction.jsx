@@ -94,43 +94,43 @@ const EnergyProduction = () => {
   const widgets = useMemo(
     () => [
       {
-        name_ka: "ელექტროენერგია",
+        name_ge: "ელექტროენერგია",
         name_en: "Electricity",
         legendCode: 43,
         svg: <Svg1 />,
-        unit_ka: "გვტ.სთ",
+        unit_ge: "გვტ.სთ",
         unit_en: "GWh",
       },
       {
-        name_ka: "ბუნებრივი გაზი",
+        name_ge: "ბუნებრივი გაზი",
         name_en: "Natural Gas",
         legendCode: 2,
         svg: <Svg2 />,
-        unit_ka: "მლნ.მ³",
+        unit_ge: "მლნ.მ³",
         unit_en: "mil.m³",
       },
       {
-        name_ka: "ქვანახშირი",
+        name_ge: "ქვანახშირი",
         name_en: "Coal",
         legendCode: 3,
         svg: <Svg3 />,
-        unit_ka: "ათასი ტონა",
+        unit_ge: "ათასი ტონა",
         unit_en: "thousand tons",
       },
       {
-        name_ka: "ნავთობპროდუქტები",
+        name_ge: "ნავთობპროდუქტები",
         name_en: "Oil and oil products",
         legendCode: 36,
         svg: <Svg4 />,
-        unit_ka: "ათასი ტონა",
+        unit_ge: "ათასი ტონა",
         unit_en: "thousand tons",
       },
       {
-        name_ka: "ბიოსაწვავი და ნარჩენები",
+        name_ge: "ბიოსაწვავი და ნარჩენები",
         name_en: "Biofuels and waste",
         legendCode: 5,
         svg: <Svg5 />,
-        unit_ka: "ათასი ტნე",
+        unit_ge: "ათასი ტნე",
         unit_en: "ktoe",
       },
     ],
@@ -151,7 +151,7 @@ const EnergyProduction = () => {
             }
             const rawData = await response.json();
             return {
-              name_ka: widget.name_ka,
+              name_ge: widget.name_ge,
               name_en: widget.name_en,
               data: rawData,
             };
@@ -251,7 +251,7 @@ const EnergyProduction = () => {
                 </p>
               </div>
               <span>
-                {language === "ka"
+                {language === "ge"
                   ? "წინა წელთან შედარებით"
                   : "than the previous year"}
               </span>

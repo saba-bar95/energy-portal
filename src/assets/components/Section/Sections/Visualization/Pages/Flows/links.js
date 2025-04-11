@@ -1,13 +1,13 @@
 const links = {
-  ka: {
+  ge: {
     links: [
       {
         name: "წარმოება",
         id: 1,
         link: "production",
       },
-      { name: "იმპორტი", id: 2, link: "import" },
-      { name: "ექსპორტი", id: 3, link: "export" },
+      { name: "იმპორტი", id: 2, link: "imports" },
+      { name: "ექსპორტი", id: 3, link: "exports" },
       {
         name: "საბოლოო მოხმარება",
         id: 4,
@@ -23,8 +23,8 @@ const links = {
         id: 1,
         link: "production",
       },
-      { name: "Import", id: 2, link: "import" },
-      { name: "Export", id: 3, link: "export" },
+      { name: "Imports", id: 2, link: "imports" },
+      { name: "Exports", id: 3, link: "exports" },
       {
         name: "Final Consumption",
         id: 4,

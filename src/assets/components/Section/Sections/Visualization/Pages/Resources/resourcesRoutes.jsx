@@ -6,7 +6,7 @@ import OilAndPetroleumProducts from "./Pages/OilAndOilProducts/OilAndOilProducts
 import BiofuelsAndWaste from "./Pages/BiofuelsAndWaste/BiofuelsAndWaste";
 
 const resourcesRoutes = [
-  { path: "", element: <Navigate to="electricityandthermalenergy" replace /> },
+  { path: "", element: <Navigate to="electricityandthermalenergy" /> },
   {
     path: "electricityandthermalenergy",
     element: <ElectricityAndThermalEnergy />,

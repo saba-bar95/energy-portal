@@ -9,13 +9,13 @@ const Slider = () => {
   const { language } = useParams();
 
   const slides = [
-    { header_ka: "ენერგორესურსების წარმოება", header_en: "Energy production" },
+    { header_ge: "ენერგორესურსების წარმოება", header_en: "Energy production" },
     {
-      header_ka: "ენერგორესურსების მოხმარება სექტორების მიხედვით",
+      header_ge: "ენერგორესურსების მოხმარება სექტორების მიხედვით",
       header_en: "Energy consumption by sector",
     },
     {
-      header_ka: "მოხმარებული ენერგორესურსები",
+      header_ge: "მოხმარებული ენერგორესურსები",
       header_en: "Energy resources consumed",
     },
   ];
@@ -41,9 +41,17 @@ const Slider = () => {
   return (
     <div className="slider">
       <div className="top-side">
+        <div className="dots">
+          {slides.map((_, index) => (
+            <div
+              key={index}
+              className={`dot ${currentIndex === index ? "active" : ""}`}
+              onClick={() => setCurrentIndex(index)} // Allow clicking on dots to navigate
+            />
+          ))}
+        </div>
         <div className="slide">
-          <h2>{slides[currentIndex][`header_${language}`]} - </h2>
-          <h3>{language === "ka" ? "2023 წელი" : "2023 year"}</h3>
+          <h2>{slides[currentIndex][`header_${language}`]} - 2023</h2>
         </div>
         <div className="navigation">
           <button
@@ -86,15 +94,6 @@ const Slider = () => {
       </div>
       <div className="content-container">
         {slideContents[currentIndex]} {/* Render the corresponding content */}
-      </div>
-      <div className="dots">
-        {slides.map((_, index) => (
-          <div
-            key={index}
-            className={`dot ${currentIndex === index ? "active" : ""}`}
-            onClick={() => setCurrentIndex(index)} // Allow clicking on dots to navigate
-          />
-        ))}
       </div>
     </div>
   );

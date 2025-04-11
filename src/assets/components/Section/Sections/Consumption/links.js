@@ -1,6 +1,6 @@
 const links = {
-  ka: {
-    header: "ენერგორესურსების მოხმარება შინამეურნეობებში",
+  ge: {
+    header: "ენერგორესურსების მოხმარება ",
     links: [
       { name: "გათბობა", id: 1, link: "heating" },
       { name: "კონდიცირება", id: 2, link: "air-conditioning" },
@@ -11,7 +11,7 @@ const links = {
   },
 
   en: {
-    header: "Energy Consumption in Households",
+    header: "Energy Consumption",
     links: [
       { name: "Heating", id: 1, link: "heating" },
       { name: "Air Conditioning", id: 2, link: "air-conditioning" },

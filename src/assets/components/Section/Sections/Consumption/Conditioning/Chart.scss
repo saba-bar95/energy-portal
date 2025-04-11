@@ -75,7 +75,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 40px;
+        gap: 25px;
+        flex-wrap: wrap;
+        justify-content: center;
 
         p {
           display: flex;

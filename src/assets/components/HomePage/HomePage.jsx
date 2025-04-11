@@ -34,35 +34,16 @@ const HomePage = () => {
               <div
                 className="wrapper"
                 key={i}
-                style={{
-                  background: section.background,
-                }}
                 onClick={() => {
                   handleSectionSelect(section.id);
                 }}>
                 <div className="para">
                   <h1>{section[`name_${language}`]}</h1>
-                  <div className="svg-container">{section.svg}</div>
-                </div>
-                <p>{section[`para_${language}`]}</p>
-                <div className="learn-more">
-                  {/* <p> {language === "ka" ? "გაიგე მეტი" : "Learn more"} </p> */}
-                  {/* <svg
-                    className="w-6 h-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24">
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 12H5m14 0-4 4m4-4-4-4"
-                    />
-                  </svg> */}
+                  <div
+                    className="svg-container"
+                    style={{ backgroundColor: section.background }}>
+                    {section.svg}
+                  </div>
                 </div>
               </div>
             );

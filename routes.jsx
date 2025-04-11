@@ -12,7 +12,7 @@ import visualizationRoutes from "./src/assets/components/Section/Sections/Visual
 import statisticsRoutes from "./src/assets/components/Section/Sections/Statistics/statisticsRoutes";
 
 const routes = [
-  { path: "/", element: <Navigate to="/ka" replace /> }, // Redirect to /ka
+  { path: "/", element: <Navigate to="/ge" /> }, // Redirect to /ge
   {
     path: "/:language",
     element: (
@@ -23,7 +23,7 @@ const routes = [
     children: [
       { path: "", element: <HomePage /> }, // Render home page
       {
-        path: "visualization",
+        path: "balance",
         element: <Visualization />,
         children: visualizationRoutes,
       },

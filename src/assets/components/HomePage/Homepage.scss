@@ -3,13 +3,14 @@
   flex-direction: column;
 
   .upper {
-    padding: 0 200px;
+    padding: 100px 200px;
     height: 600px; /* or any height you need */
     background-size: cover; /* Optional: to cover the entire element */
     background-position: 30% center;
     display: flex;
-    align-items: center;
-    position: relative;
+    flex-direction: column;
+    gap: 80px;
+    justify-content: space-between;
 
     .texts {
       width: 50%;
@@ -34,37 +35,34 @@
     }
 
     .sections {
-      position: absolute;
-      bottom: 0; /* Aligns to the bottom of the .upper */
-      transform: translateY(50%);
       display: flex;
-      padding-right: 200px;
-      gap: 40px;
+      justify-content: space-between;
+      gap: 30px;
 
       .wrapper {
-        padding: 40px 30px;
+        padding: 30px 20px;
         border-radius: 40px;
-        color: #ffffff;
+        color: #1e1e1e;
         display: flex;
         flex-direction: column;
         gap: 20px;
         transition: transform 0.5s ease;
+        background-color: #fffffff2;
+        flex: 1;
+        z-index: 1;
+        font-family: FiraGORegular;
 
         &:hover {
-          transform: translateY(-30px);
+          transform: translateY(-25px);
           cursor: pointer;
           font-weight: 900;
           background: #1d4657 !important;
           color: aliceblue;
 
           .svg-container {
-            // background-color: #e2cdcd !important;
-
             svg {
               path {
-                // Target the path inside the svg
-                stroke: #1d4657; // Change stroke (line) color
-                // transition: stroke 0.3s ease; // Add smooth transition
+                stroke: #1d4657;
               }
             }
           }
@@ -78,12 +76,11 @@
 
           h1 {
             font-feature-settings: "case" on;
-            font-size: 18px;
+            font-size: 16px;
             line-height: 28px;
           }
 
           .svg-container {
-            background-color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -117,8 +114,8 @@
   }
 
   .lower {
-    padding: 220px 200px 120px 200px;
+    padding: 0 200px 120px 200px;
     display: flex;
-    background-color: #ffffff;
+    background-color: #e6e6e6;
   }
 }

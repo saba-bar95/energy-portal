@@ -14,29 +14,29 @@ const Conditioning = () => {
     () => [
       {
         householdID: 101,
-        title_ka:
+        title_ge:
           "შინამეურნეობების განაწილება საცხოვრისის კონდიცირების სისტემით უზრუნველყოფილი ფართობის მიხედვით",
         title_en:
           "Distribution of households by conditioned area in the dwelling ",
-        measurement_ka: "კვ.მ",
+        measurement_ge: "კვ.მ",
         measurement_en: "sq.m",
         icon: firstChartIcon,
         color: ["#3498DB", "#6CD68C", "#ED4C5C"],
-        unit_ka: "კვ.მ",
+        unit_ge: "კვ.მ",
         unit_en: "sq.m",
       },
       {
         householdID: 102,
-        title_ka:
+        title_ge:
           "შინამეურნეობის საცხოვრისის კონდიცირების სისტემით გაგრილების საშუალო ხანგრძლივობა",
         title_en: "Average duration of dwelling conditioning",
-        measurement_ka: "საათი",
+        measurement_ge: "საათი",
         measurement_en: "hour",
         icon: secondChartIcon,
         color: ["#5654D4", "#30B0C7", "#107C41"],
-        unit_ka: "საათი",
+        unit_ge: "საათი",
         unit_en: "hour",
-        chart_unit_ka: "სთ",
+        chart_unit_ge: "სთ",
         chart_unit_en: "hr",
       },
     ],

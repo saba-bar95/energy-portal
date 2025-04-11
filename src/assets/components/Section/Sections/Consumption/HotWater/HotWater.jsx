@@ -10,7 +10,7 @@ const HotWater = () => {
   const chartConfig = useMemo(
     () => ({
       householdID: 103,
-      title_ka:
+      title_ge:
         "შინამეურნეობების წილი წყლის გათბობის ინდივიდუალურ სისტემებში გამოყენებული ენერგორესურსების მიხედვით",
       title_en:
         "Share of households by energy resources used in individual water heating systems",

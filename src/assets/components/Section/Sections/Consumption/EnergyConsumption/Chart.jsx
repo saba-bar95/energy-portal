@@ -24,15 +24,15 @@ const Chart = ({ data }) => {
       <div className="legend-container">
         <p>
           <span style={{ color: data.color[0] }}>■</span>
-          {language === "ka" ? "სულ" : "Total"}
+          {language === "ge" ? "სულ" : "Total"}
         </p>
         <p>
           <span style={{ color: data.color[1] }}>■</span>
-          {language === "ka" ? "ქალაქად" : "Urban"}
+          {language === "ge" ? "ქალაქად" : "Urban"}
         </p>
         <p>
           <span style={{ color: data.color[2] }}>■</span>
-          {language === "ka" ? "სოფლად" : "Rural"}
+          {language === "ge" ? "სოფლად" : "Rural"}
         </p>
       </div>
     );
@@ -84,21 +84,29 @@ const Chart = ({ data }) => {
     );
   };
 
+  const unit = "%";
+
   return (
     <div style={{ width: "50%" }} className="main-chart">
       <div className="header-container">
         <img src={data.icon} alt="" />
         <div className="text-wrapper">
           <h2>{data[`title_${language}`]}</h2>
-          <h3>%</h3>
+          <h3>{unit}</h3>
         </div>
-        <Download />
+        <Download
+          resource="resource"
+          data={sortedData}
+          filename={data[`title_${language}`]}
+          unit={data[`unit_${language}`]}
+          year={2022}
+        />
       </div>
       <ResponsiveContainer height={580}>
         <BarChart data={sortedData} layout="vertical" height={500} barGap={0}>
           <XAxis type="number" tickLine={false} />
           <YAxis
-            dataKey={language === "ka" ? "name_ge" : "name_en"}
+            dataKey={language === "ge" ? "name_ge" : "name_en"}
             type="category"
             tick={false}
             padding={{ top: 30 }}
@@ -112,7 +120,7 @@ const Chart = ({ data }) => {
             barSize={barSize}
             minPointSize={1}>
             <LabelList
-              dataKey={language === "ka" ? "name_ge" : "name_en"}
+              dataKey={language === "ge" ? "name_ge" : "name_en"}
               content={CustomLabel}
             />
           </Bar>

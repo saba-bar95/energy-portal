@@ -22,35 +22,27 @@ const Chart_2 = () => {
   const [year, setYear] = useState(2024);
 
   const years = useMemo(
-    () => [
-      "y_2018",
-      "y_2019",
-      "y_2020",
-      "y_2021",
-      "y_2022",
-      "y_2023",
-      "y_2024",
-    ],
+    () => Array.from({ length: 2024 - 2018 + 1 }, (_, i) => 2018 + i),
     []
   );
 
   const months = [
-    { name_en: "Jan", name_ka: "იან" },
-    { name_en: "Feb", name_ka: "თებ" },
-    { name_en: "Mar", name_ka: "მარ" },
-    { name_en: "Apr", name_ka: "აპრ" },
-    { name_en: "May", name_ka: "მაი" },
-    { name_en: "Jun", name_ka: "ივნ" },
-    { name_en: "Jul", name_ka: "ივლ" },
-    { name_en: "Aug", name_ka: "აგვ" },
-    { name_en: "Sep", name_ka: "სექ" },
-    { name_en: "Oct", name_ka: "ოქტ" },
-    { name_en: "Nov", name_ka: "ნოე" },
-    { name_en: "Dec", name_ka: "დეკ" },
+    { name_en: "Jan", name_ge: "იან" },
+    { name_en: "Feb", name_ge: "თებ" },
+    { name_en: "Mar", name_ge: "მარ" },
+    { name_en: "Apr", name_ge: "აპრ" },
+    { name_en: "May", name_ge: "მაი" },
+    { name_en: "Jun", name_ge: "ივნ" },
+    { name_en: "Jul", name_ge: "ივლ" },
+    { name_en: "Aug", name_ge: "აგვ" },
+    { name_en: "Sep", name_ge: "სექ" },
+    { name_en: "Oct", name_ge: "ოქტ" },
+    { name_en: "Nov", name_ge: "ნოე" },
+    { name_en: "Dec", name_ge: "დეკ" },
   ];
 
   const text = {
-    ka: {
+    ge: {
       title: "იმპორტი",
       unit: "ათასი ტონა",
       value: "ნავთობი და ნავთობპროდუქტები", // Assuming this is the single value; adjust if needed
@@ -86,7 +78,7 @@ const Chart_2 = () => {
 
   // Transform the data for Recharts using language-specific keys
   const chartData = months.map((month) => ({
-    name: language === "ka" ? month.name_ka : month.name_en,
+    name: language === "ge" ? month.name_ge : month.name_en,
     [text[language].value]: data[0]?.[month.name_en] || 0,
   }));
 
@@ -141,7 +133,13 @@ const Chart_2 = () => {
         </div>
         <div className="years-wrapper">
           <YearDropdown years={years} year={year} setYear={setYear} />
-          <Download />
+          <Download
+            data={chartData}
+            filename={text[language].title}
+            unit={text[language].unit}
+            year={year}
+            isMonth={true}
+          />
         </div>
       </div>
       <ResponsiveContainer height="100%">

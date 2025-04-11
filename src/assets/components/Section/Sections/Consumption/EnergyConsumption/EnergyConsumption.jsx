@@ -10,7 +10,7 @@ const HotWater = () => {
   const chartConfig = useMemo(
     () => ({
       householdID: 106,
-      title_ka:
+      title_ge:
         "შინამეურნეობების მიერ საყოფაცხოვრებო საჭიროებისათვის მოხმარებული ენერგორესურსები",
       title_en: "Energy resources consumed by households for domestic needs",
       icon: firstChartIcon,

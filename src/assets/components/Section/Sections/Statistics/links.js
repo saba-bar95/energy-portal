@@ -1,5 +1,5 @@
 const links = {
-  ka: {
+  ge: {
     header: "ყოველთვიური ენერგეტიკული სტატისტიკა",
     links: [
       { name: "ელექტროენერგია", id: 1, link: "electricity" },

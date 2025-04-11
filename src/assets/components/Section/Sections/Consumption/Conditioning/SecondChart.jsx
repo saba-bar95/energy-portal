@@ -21,15 +21,15 @@ const SecondChart = ({ data }) => {
         <p>
           <span style={{ color: data.color[0] }}>■</span>
 
-          {language === "ka" ? "სულ" : "Total"}
+          {language === "ge" ? "სულ" : "Total"}
         </p>
         <p>
           <span style={{ color: data.color[1] }}>■</span>
-          {language === "ka" ? "ქალაქად" : "Urban"}
+          {language === "ge" ? "ქალაქად" : "Urban"}
         </p>
         <p>
           <span style={{ color: data.color[2] }}>■</span>
-          {language === "ka" ? "სოფლად" : "City"}
+          {language === "ge" ? "სოფლად" : "City"}
         </p>
       </div>
     );
@@ -114,7 +114,13 @@ const SecondChart = ({ data }) => {
           <h2>{data[`title_${language}`]}</h2>
           <h3>{data[`unit_${language}`]}</h3>
         </div>
-        <Download />
+        <Download
+          resource="resource"
+          data={data.data}
+          filename={data[`title_${language}`]}
+          unit={data[`unit_${language}`]}
+          year={2022}
+        />
       </div>
 
       <ResponsiveContainer height={600}>
@@ -129,7 +135,7 @@ const SecondChart = ({ data }) => {
             bottom: 5,
           }}>
           <XAxis
-            dataKey={language === "ka" ? "name_ge" : "name_en"}
+            dataKey={language === "ge" ? "name_ge" : "name_en"}
             tickLine={false}
             tick={<CustomXAxisTick />}
           />

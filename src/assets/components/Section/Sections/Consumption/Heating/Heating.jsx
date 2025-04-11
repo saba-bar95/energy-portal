@@ -12,7 +12,7 @@ const Heating = () => {
     () => [
       {
         householdID: 99,
-        title_ka:
+        title_ge:
           "შინამეურნეობების საცხოვრისის განაწილება გათბობის ძირითადი ტიპების მიხედვით",
         title_en: "Distribution of households by main type of heating system",
         icon: firstChartIcon,
@@ -20,7 +20,7 @@ const Heating = () => {
       },
       {
         householdID: 100,
-        title_ka:
+        title_ge:
           "შინამეურნეობების წილი გათბობის ინდივიდუალურ საშუალებებში გამოყენებული ენერგორესურსების მიხედვით",
         title_en:
           "Share of households by energy resources used in individual heating systems",

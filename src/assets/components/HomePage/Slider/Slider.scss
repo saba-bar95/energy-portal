@@ -6,6 +6,10 @@
   width: 100%;
   font-feature-settings: "case" on;
   gap: 50px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
 
   .top-side {
     display: flex;
@@ -19,15 +23,10 @@
       gap: 10px;
 
       h2 {
-        color: #1e1e1e;
+        color: #084e99;
         font-family: FiraGOBold;
         letter-spacing: 0.01em;
         font-size: 25px;
-      }
-
-      h3 {
-        font-size: 23px;
-        margin-top: -5px;
       }
     }
 
@@ -53,9 +52,7 @@
   }
 
   .content-container {
-    background-color: #f5f4f7;
     width: 100%;
-    padding: 30px 20px;
     border-radius: 40px;
 
     .widget-container {
@@ -63,7 +60,6 @@
       gap: 25px;
 
       .widget-wrapper {
-        background-color: #ffffffcc;
         padding: 10px;
         border-radius: 20px;
         flex: 1;
@@ -71,6 +67,10 @@
         flex-direction: column;
         gap: 15px;
         justify-content: space-between;
+
+        &:hover {
+          background-color: #f5f4f7;
+        }
 
         .top {
           display: flex;
@@ -88,7 +88,7 @@
         .middle {
           display: flex;
           align-items: center;
-          gap: 20px;
+          gap: 10px;
 
           h2 {
             color: #1e1e1e;
@@ -104,7 +104,6 @@
         .bottom {
           display: flex;
           justify-content: space-around;
-          gap: 15px;
           align-items: center;
 
           .left {

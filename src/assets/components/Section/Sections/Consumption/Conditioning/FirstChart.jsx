@@ -22,15 +22,15 @@ const SecondChart = ({ data }) => {
         <p>
           <span style={{ color: data.color[0] }}>■</span>
 
-          {language === "ka" ? "სულ" : "Total"}
+          {language === "ge" ? "სულ" : "Total"}
         </p>
         <p>
           <span style={{ color: data.color[1] }}>■</span>
-          {language === "ka" ? "ქალაქად" : "Urban"}
+          {language === "ge" ? "ქალაქად" : "Urban"}
         </p>
         <p>
           <span style={{ color: data.color[2] }}>■</span>
-          {language === "ka" ? "სოფლად" : "Rural"}
+          {language === "ge" ? "სოფლად" : "Rural"}
         </p>
       </div>
     );
@@ -124,7 +124,13 @@ const SecondChart = ({ data }) => {
           <h2>{data[`title_${language}`]}</h2>
           <h3>{data[`unit_${language}`]}</h3>
         </div>
-        <Download />
+        <Download
+          resource="resource"
+          data={normalizedData}
+          filename={data[`title_${language}`]}
+          unit={data[`unit_${language}`]}
+          year={2022}
+        />
       </div>
 
       <ResponsiveContainer height={600}>

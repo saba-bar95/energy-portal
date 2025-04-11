@@ -1,16 +1,4 @@
-#coals-container {
+#coal-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-
-  .chart-1,
-  .chart-3 {
-    flex: 1;
-  }
-
-  #coal-chart-5 {
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: start;
-    margin-left: 80px;
-  }
 }

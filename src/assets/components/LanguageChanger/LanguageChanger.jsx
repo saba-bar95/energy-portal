@@ -19,7 +19,7 @@ const LanguageChanger = () => {
   };
 
   const toggleLanguage = () => {
-    const newLanguage = language === "ka" ? "en" : "ka";
+    const newLanguage = language === "ge" ? "en" : "ge";
     setLanguage(newLanguage);
     setIsLanguageOpen(false);
   };
@@ -42,7 +42,7 @@ const LanguageChanger = () => {
       <div className="language-changer">
         <div className="wrapper">
           <img
-            src={language === "ka" ? georgianFlag : britishFlag}
+            src={language === "ge" ? georgianFlag : britishFlag}
             className="flag-img"
             alt="flag"
           />
@@ -56,12 +56,12 @@ const LanguageChanger = () => {
           <div className="language-options">
             <div className={`wrapper ${hovered}`} onClick={toggleLanguage}>
               <img
-                src={language === "ka" ? britishFlag : georgianFlag}
+                src={language === "ge" ? britishFlag : georgianFlag}
                 alt="flag"
                 className="flag-img"
               />
               <p>
-                {language === "ka" ? text["en"].language : text["ka"].language}
+                {language === "ge" ? text["en"].language : text["ge"].language}
               </p>
             </div>
           </div>

@@ -170,59 +170,59 @@ const EnergyConsumption = () => {
   const widgets = useMemo(
     () => [
       {
-        name_ka: "მრეწველობა",
+        name_ge: "მრეწველობა",
         name_en: "Industry",
         legendCode: 44,
         svg: <Svg1 />,
-        unit_ka: "პროცენტი",
+        unit_ge: "პროცენტი",
         unit_en: "Percent",
       },
       {
-        name_ka: "მშენებლობა",
+        name_ge: "მშენებლობა",
         name_en: "Construction",
         legendCode: 49,
         svg: <Svg2 />,
-        unit_ka: "პროცენტი",
+        unit_ge: "პროცენტი",
         unit_en: "Percent",
       },
       {
-        name_ka: "ტრანსპორტი",
+        name_ge: "ტრანსპორტი",
         name_en: "Transport",
         legendCode: 45,
         svg: <Svg3 />,
-        unit_ka: "პროცენტი",
+        unit_ge: "პროცენტი",
         unit_en: "Percent",
       },
       {
-        name_ka: "შინამეურნეობები",
+        name_ge: "შინამეურნეობები",
         name_en: "Residential",
         legendCode: 46,
         svg: <Svg4 />,
-        unit_ka: "პროცენტი",
+        unit_ge: "პროცენტი",
         unit_en: "Percent",
       },
       {
-        name_ka: "კერძო და სახელმწიფო მომსახურება",
+        name_ge: "კერძო და სახელმწიფო მომსახურება",
         name_en: "Commercial and public services",
         legendCode: 47,
         svg: <Svg6 />,
-        unit_ka: "პროცენტი",
+        unit_ge: "პროცენტი",
         unit_en: "Percent",
       },
       {
-        name_ka: "სოფლის, სატყეო და თევზის მეურნეობა",
+        name_ge: "სოფლის, სატყეო და თევზის მეურნეობა",
         name_en: "Agriculture, forestry and fishing",
         legendCode: 48,
         svg: <Svg5 />,
-        unit_ka: "პროცენტი",
+        unit_ge: "პროცენტი",
         unit_en: "Percent",
       },
 
       {
-        name_ka: "სხვა",
+        name_ge: "სხვა",
         name_en: "Oher",
         legendCode: 50,
-        unit_ka: "პროცენტი",
+        unit_ge: "პროცენტი",
         unit_en: "Percent",
       },
     ],
@@ -243,7 +243,7 @@ const EnergyConsumption = () => {
             }
             const rawData = await response.json();
             return {
-              name_ka: widget.name_ka,
+              name_ge: widget.name_ge,
               name_en: widget.name_en,
               data: rawData,
             };

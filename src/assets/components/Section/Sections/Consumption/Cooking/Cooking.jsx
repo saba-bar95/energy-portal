@@ -12,7 +12,7 @@ const Cooking = () => {
     () => [
       {
         householdID: 104,
-        title_ka:
+        title_ge:
           "შინამეურნეობების საცხოვრისის განაწილება ქურებში გამოყენებული ენერგორესურსების მიხედვით",
         title_en:
           "Distribution of households by energy resources used in stoves",
@@ -21,7 +21,7 @@ const Cooking = () => {
       },
       {
         householdID: 105,
-        title_ka:
+        title_ge:
           "შინამეურნეობების საცხოვრისის განაწილება ღუმელებში გამოყენებული ენერგორესურსების მიხედვით",
         title_en:
           "Distribution of household dwellings by energy resources used in stoves",

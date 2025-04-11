@@ -41,7 +41,7 @@ const Header = () => {
         <div className="header-container">
           <div className="right">
             <img
-              src={language === "ka" ? sakstatLogo : sakstatLogoEn}
+              src={language === "ge" ? sakstatLogo : sakstatLogoEn}
               alt="sakstat-logo"
               onClick={handleHeaderClick}
               style={{ cursor: "pointer", maxWidth: "120px" }}

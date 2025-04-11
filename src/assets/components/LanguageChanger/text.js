@@ -1,5 +1,5 @@
 const text = {
-  ka: {
+  ge: {
     language: "ქართული",
   },
 
