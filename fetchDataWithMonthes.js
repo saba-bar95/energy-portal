@@ -1,5 +1,5 @@
 // fetchData.js
-const fetchDataWithCodes = async (year, id) => {
+const fetchDataWithMonthes = async (year, id) => {
   try {
     const response = await fetch(
       `http://192.168.1.27:3000/api/monthes/${year}/${id}`
@@ -17,4 +17,4 @@ const fetchDataWithCodes = async (year, id) => {
   }
 };
 
-export default fetchDataWithCodes;
+export default fetchDataWithMonthes;
