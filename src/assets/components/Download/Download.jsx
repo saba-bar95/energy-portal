@@ -7,7 +7,7 @@ import downloadExcel from "./downloadExcel";
 import downloadPDF from "./downloadPDF";
 import { useParams } from "react-router-dom";
 
-const Download = ({ data, filename }) => {
+const Download = ({ data, filename, unit, year, isMonth, resource }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null); // Create a ref for the dropdown
 
@@ -92,7 +92,15 @@ const Download = ({ data, filename }) => {
             <div
               className="wrapper"
               onClick={() => {
-                downloadExcel(data, filename, language);
+                downloadExcel(
+                  data,
+                  filename,
+                  language,
+                  unit,
+                  year,
+                  isMonth,
+                  resource
+                );
               }}>
               <svg
                 width="16"
@@ -143,7 +151,15 @@ const Download = ({ data, filename }) => {
             <div
               className="wrapper"
               onClick={() => {
-                downloadPDF(data, filename, language);
+                downloadPDF(
+                  data,
+                  filename,
+                  language,
+                  unit,
+                  year,
+                  isMonth,
+                  resource
+                );
               }}>
               <svg
                 width="16"
