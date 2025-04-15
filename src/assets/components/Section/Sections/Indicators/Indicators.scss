@@ -1,0 +1,70 @@
+.indicators {
+  font-feature-settings: "case" on;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f7;
+  color: #1e1e1e;
+
+  h1 {
+    font-family: FiraGORegular;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+  }
+
+  .container {
+    background: linear-gradient(90deg, #334d50 0%, #cbcaa5 100%);
+    padding: 50px 200px 0 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 80px;
+    height: 200px;
+  }
+
+  .links {
+    padding: 0 200px;
+    margin-bottom: 50px;
+
+    a {
+      text-decoration: none;
+    }
+
+    ul {
+      display: flex;
+      list-style-type: none;
+      justify-content: start;
+      gap: 100px;
+
+      a {
+        display: flex;
+      }
+
+      a:visited {
+        color: inherit;
+      }
+
+      .wrapper {
+        position: relative;
+        background-color: transparent;
+        display: flex;
+
+        li {
+          padding: 15px;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+          border-bottom: 2px solid transparent;
+        }
+
+        li.selected {
+          color: #1e1e1e;
+          font-weight: 700;
+          border-bottom: 2px solid black;
+        }
+      }
+    }
+  }
+}
