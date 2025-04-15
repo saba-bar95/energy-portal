@@ -1,18 +1,22 @@
+import { useEffect, useState, useRef } from "react";
 import georgianFlag from "/src/assets/images/header/georgian-flag.svg";
 import britishFlag from "/src/assets/images/header/british-flag.svg";
 import upVectorGray from "/src/assets/images/header/up-vector-gray.svg";
 import downVectorGray from "/src/assets/images/header/down-vector-gray.svg";
-import { useEffect, useState } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import text from "./text";
 
 const LanguageChanger = () => {
   const params = useParams();
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const [language, setLanguage] = useState(params.language); // Initialize from params
+  const [language, setLanguage] = useState(params.language);
+  const [width, setWidth] = useState(0);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Create a ref for the wrapper element
+  const wrapperRef = useRef(null);
 
   const handleLanguageChange = () => {
     setIsLanguageOpen(!isLanguageOpen);
@@ -25,22 +29,33 @@ const LanguageChanger = () => {
   };
 
   useEffect(() => {
-    // Only navigate if the language has changed
     const currentPath = location.pathname.split("/").slice(2).join("/");
     navigate(`/${language}/${currentPath}`);
   }, [language, location.pathname, navigate]);
 
-  // Update the language state when the component mounts
   useEffect(() => {
     setLanguage(params.language);
   }, [params.language]);
 
+  // Get the width of the wrapper element
+  useEffect(() => {
+    if (wrapperRef.current) {
+      const width = wrapperRef.current.getBoundingClientRect().width;
+      setWidth(width);
+    }
+  }, [isLanguageOpen]); // You can also add dependencies if you want to measure on specific events
+
   const hovered = isLanguageOpen ? "hovered" : "";
 
   return (
-    <div className="language-changer-container" onClick={handleLanguageChange}>
+    <div
+      className="language-changer-container"
+      onClick={handleLanguageChange}
+      style={{ marginRight: width }}>
       <div className="language-changer">
-        <div className="wrapper">
+        <div className="wrapper" ref={wrapperRef}>
+          {" "}
+          {/* Attach the ref here */}
           <img
             src={language === "ge" ? georgianFlag : britishFlag}
             className="flag-img"
