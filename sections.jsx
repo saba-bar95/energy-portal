@@ -96,7 +96,7 @@ const svg4 = () => {
 const sections = [
   {
     name_ge: "ენერგეტიკული ბალანსი",
-    name_en: "Energy balance",
+    name_en: "Energy Balance",
     id: 1,
     href: "balance",
     background: "#E9ECFF",
@@ -104,7 +104,7 @@ const sections = [
   },
   {
     name_ge: "მოკლევადიანი ენერგეტიკული სტატისტიკა",
-    name_en: "Short-term energy statistics",
+    name_en: "Short-term Energy Statistics",
     id: 2,
     href: "statistics",
     background: "#D9F1FE",
@@ -112,7 +112,7 @@ const sections = [
   },
   {
     name_ge: "ენერგორესურსების მოხმარება ",
-    name_en: "Energy consumption",
+    name_en: "Energy Consumption",
     id: 3,
     href: "consumption",
     background: "#FDE6E9",
@@ -120,9 +120,9 @@ const sections = [
   },
   {
     name_ge: "ძირითადი მაჩვენებლები ",
-    name_en: "Common indicators",
+    name_en: "Key Indicators",
     id: 4,
-    href: "consumption",
+    href: "indicators",
     background: "#F2E8D9",
     svg: svg4(),
   },

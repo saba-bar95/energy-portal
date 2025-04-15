@@ -169,7 +169,7 @@ const Coal = () => {
     styles: {
       flexWrap: "wrap",
       gap: "20px",
-      marginTop: language !== "en" ? "-40px" : "0px",
+      // marginTop: language !== "en" ? "0px" : "0px",
       marginLeft: "100px",
       justifyContent: "start",
     },

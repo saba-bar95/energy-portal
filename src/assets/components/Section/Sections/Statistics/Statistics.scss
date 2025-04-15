@@ -8,7 +8,6 @@
 
   h1 {
     font-family: FiraGORegular;
-    text-transform: uppercase;
     letter-spacing: 0.02em;
   }
 
@@ -45,7 +44,6 @@
       ul {
         display: flex;
         list-style-type: none;
-        justify-content: start;
         gap: 100px;
 
         a {
@@ -68,12 +66,19 @@
             justify-content: center;
             align-items: center;
             background-color: inherit;
+            gap: 20px;
           }
 
           li.selected {
             background-color: #ffffff;
             color: #3c77f2;
-            font-weight: 700;
+            font-family: FiraGOMedium;
+
+            svg {
+              path {
+                fill: #3c77f2;
+              }
+            }
           }
         }
       }

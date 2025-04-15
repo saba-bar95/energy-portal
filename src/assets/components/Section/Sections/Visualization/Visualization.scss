@@ -7,8 +7,9 @@
 
   h1 {
     font-family: FiraGORegular;
-    text-transform: uppercase;
+    text-transform: capitalize;
     letter-spacing: 0.02em;
+    margin-bottom: 30px;
   }
 
   .container {
@@ -16,7 +17,7 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
-    gap: 80px;
+    gap: 40px;
 
     .links {
       a {
@@ -26,7 +27,6 @@
       ul {
         display: flex;
         list-style-type: none;
-        justify-content: start;
         gap: 100px;
 
         a {
@@ -49,12 +49,22 @@
             justify-content: center;
             align-items: center;
             background-color: inherit;
+            gap: 20px;
+            font-size: 15px;
+            text-transform: capitalize;
+            font-feature-settings: "case" on;
           }
 
           li.selected {
             background-color: #ffffff;
             color: #3c77f2;
-            font-weight: 700;
+            font-family: FiraGOMedium;
+
+            svg {
+              path {
+                stroke: #3c77f2;
+              }
+            }
           }
         }
       }

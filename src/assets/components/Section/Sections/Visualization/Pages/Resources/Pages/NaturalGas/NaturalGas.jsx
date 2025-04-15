@@ -100,7 +100,7 @@ const NaturalGas = () => {
       "#ED4C5C",
       "#8C8C8C",
     ],
-    height: 800,
+    height: 500,
     legend: true,
     svg: (
       <svg
@@ -118,7 +118,7 @@ const NaturalGas = () => {
     styles: {
       flexWrap: "wrap",
       gap: "20px",
-      marginTop: language === "en" ? "-60px" : "-60px",
+      marginTop: language === "en" ? "-30px" : "-60px",
       marginLeft: "-30px",
       justifyContent: "start",
     },
@@ -133,6 +133,7 @@ const NaturalGas = () => {
     unit_en: "ktoe",
     color: "#007C90",
     initialYear: 2023,
+    height: 800,
     legend: true,
     svg: (
       <svg
@@ -161,9 +162,10 @@ const NaturalGas = () => {
     <div className="container natural-gas">
       <VerticalBarsByYears info={chart1Info} />
       <VerticalBarsByYears info={chart2Info} />
-      <StackedAreaChart info={chart3Info} />
+      <div>
+        <StackedAreaChart info={chart3Info} />
+      </div>
       <HorizontalBarsByYears info={chart4Info} />
-      {/* <Chart_4 /> */}
     </div>
   );
 };

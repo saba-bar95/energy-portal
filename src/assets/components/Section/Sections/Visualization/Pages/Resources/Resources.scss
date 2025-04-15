@@ -1,10 +1,10 @@
 .resources-container {
   background-color: #f4f4f7;
   color: black;
-  padding: 50px 200px 200px 200px;
+  padding: 40px 200px 200px 200px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
 
   ul {
     display: flex;
@@ -12,17 +12,32 @@
     justify-content: space-between;
     color: #6f6f6f;
 
+    li {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-feature-settings: "case" off;
+    }
+
     a {
       text-decoration: none;
       color: inherit;
     }
 
     .selected {
-      color: black;
+      color: #1e1e1e;
+      font-weight: 900;
+
+      svg {
+        path {
+          fill: #1e1e1e;
+        }
+      }
     }
   }
 
   .container {
-    padding: 50px 0;
+    padding: 0;
   }
 }

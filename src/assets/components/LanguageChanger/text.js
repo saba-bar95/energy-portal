@@ -4,7 +4,7 @@ const text = {
   },
 
   en: {
-    language: "Enligsh",
+    language: "English",
   },
 };
 

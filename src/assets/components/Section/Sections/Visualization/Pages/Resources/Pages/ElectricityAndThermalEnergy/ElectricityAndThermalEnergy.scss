@@ -1,8 +1,7 @@
 .charts-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 30px;
-  row-gap: 40px;
+  gap: 40px;
 }
 
 .chart-4 {

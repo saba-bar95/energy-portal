@@ -105,6 +105,7 @@ const ElectricityAndThermalEnergy = () => {
     color: "#3498DB",
     initialYear: 2023,
     legend: true,
+    height: 700,
     svg: (
       <svg
         width="26"
@@ -164,7 +165,7 @@ const ElectricityAndThermalEnergy = () => {
     styles: {
       flexWrap: "wrap",
       gap: "20px",
-      marginTop: language === "en" ? "-40px" : "-70px",
+      marginTop: language === "en" ? "-30px" : "-70px",
       marginLeft: "60px",
       justifyContent: "start",
     },
@@ -176,7 +177,9 @@ const ElectricityAndThermalEnergy = () => {
         <VerticalStackedByYears info={chart1Info} />
         <LineChartByYears info={chart2Info} />
         <VerticalBarsByYears info={chart3Info} />
-        <div className="main-chart chart-4" style={{ flexDirection: "row" }}>
+        <div
+          className="main-chart chart-4"
+          style={{ flexDirection: "row", height: "900px" }}>
           <HorizontalBarsByYears info={chart4Info} />
         </div>
         <StackedAreaChart info={chart5Info} />

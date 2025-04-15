@@ -29,6 +29,7 @@ const Consumption = () => {
                           handleLinkSelect(link.id);
                         }}
                         className={selectedId === link.id ? "selected" : ""}>
+                        {link.svg}
                         {link.name}
                       </li>
                     </div>

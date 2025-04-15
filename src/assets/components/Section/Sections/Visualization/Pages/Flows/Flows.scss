@@ -13,6 +13,14 @@
     gap: 50px;
     color: #6f6f6f;
 
+    li {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-feature-settings: "case" off;
+    }
+
     a {
       text-decoration: none;
       color: inherit;
@@ -20,6 +28,13 @@
 
     .selected {
       color: black;
+      font-weight: 900;
+
+      svg {
+        path {
+          fill: #1e1e1e;
+        }
+      }
     }
   }
 

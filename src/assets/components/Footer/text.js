@@ -21,7 +21,7 @@ const text = {
     para12: "+995 32 2 36 72 10  |  +995 32 2 60 11 60",
     para13: "info@geostat.ge",
     para14: "Tsotne Dadiani Str. 30, 0180, Tbilisi, Georgia",
-    para15: "Social networks",
+    para15: "Social Networks",
     para2: "All rights reserved © Geostat 2025",
   },
 };

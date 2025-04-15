@@ -175,7 +175,7 @@ const EnergyConsumption = () => {
         legendCode: 44,
         svg: <Svg1 />,
         unit_ge: "პროცენტი",
-        unit_en: "Percent",
+        unit_en: "percent",
       },
       {
         name_ge: "მშენებლობა",
@@ -183,7 +183,7 @@ const EnergyConsumption = () => {
         legendCode: 49,
         svg: <Svg2 />,
         unit_ge: "პროცენტი",
-        unit_en: "Percent",
+        unit_en: "percent",
       },
       {
         name_ge: "ტრანსპორტი",
@@ -191,7 +191,7 @@ const EnergyConsumption = () => {
         legendCode: 45,
         svg: <Svg3 />,
         unit_ge: "პროცენტი",
-        unit_en: "Percent",
+        unit_en: "percent",
       },
       {
         name_ge: "შინამეურნეობები",
@@ -199,23 +199,23 @@ const EnergyConsumption = () => {
         legendCode: 46,
         svg: <Svg4 />,
         unit_ge: "პროცენტი",
-        unit_en: "Percent",
+        unit_en: "percent",
       },
       {
         name_ge: "კერძო და სახელმწიფო მომსახურება",
-        name_en: "Commercial and public services",
+        name_en: "Commercial and Public Services",
         legendCode: 47,
         svg: <Svg6 />,
         unit_ge: "პროცენტი",
-        unit_en: "Percent",
+        unit_en: "percent",
       },
       {
         name_ge: "სოფლის, სატყეო და თევზის მეურნეობა",
-        name_en: "Agriculture, forestry and fishing",
+        name_en: "Agriculture, Forestry and Fishing",
         legendCode: 48,
         svg: <Svg5 />,
         unit_ge: "პროცენტი",
-        unit_en: "Percent",
+        unit_en: "percent",
       },
 
       {
@@ -223,7 +223,7 @@ const EnergyConsumption = () => {
         name_en: "Oher",
         legendCode: 50,
         unit_ge: "პროცენტი",
-        unit_en: "Percent",
+        unit_en: "percent",
       },
     ],
     []

@@ -119,7 +119,7 @@ const EnergyProduction = () => {
       },
       {
         name_ge: "ნავთობპროდუქტები",
-        name_en: "Oil and oil products",
+        name_en: "Oil and Petroleum Products",
         legendCode: 36,
         svg: <Svg4 />,
         unit_ge: "ათასი ტონა",
@@ -127,7 +127,7 @@ const EnergyProduction = () => {
       },
       {
         name_ge: "ბიოსაწვავი და ნარჩენები",
-        name_en: "Biofuels and waste",
+        name_en: "Biofuels and Waste",
         legendCode: 5,
         svg: <Svg5 />,
         unit_ge: "ათასი ტნე",

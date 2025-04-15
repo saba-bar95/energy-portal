@@ -9,14 +9,14 @@ const Slider = () => {
   const { language } = useParams();
 
   const slides = [
-    { header_ge: "ენერგორესურსების წარმოება", header_en: "Energy production" },
+    { header_ge: "ენერგორესურსების წარმოება", header_en: "Energy Production" },
     {
       header_ge: "ენერგორესურსების მოხმარება სექტორების მიხედვით",
-      header_en: "Energy consumption by sector",
+      header_en: "Energy Consumption by Sector",
     },
     {
       header_ge: "მოხმარებული ენერგორესურსები",
-      header_en: "Energy resources consumed",
+      header_en: "Energy Resources Consumed",
     },
   ];
 
