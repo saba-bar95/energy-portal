@@ -91,7 +91,7 @@ const FinalConsumption = () => {
     styles: {
       flexWrap: "wrap",
       gap: "20px",
-      marginTop: language === "en" ? "-20px" : "-50px",
+      marginTop: language === "en" ? "-20px" : "-60px",
       marginLeft: "60px",
       justifyContent: "start",
     },

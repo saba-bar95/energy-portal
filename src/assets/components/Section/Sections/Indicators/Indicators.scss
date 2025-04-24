@@ -24,7 +24,7 @@
 
   .links {
     padding: 0 200px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 
     a {
       text-decoration: none;
@@ -57,12 +57,19 @@
           align-items: center;
           gap: 20px;
           border-bottom: 2px solid transparent;
+          color: #1e1e1e;
         }
 
         li.selected {
           color: #1e1e1e;
           font-weight: 700;
           border-bottom: 2px solid black;
+
+          svg {
+            path {
+              stroke: black;
+            }
+          }
         }
       }
     }
