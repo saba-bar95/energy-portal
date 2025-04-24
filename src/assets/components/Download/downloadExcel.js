@@ -7,10 +7,38 @@ const downloadExcel = (
   unit,
   year,
   isMonth,
-  resource
+  resource,
+  isFilter,
+  isTreeMap
 ) => {
   const isGeorgian = language === "ge";
   const workbook = XLSX.utils.book_new();
+
+  if (isTreeMap) {
+    const yearHeader = isGeorgian ? "წელი" : "Year";
+    const nameHeader = isGeorgian ? "დასახელება" : "Name";
+    const valueHeader = isGeorgian ? "რაოდენობა" : "Value";
+
+    // Ensure we are accessing the children array
+    const worksheetData = [
+      [nameHeader, valueHeader, yearHeader], // Column headers
+      ...(data[0]?.children || []).map((item) => [
+        item.name,
+        `${item.value.toFixed(1)}%`,
+        year,
+      ]), // Extract correct data
+    ];
+
+    // Create a worksheet from the data
+    const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+
+    // Append the worksheet to the workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+
+    // Generate the Excel file and trigger the download
+    XLSX.writeFile(workbook, `${fileName}.xlsx`);
+    return;
+  }
 
   if (resource) {
     // Determine the column header based on the language
@@ -94,7 +122,11 @@ const downloadExcel = (
     XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
 
     // Generate the Excel file and trigger the download
-    XLSX.writeFile(workbook, `${fileName} (${unit}).xlsx`);
+    const fileNameWithUnit = unit
+      ? `${fileName} (${unit}).xlsx`
+      : `${fileName}.xlsx`;
+    XLSX.writeFile(workbook, fileNameWithUnit);
+
     return;
   }
 
@@ -122,7 +154,9 @@ const downloadExcel = (
         typeof newItem[key] === "number" &&
         key !== (isGeorgian ? "წელი" : "Year")
       ) {
-        newItem[key] = newItem[key].toFixed(1);
+        if (isFilter) {
+          newItem[key] = newItem[key].toFixed(2); // Only format non-year numerical values
+        } else newItem[key] = newItem[key].toFixed(1); // Only format non-year numerical values
       }
     });
 

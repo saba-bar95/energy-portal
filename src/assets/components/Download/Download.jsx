@@ -7,7 +7,16 @@ import downloadExcel from "./downloadExcel";
 import downloadPDF from "./downloadPDF";
 import { useParams } from "react-router-dom";
 
-const Download = ({ data, filename, unit, year, isMonth, resource }) => {
+const Download = ({
+  isTreeMap,
+  data,
+  filename,
+  unit,
+  year,
+  isMonth,
+  resource,
+  isFilter,
+}) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null); // Create a ref for the dropdown
 
@@ -99,7 +108,9 @@ const Download = ({ data, filename, unit, year, isMonth, resource }) => {
                   unit,
                   year,
                   isMonth,
-                  resource
+                  resource,
+                  isFilter,
+                  isTreeMap
                 );
               }}>
               <svg
@@ -158,7 +169,9 @@ const Download = ({ data, filename, unit, year, isMonth, resource }) => {
                   unit,
                   year,
                   isMonth,
-                  resource
+                  resource,
+                  isFilter,
+                  isTreeMap
                 );
               }}>
               <svg

@@ -8,10 +8,38 @@ const downloadPDF = (
   unit,
   year,
   isMonth,
-  resource
+  resource,
+  isFilter,
+  isTreeMap
 ) => {
   const isGeorgian = language === "ge";
   const doc = new jsPDF();
+
+  if (isTreeMap) {
+    // Define headers based on language
+    const headers = [
+      isGeorgian ? "დასახელება" : "Name",
+      isGeorgian ? "რაოდენობა" : "Value",
+      isGeorgian ? "წელი" : "Year",
+    ];
+
+    // Ensure we are accessing the `children` array correctly
+    const tableData = (data[0]?.children || []).map((item) => [
+      item.name,
+      `${item.value.toFixed(1)}%`, // Format value to one decimal place and add "%"
+      year,
+    ]);
+
+    // Add the table to the PDF
+    autoTable(doc, {
+      head: [headers],
+      body: tableData,
+      theme: "grid", // Optional: Change the theme
+    });
+
+    // Save the PDF
+    doc.save(`${fileName}.pdf`);
+  }
 
   if (resource) {
     const headers = [
@@ -94,8 +122,11 @@ const downloadPDF = (
       theme: "grid", // Optional: you can change the theme
     });
 
+    const fileNameWithUnit = unit
+      ? `${fileName} (${unit}).pdf`
+      : `${fileName}.pdf`;
     // Save the PDF
-    doc.save(`${fileName} (${unit}).pdf`);
+    doc.save(fileNameWithUnit);
 
     return;
   }
@@ -110,7 +141,9 @@ const downloadPDF = (
         typeof newItem[key] === "number" &&
         key !== (isGeorgian ? "წელი" : "Year")
       ) {
-        newItem[key] = newItem[key].toFixed(1); // Only format non-year numerical values
+        if (isFilter) {
+          newItem[key] = newItem[key].toFixed(2); // Only format non-year numerical values
+        } else newItem[key] = newItem[key].toFixed(1); // Only format non-year numerical values
       }
     });
 
