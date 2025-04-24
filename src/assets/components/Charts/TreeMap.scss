@@ -1,0 +1,15 @@
+.tree-map-chart {
+  max-width: 700px;
+  flex: 1;
+
+  .year-wrapper {
+    display: flex;
+    flex: 1;
+    justify-content: end;
+    gap: 15px;
+  }
+
+  .download-container {
+    flex: none;
+  }
+}
