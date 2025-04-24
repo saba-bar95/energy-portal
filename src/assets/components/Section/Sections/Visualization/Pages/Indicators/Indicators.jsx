@@ -151,8 +151,8 @@ const Indicators = () => {
 
   return (
     <div className="indicators-container">
-      {chartNames.map((chart) => (
-        <SingleAreaChart key={chart.name} info={chart} />
+      {chartNames.map((chart, i) => (
+        <SingleAreaChart key={i} info={chart} />
       ))}
     </div>
   );
