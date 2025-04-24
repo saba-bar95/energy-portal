@@ -10,6 +10,8 @@ const BiofuelsAndWaste = () => {
         header: "Table name",
       },
     },
+    sourceTables: ["biofuel_unit_tj", "biofuel_unit_ktoe", "biofuel_unit"],
+    name: "biofuel",
   };
 
   return <TablesContainer info={info} />;
