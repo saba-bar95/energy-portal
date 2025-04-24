@@ -25,7 +25,7 @@ const HomePage = () => {
         style={{ backgroundImage: `url(${backgroundImg})` }}>
         <div className="texts">
           <h1>{text[language].header1}</h1>
-          <p>{text[language].header2}</p>
+          {/* <p>{text[language].header2}</p> */}
         </div>
 
         <div className="sections">
