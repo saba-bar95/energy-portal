@@ -1,0 +1,28 @@
+.pie-chart {
+  max-width: 400px;
+
+  .header-container {
+    gap: 15px;
+    align-items: center;
+
+    .text-wrapper {
+      min-height: 0;
+    }
+
+    .info-wrapper {
+      flex: 1;
+    }
+  }
+
+  .years-container {
+    .heading {
+      width: max-content;
+      float: right;
+    }
+
+    .dropdown-content {
+      width: max-content;
+      margin-top: 40px;
+    }
+  }
+}
