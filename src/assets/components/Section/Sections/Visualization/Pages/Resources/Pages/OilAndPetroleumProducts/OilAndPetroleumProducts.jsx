@@ -195,9 +195,9 @@ const OilAndPetroleumProducts = () => {
     chartID: 25,
     chartName: 4,
     title_ge: "საერთაშორისო საზღვაო და საჰაერო ბუნკერები",
-    unit_ge: "ერთეული",
+    unit_ge: "ათასი ტნე",
     title_en: "International trade",
-    unit_en: "unit",
+    unit_en: "ktoe",
     colors: ["#FB3B52", "#30B0C7"],
     legend: true,
     svg: (
