@@ -6,7 +6,7 @@ import { SectionsContext } from "../../../App";
 import text from "./text";
 
 const Footer = () => {
-  const { language } = useParams();
+  let { language } = useParams();
 
   const { setSectionID, setSelectedSection } = useContext(SectionsContext);
 
@@ -16,10 +16,10 @@ const Footer = () => {
   };
 
   const openTermsOfDataUse = () => {
-    window.open(
-      `https://www.geostat.ge/${language}/page/monacemta-gamoyenebis-pirobebi`,
-      "_blank"
-    );
+    const url = `https://www.geostat.ge/${
+      language === "ge" ? "ka" : "en"
+    }/page/monacemta-gamoyenebis-pirobebi`;
+    window.open(url, "_blank");
   };
 
   const scrollToTop = () => {
