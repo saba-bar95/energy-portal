@@ -1,8 +1,8 @@
+import backEndUrl from "./backEndUrl";
+
 const fetchDataIndicators = async (name) => {
   try {
-    const response = await fetch(
-      `http://192.168.1.27:3000/api/indicators/${name}`
-    );
+    const response = await fetch(`${backEndUrl}/api/indicators/${name}`);
 
     if (!response.ok) {
       throw new Error("Network response was not ok");

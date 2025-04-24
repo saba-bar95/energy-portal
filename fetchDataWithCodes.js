@@ -1,9 +1,8 @@
-// fetchData.js
+import backEndUrl from "./backEndUrl";
+
 const fetchDataWithCodes = async (id) => {
   try {
-    const response = await fetch(
-      `http://192.168.1.27:3000/api/resourceswithcodes/${id}`
-    );
+    const response = await fetch(`${backEndUrl}/api/resourceswithcodes/${id}`);
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
