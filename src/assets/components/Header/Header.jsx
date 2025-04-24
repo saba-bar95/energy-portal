@@ -12,8 +12,7 @@ import text from "./text";
 
 const Header = () => {
   const [isSectionsOpen, setIsSectionsOpen] = useState(false);
-  const { setSectionID, selectedSection, setSelectedSection } =
-    useContext(SectionsContext);
+  const { sectionID, setSectionID } = useContext(SectionsContext);
 
   const navigate = useNavigate();
   const { language } = useParams();
@@ -23,14 +22,12 @@ const Header = () => {
   };
 
   const handleSectionSelect = (sectionID) => {
-    setSelectedSection(sectionID);
     setSectionID(sectionID);
     setIsSectionsOpen(false);
   };
 
   const handleHeaderClick = () => {
     setIsSectionsOpen(false);
-    setSelectedSection(null);
     setSectionID(null);
     navigate(`/${language}`);
   };
@@ -70,7 +67,7 @@ const Header = () => {
                           onClick={() => handleSectionSelect(section.id)}>
                           <p
                             className={
-                              selectedSection === section.id ? "selected" : ""
+                              sectionID === section.id ? "selected" : ""
                             }>
                             {section[`name_${language}`]}
                           </p>

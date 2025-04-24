@@ -11,10 +11,9 @@ const HomePage = () => {
   const { language } = useParams();
 
   const context = useContext(SectionsContext);
-  const { setSectionID, setSelectedSection } = context;
+  const { setSectionID } = context;
 
   const handleSectionSelect = (sectionID) => {
-    setSelectedSection(sectionID);
     setSectionID(sectionID);
   };
 
@@ -25,9 +24,7 @@ const HomePage = () => {
         style={{ backgroundImage: `url(${backgroundImg})` }}>
         <div className="texts">
           <h1>{text[language].header1}</h1>
-          {/* <p>{text[language].header2}</p> */}
         </div>
-
         <div className="sections">
           {sections.map((section, i) => {
             return (
