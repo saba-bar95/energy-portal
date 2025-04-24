@@ -8,4 +8,62 @@
   font-size: 14px;
   cursor: pointer;
   font-feature-settings: "case" off;
+  position: relative;
+
+  &:hover {
+    border: 1px solid #3c77f2;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #ededed;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    right: 0;
+    z-index: 1;
+    margin-top: 50px;
+    // overflow-y: scroll;
+    gap: 30px;
+    padding: 30px;
+
+    .unit-section {
+      display: flex;
+      font-feature-settings: "case" on;
+      background-color: #efefef;
+      padding: 5px 10px;
+      border-radius: 14px;
+
+      p {
+        min-width: 100px;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 900;
+        text-align: center;
+      }
+
+      p.selected {
+        background-color: #ffffff;
+        color: #138c00;
+      }
+    }
+
+    .year-section,
+    .name-section {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    h3 {
+      font-size: 14px;
+    }
+  }
+}
+
+.open {
+  border: 1px solid #3c77f2;
 }
