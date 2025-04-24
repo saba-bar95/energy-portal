@@ -3,7 +3,7 @@ import "./TableDownloadBtn.scss";
 import { useParams } from "react-router-dom";
 import * as XLSX from "xlsx";
 
-const TableDownloadBtn = ({ data }) => {
+const TableDownloadBtn = ({ data, title }) => {
   const { language } = useParams();
   const text = {
     en: {
@@ -35,7 +35,7 @@ const TableDownloadBtn = ({ data }) => {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
 
     // Generate and download the Excel file
-    XLSX.writeFile(workbook, "table_data.xlsx");
+    XLSX.writeFile(workbook, `${title}.xlsx`);
   };
 
   const svg = () => {

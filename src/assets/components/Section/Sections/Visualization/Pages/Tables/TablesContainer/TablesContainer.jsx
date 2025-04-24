@@ -88,7 +88,9 @@ const TablesContainer = ({ info }) => {
   return (
     <div className="tables-container">
       <div className="header">
-        <h1>{info.text[`${language}`].header} </h1>
+        <h1 style={{ textTransform: "initial" }}>
+          {info.text[`${language}`].header}
+        </h1>
         <div className="wrapper">
           <TablesFilter
             year={year}
@@ -106,7 +108,10 @@ const TablesContainer = ({ info }) => {
             // )}
             setName={setName}
           />
-          <TableDownloadBtn data={tableData} />
+          <TableDownloadBtn
+            data={tableData}
+            title={info.text[`${language}`].header}
+          />
         </div>
       </div>
       <table>

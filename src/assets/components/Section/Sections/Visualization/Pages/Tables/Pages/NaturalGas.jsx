@@ -4,10 +4,10 @@ const NaturalGas = () => {
   const info = {
     text: {
       ge: {
-        header: "ცხრილის სახელი",
+        header: "ბუნებრივი გაზის მიწოდება და მოხმარება",
       },
       en: {
-        header: "Table name",
+        header: "Supply and Consumption of Natural Gas",
       },
     },
     sourceTables: [

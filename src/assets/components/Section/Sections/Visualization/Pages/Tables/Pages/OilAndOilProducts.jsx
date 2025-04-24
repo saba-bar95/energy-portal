@@ -4,10 +4,10 @@ const OilAndOilProducts = () => {
   const info = {
     text: {
       ge: {
-        header: "ცხრილის სახელი",
+        header: "ნავთობის და ნავთობპროდუქტების მიწოდება და მოხმარება",
       },
       en: {
-        header: "Table name",
+        header: "Supply and Consumption of Oil and Petroleum Products",
       },
     },
     sourceTables: [

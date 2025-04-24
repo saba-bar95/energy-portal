@@ -4,10 +4,10 @@ const BiofuelsAndWaste = () => {
   const info = {
     text: {
       ge: {
-        header: "ცხრილის სახელი",
+        header: "ბიოსაწვავის და ნარჩენების მიწოდება და მოხმარება",
       },
       en: {
-        header: "Table name",
+        header: "Supply and Consumption of Biofuel and Waste",
       },
     },
     sourceTables: ["biofuel_unit_tj", "biofuel_unit_ktoe", "biofuel_unit"],

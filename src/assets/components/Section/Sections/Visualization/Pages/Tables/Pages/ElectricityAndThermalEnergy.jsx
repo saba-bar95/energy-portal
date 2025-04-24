@@ -4,10 +4,10 @@ const ElectricityAndThermalEnergy = () => {
   const info = {
     text: {
       ge: {
-        header: "ცხრილის სახელი",
+        header: "ელექტროენერგიის და თბოენერგიის მიწოდება და მოხმარება",
       },
       en: {
-        header: "Table name",
+        header: "Supply and Consumption of Electricity and Heat",
       },
     },
     sourceTables: [
