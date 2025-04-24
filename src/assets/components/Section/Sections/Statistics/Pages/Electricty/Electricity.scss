@@ -1,0 +1,13 @@
+.electricity {
+  background-color: #f4f4f7;
+  color: black;
+  gap: 40px;
+  padding: 50px 200px;
+  display: flex;
+  flex-direction: column;
+
+  .div {
+    display: flex;
+    gap: 40px;
+  }
+}
