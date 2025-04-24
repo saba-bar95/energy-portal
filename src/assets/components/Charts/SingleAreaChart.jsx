@@ -50,8 +50,6 @@ const SingleAreaChart = ({ info }) => {
           return yearData;
         });
 
-        console.log(stackedData);
-
         setData(stackedData);
       } catch (error) {
         console.log("Fetch error:", error);
