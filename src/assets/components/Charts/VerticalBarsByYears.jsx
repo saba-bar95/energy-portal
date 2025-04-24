@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   LabelList,
+  Brush,
 } from "recharts";
 import Download from "../Download/Download";
 import fetchDataWithCodes from "../../../../fetchDataWithCodes";
@@ -185,6 +186,12 @@ const VerticalBarsByYears = ({ info }) => {
                   </Bar>
                 );
               })}
+              <Brush
+                dataKey="year"
+                height={20} // Reduce height by half
+                stroke="#115EFE"
+                tickFormatter={() => ""} // Hide year labels
+              />
             </BarChart>
           </ResponsiveContainer>
         </div>

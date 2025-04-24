@@ -10,6 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
   CartesianGrid,
+  Brush,
 } from "recharts";
 import Download from "../../../../../Download/Download";
 import YearDropdown from "../../../../../YearDropdown/YearDropdown";
@@ -181,6 +182,11 @@ const Chart_1 = () => {
             name={text[language].wind}
             minPointSize={2}
             stackId={1}
+          />
+          <Brush
+            dataKey="name" // The key to brush on (e.g., months or years)
+            height={20} // Brush height
+            stroke="#115EFE" // Brush color
           />
         </BarChart>
       </ResponsiveContainer>

@@ -10,6 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
+  Brush,
 } from "recharts";
 import Download from "../../../../../Download/Download";
 import YearDropdown from "../../../../../YearDropdown/YearDropdown";
@@ -138,6 +139,11 @@ const Chart_1 = () => {
             fill="#5654D4" // Adjust color as needed
             name={text[language].value}
             minPointSize={2}
+          />
+          <Brush
+            dataKey="name" // The key to brush on (e.g., months or years)
+            height={20} // Brush height
+            stroke="#115EFE" // Brush color
           />
         </BarChart>
       </ResponsiveContainer>

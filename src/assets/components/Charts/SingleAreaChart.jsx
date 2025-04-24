@@ -7,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   CartesianGrid,
+  Brush,
 } from "recharts";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -48,6 +49,8 @@ const SingleAreaChart = ({ info }) => {
 
           return yearData;
         });
+
+        console.log(stackedData);
 
         setData(stackedData);
       } catch (error) {
@@ -151,6 +154,12 @@ const SingleAreaChart = ({ info }) => {
                   />
                 );
               })}
+              <Brush
+                dataKey="year"
+                height={20} // Reduce height by half
+                stroke="#115EFE"
+                tickFormatter={() => ""} // Hide year labels
+              />
             </AreaChart>
           </ResponsiveContainer>
         </div>

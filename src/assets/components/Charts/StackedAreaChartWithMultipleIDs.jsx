@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   Legend,
+  Brush,
 } from "recharts";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -135,7 +136,7 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
                 dataKey="year"
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
-                tickMargin={10}
+                tickMargin={5}
               />
               <YAxis
                 padding={{ top: 20 }}
@@ -161,6 +162,12 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
                 );
               })}
               {info.legend && <Legend content={CustomLegend} />}
+              <Brush
+                dataKey="year"
+                height={20} // Reduce height by half
+                stroke="#115EFE"
+                tickFormatter={() => ""} // Hide year labels
+              />
             </AreaChart>
           </ResponsiveContainer>
         </div>

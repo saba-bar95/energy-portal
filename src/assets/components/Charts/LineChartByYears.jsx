@@ -8,6 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
   CartesianGrid,
+  Brush,
 } from "recharts";
 import Download from "../Download/Download";
 import fetchDataWithCodes from "../../../../fetchDataWithCodes";
@@ -177,6 +178,12 @@ const LineChartByYears = ({ info }) => {
                   />
                 );
               })}
+              <Brush
+                dataKey="year"
+                height={20} // Reduce height by half
+                stroke="#115EFE"
+                tickFormatter={() => ""} // Hide year labels
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>

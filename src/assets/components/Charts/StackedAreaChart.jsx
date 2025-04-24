@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   Legend,
+  Brush,
 } from "recharts";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -129,7 +130,7 @@ const StackedAreaChart = ({ info }) => {
                 dataKey="year"
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
-                tickMargin={10}
+                tickMargin={5}
               />
               <YAxis
                 padding={{ top: 20 }}
@@ -155,6 +156,12 @@ const StackedAreaChart = ({ info }) => {
                   />
                 );
               })}
+              <Brush
+                dataKey="year"
+                height={20} // Reduce height by half
+                stroke="#115EFE"
+                tickFormatter={() => ""} // Hide year labels
+              />
             </AreaChart>
           </ResponsiveContainer>
         </div>
