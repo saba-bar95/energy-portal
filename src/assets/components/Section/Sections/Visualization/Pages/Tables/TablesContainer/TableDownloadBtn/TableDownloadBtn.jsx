@@ -1,7 +1,10 @@
+/* eslint-disable react/prop-types */
 import "./TableDownloadBtn.scss";
 import { useParams } from "react-router-dom";
+import * as XLSX from "xlsx";
 
-const TableDownloadBtn = () => {
+const TableDownloadBtn = ({ data }) => {
+  const { language } = useParams();
   const text = {
     en: {
       header: "Download",
@@ -10,7 +13,30 @@ const TableDownloadBtn = () => {
       header: "გადმოწერა",
     },
   };
-  const { language } = useParams();
+
+  const handleDownload = (data) => {
+    if (!data) return;
+
+    const workbook = XLSX.utils.book_new();
+    const nameHeader = language === "ge" ? "დასახელება" : "Name";
+    // Define headers (first row: column names)
+    const worksheetData = [
+      [nameHeader, ...data.columns], // Column headers
+      ...data.rows.map((row) => [
+        row, // Row name
+        ...data.columns.map((column) => data.values[row]?.[column] || "-"), // Row values
+      ]),
+    ];
+
+    // Create worksheet
+    const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+
+    // Append worksheet to workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+
+    // Generate and download the Excel file
+    XLSX.writeFile(workbook, "table_data.xlsx");
+  };
 
   const svg = () => {
     return (
@@ -32,7 +58,11 @@ const TableDownloadBtn = () => {
   };
 
   return (
-    <div className="table-download-btn">
+    <div
+      className="table-download-btn"
+      onClick={() => {
+        handleDownload(data);
+      }}>
       <p>{svg()}</p>
       <p>{text[`${language}`].header} </p>
     </div>
