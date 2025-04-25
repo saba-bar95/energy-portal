@@ -8,10 +8,10 @@ import text from "./text";
 const Footer = () => {
   let { language } = useParams();
 
-  const { setSectionID, setSelectedSection } = useContext(SectionsContext);
+  const { setSectionID } = useContext(SectionsContext);
 
   const handleSectionSelect = (sectionID) => {
-    setSelectedSection(sectionID);
+    sectionID;
     setSectionID(sectionID);
   };
 
