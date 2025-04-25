@@ -11,11 +11,11 @@ const ElectricityAndThermalEnergy = () => {
       },
     },
     sourceTables: [
-      "api_object_items_tj",
-      "api_object_items_ktoe",
-      "api_object_items",
+      "electricity_and_heat_tj",
+      "electricity_and_heat_ktoe",
+      "electricity_and_heat_unit",
     ],
-    name: "objects",
+    name: "electricityHeat",
   };
 
   return <TablesContainer info={info} />;
