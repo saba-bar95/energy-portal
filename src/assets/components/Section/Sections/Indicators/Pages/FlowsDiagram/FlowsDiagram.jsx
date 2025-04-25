@@ -1,16 +1,12 @@
 import "./FlowsDiagram.scss";
 import SankeyChart from "../../../../../Charts/Sankey";
-// import NewSankey from "./NewSankey";
 
 const Diagram = () => {
   const chartInfo = {
-    // chartName: 5,
-    // chartID: 26,
     title_ge: "ნაკადები",
     unit_ge: "ათასი ტნე",
     title_en: "Flows",
     unit_en: "ktoe",
-    // colors: ["#2C6552", "#339F8D", "#9EE9C4", "#ED4C5C"],
     svg: (
       <svg
         width="28"
@@ -73,7 +69,6 @@ const Diagram = () => {
   return (
     <div className="diagram-container">
       <SankeyChart info={chartInfo} />
-      {/* <NewSankey /> */}
     </div>
   );
 };
