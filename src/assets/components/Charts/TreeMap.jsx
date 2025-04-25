@@ -115,7 +115,7 @@ const TreeMap = ({ info }) => {
             y={y + height / 2}
             textAnchor="middle"
             dominantBaseline="central"
-            fontSize="14"
+            fontSize="11"
             fontWeight="300"
             fill="white">
             {name}
