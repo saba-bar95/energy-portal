@@ -7,7 +7,7 @@ const BiofuelsAndWaste = () => {
 
   const chart1Info = {
     chartName: 5,
-    chartID: 26,
+    chartID: 7,
     title_ge: "ბიოსაწვავის და ნარჩენებიდან წარმოებული ენერგია",
     unit_ge: "ათასი ტნე",
     title_en: "Energy from biofuels and waste",
@@ -39,7 +39,7 @@ const BiofuelsAndWaste = () => {
       justifyContent: "start",
     },
     chartName: 5,
-    chartID: 7,
+    chartID: 26,
     title_ge: "ბიოსაწვავის და ნარჩენების საბოლოო მოხმარება სახეების მიხედვით",
     unit_ge: "ათასი ტნე",
     title_en: "Final consumption of biofuels and waste by type",
