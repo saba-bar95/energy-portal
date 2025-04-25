@@ -10,10 +10,110 @@ const downloadPDF = (
   isMonth,
   resource,
   isFilter,
-  isTreeMap
+  isTreeMap,
+  isSankey
 ) => {
   const isGeorgian = language === "ge";
   const doc = new jsPDF();
+
+  if (isSankey) {
+    const headers = [
+      isGeorgian ? "ნაკადი" : "Source",
+      isGeorgian ? "კატეგორია" : "Category",
+      isGeorgian ? "რაოდენობა" : "Value",
+      isGeorgian ? "წელი" : "Year",
+    ];
+
+    // Mapping English names to Georgian if language is Georgian
+    const nodeMap = [
+      { name_en: "Production", name_ge: "წარმოება" },
+      { name_en: "Imports ", name_ge: "იმპორტი" },
+      { name_en: "Electricity", name_ge: "ელექტროენერგია" },
+      {
+        name_en: "Electricity and heat",
+        name_ge: "ელექტროენერგია და თბოენერგია",
+      },
+      { name_en: "Natural gas", name_ge: "ბუნებრივი გაზი" },
+      { name_en: "Coal", name_ge: "ქვანახშირი" },
+      {
+        name_en: "Oil and oil products",
+        name_ge: "ნავთობი და ნავთობპროდუქტები",
+      },
+      { name_en: "Biofuel and waste", name_ge: "ბიოსაწვავი და ნარჩენები" },
+      { name_en: "Exports", name_ge: "ექსპორტი" },
+      {
+        name_en: "International Marine Bunkers",
+        name_ge: "საერთაშორისო საზღვაო ბუნკერები",
+      },
+      {
+        name_en: "International aviation bunkers",
+        name_ge: "საერთაშორისო საჰაერო ბუნკერები",
+      },
+      { name_en: "Stock Changes", name_ge: "მარაგების ცვლილება" },
+      { name_en: "Industry", name_ge: "მრეწველობა" },
+      { name_en: "Construction", name_ge: "მშენებლობა" },
+      { name_en: "Transport", name_ge: "ტრანსპორტი" },
+      {
+        name_en: "Commercial and public services",
+        name_ge: "კერძო და სახელმწიფო მომსახურება",
+      },
+      { name_en: "Residential", name_ge: "შინამეურნეობები" },
+      {
+        name_en: "Agriculture, forestry and fishing",
+        name_ge: "სოფლის, სატყეო და თევზის მეურნეობა",
+      },
+      { name_en: "Other", name_ge: "სხვა" },
+    ];
+
+    const getLocalizedName = (name) => {
+      const nodeEntry = nodeMap.find((node) => node.name_en === name);
+      return nodeEntry ? nodeEntry.name_ge : name;
+    };
+
+    // Format Data Rows
+    const tableData = data.map((entry) => [
+      isGeorgian ? getLocalizedName(entry.res_chart_id) : entry.res_chart_id,
+      isGeorgian
+        ? getLocalizedName(entry.res_legend_code)
+        : entry.res_legend_code,
+      entry.value,
+      year,
+    ]);
+
+    // Generate Table in PDF using correct `autoTable` function
+    autoTable(doc, {
+      head: [headers],
+      body: tableData,
+      theme: "grid", // Styled table
+      styles: { fontSize: 10 },
+      headStyles: { fillColor: [41, 128, 185] }, // Header color
+      columnStyles: {
+        0: { cellWidth: 50 }, // Source column width
+        1: { cellWidth: 60 }, // Category column width
+        2: { cellWidth: 30 }, // Value column width
+        3: { cellWidth: 20 }, // Year column width
+      },
+
+      didDrawCell: (data) => {
+        const doc = data.doc;
+        const cellText = Array.isArray(data.cell.text)
+          ? data.cell.text.join(" ")
+          : data.cell.text;
+        const maxWidth = data.cell.width;
+
+        if (
+          typeof cellText === "string" &&
+          doc.getStringUnitWidth(cellText) * 10 > maxWidth
+        ) {
+          doc.setFontSize(8); // Reduce font size if text is too long
+        }
+      },
+    });
+
+    const diagram = isGeorgian ? "დიაგრამა" : "diagram";
+    doc.save(`${fileName}'s ${diagram} (${unit}).pdf`);
+    return;
+  }
 
   if (isTreeMap) {
     // Define headers based on language

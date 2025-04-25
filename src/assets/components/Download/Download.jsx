@@ -16,6 +16,7 @@ const Download = ({
   isMonth,
   resource,
   isFilter,
+  isSankey,
 }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null); // Create a ref for the dropdown
@@ -110,7 +111,8 @@ const Download = ({
                   isMonth,
                   resource,
                   isFilter,
-                  isTreeMap
+                  isTreeMap,
+                  isSankey
                 );
               }}>
               <svg
@@ -171,7 +173,8 @@ const Download = ({
                   isMonth,
                   resource,
                   isFilter,
-                  isTreeMap
+                  isTreeMap,
+                  isSankey
                 );
               }}>
               <svg
