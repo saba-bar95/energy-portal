@@ -178,7 +178,7 @@ const ElectricityAndThermalEnergy = () => {
         <LineChartByYears info={chart2Info} />
         <VerticalBarsByYears info={chart3Info} />
         <div
-          className="main-chart chart-4"
+          className="chart-4"
           style={{ flexDirection: "row", height: "900px" }}>
           <HorizontalBarsByYears info={chart4Info} />
         </div>
