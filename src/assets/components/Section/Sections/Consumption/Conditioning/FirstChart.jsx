@@ -7,7 +7,6 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  LabelList,
 } from "recharts";
 import { useParams } from "react-router-dom";
 import "./Chart.scss";
@@ -16,26 +15,7 @@ import Download from "../../../../Download/Download";
 const SecondChart = ({ data }) => {
   const { language } = useParams();
 
-  const CustomLegend = () => {
-    return (
-      <div className="legend-container">
-        <p>
-          <span style={{ color: data.color[0] }}>■</span>
-
-          {language === "ge" ? "სულ" : "Total"}
-        </p>
-        <p>
-          <span style={{ color: data.color[1] }}>■</span>
-          {language === "ge" ? "ქალაქად" : "Urban"}
-        </p>
-        <p>
-          <span style={{ color: data.color[2] }}>■</span>
-          {language === "ge" ? "სოფლად" : "Rural"}
-        </p>
-      </div>
-    );
-  };
-
+  // Function to translate categories if language is Georgian
   const getGeorgianName = (entry) => {
     const nameMap = {
       total: "სულ",
@@ -45,35 +25,42 @@ const SecondChart = ({ data }) => {
     return nameMap[entry.toLowerCase()] || entry;
   };
 
+  // Transform data to have 3 bars (Total, City, Village) with 7 categories
+  const transformedData = [
+    {
+      category: language === "ge" ? "სულ" : "Total",
+      ...Object.fromEntries(
+        data.data.map((entry) => [entry[`name_${language}`], entry.total])
+      ),
+    },
+    {
+      category: language === "ge" ? "ქალაქად" : "Urban",
+      ...Object.fromEntries(
+        data.data.map((entry) => [entry[`name_${language}`], entry.city])
+      ),
+    },
+    {
+      category: language === "ge" ? "სოფლად" : "Rural",
+      ...Object.fromEntries(
+        data.data.map((entry) => [entry[`name_${language}`], entry.village])
+      ),
+    },
+  ];
+
   const CustomTooltip = ({ active, payload }) => {
     if (!active || !payload || !payload.length) return null;
-
-    const capitalizeFirstLetter = (string) => {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    };
-
-    const originalValues = payload[0].payload.originalValues;
 
     return (
       <div className="custom-tooltip">
         <div className="tooltip-container">
-          {payload.map(({ name, color }, index) => (
+          {payload.map(({ name, value, color }, index) => (
             <p key={`item-${index}`} className="text">
               <span style={{ color }} className="before-span">
                 ■
               </span>
-              {language === "en"
-                ? capitalizeFirstLetter(
-                    name === "city"
-                      ? "Urban"
-                      : name === "village"
-                      ? "Rural"
-                      : name
-                  )
-                : getGeorgianName(name)}
-              :
+              {language === "ge" ? getGeorgianName(name) : name}:
               <span style={{ fontWeight: 900, marginLeft: "5px" }}>
-                {originalValues[name].toFixed(1)} {/* Use original values */}
+                {value.toFixed(1)}
               </span>
             </p>
           ))}
@@ -82,37 +69,27 @@ const SecondChart = ({ data }) => {
     );
   };
 
-  const CustomXAxisTick = ({ x, y, payload }) => {
-    return (
-      <text x={x} y={y} dy={16} textAnchor="middle" fill="#1E1E1E">
-        {payload.value}
-      </text>
-    );
+  const styles = {
+    flexWrap: "wrap",
+    gap: "20px",
+    marginTop: language === "en" ? "-30px" : "-30px",
+    marginLeft: "60px",
+    justifyContent: "start",
   };
 
-  const normalizedData = data.data.map((item) => {
-    const total = item.total + item.city + item.village;
-    return {
-      name_en: item.name_en, // Include name_en for English
-      name_ge: item.name_ge,
-      total: (item.total / total) * 100,
-      city: (item.city / total) * 100,
-      village: (item.village / total) * 100,
-      originalValues: {
-        // Store original values for tooltip
-        total: item.total,
-        city: item.city,
-        village: item.village,
-      },
-    };
-  });
-
-  const CustomLabel = (props) => {
-    const { x, y, value } = props;
+  const CustomLegend = ({ payload }) => {
     return (
-      <text x={x + 5} y={y - 10}>
-        {value}
-      </text>
+      <div className="legend-container" style={styles}>
+        {payload.map((entry, index) => {
+          const displayName = entry.dataKey; // Fallback to the original dataKey if no match
+          return (
+            <p key={`item-${index}`}>
+              <span style={{ color: entry.color }}>■</span>
+              {displayName}
+            </p>
+          );
+        })}
+      </div>
     );
   };
 
@@ -126,51 +103,42 @@ const SecondChart = ({ data }) => {
         </div>
         <Download
           resource="resource"
-          data={normalizedData}
+          data={transformedData}
           filename={data[`title_${language}`]}
           unit={data[`unit_${language}`]}
           year={2022}
+          isConditioning={true}
         />
       </div>
 
       <ResponsiveContainer height={600}>
         <BarChart
-          layout="vertical"
-          width={500}
-          height={300}
-          data={normalizedData}
-          margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}>
-          {/* <CartesianGrid strokeDasharray="3 3" vertical={false} /> */}
+          layout="horizontal" // ✅ Set layout to horizontal
+          data={transformedData}
+          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
           <XAxis
-            type="number"
+            type="category"
+            dataKey="category"
+            tick={{ fontSize: 14 }}
             tickLine={false}
-            domain={[0, 100]}
-            ticks={[0, 20, 40, 60, 80, 100]}
-            tickFormatter={(value) => Math.round(value)} // Round the value to the nearest whole number
-            tick={<CustomXAxisTick />}
           />
           <YAxis
-            type="category"
-            dataKey="name_ge"
-            tick={false}
-            padding={{ top: 15 }}
-            reversed={true}
+            tickLine={false}
+            type="number"
+            domain={[0, 100]}
+            tickFormatter={(value) => Math.round(value)}
           />
           <Tooltip content={CustomTooltip} />
           <Legend content={CustomLegend} />
-          <Bar dataKey="total" stackId="a" fill={data.color[0]} barSize={25}>
-            <LabelList
-              dataKey={language === "en" ? "name_en" : "name_ge"}
-              content={CustomLabel}
+          {data.data.map((entry, index) => (
+            <Bar
+              key={index}
+              dataKey={entry[`name_${language}`]}
+              stackId="a"
+              fill={data.color[index]}
+              maxBarSize={80}
             />
-          </Bar>
-          <Bar dataKey="city" stackId="a" fill={data.color[1]} />
-          <Bar dataKey="village" stackId="a" fill={data.color[2]} />
+          ))}
         </BarChart>
       </ResponsiveContainer>
     </div>
