@@ -11,10 +11,37 @@ const downloadPDF = (
   resource,
   isFilter,
   isTreeMap,
-  isSankey
+  isSankey,
+  isConditioning
 ) => {
   const isGeorgian = language === "ge";
   const doc = new jsPDF();
+
+  if (isConditioning) {
+    const headers = ["", ...data.map((entry) => entry.category)]; // First empty column for row headers
+
+    // Extract row headers & values dynamically
+    const rowHeaders = Object.keys(data[0]).filter((key) => key !== "category");
+
+    // Format table rows
+    const tableData = rowHeaders.map((rowHeader) => [
+      rowHeader, // First column (row headers)
+      ...data.map((entry) => Number(entry[rowHeader]).toFixed(1)), // Round numbers to 1 decimal place
+    ]);
+
+    // Generate Table in PDF with autoTable
+    autoTable(doc, {
+      head: [headers], // Add headers as first row
+      body: tableData, // Add formatted row data
+      theme: "grid", // Styled table format
+      styles: { fontSize: 10 },
+      headStyles: { fillColor: [41, 128, 185] }, // Header background color
+    });
+
+    // Save PDF
+    doc.save(`${fileName}_${year}.pdf`);
+    return;
+  }
 
   if (isSankey) {
     const headers = [

@@ -17,6 +17,7 @@ const Download = ({
   resource,
   isFilter,
   isSankey,
+  isConditioning,
 }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null); // Create a ref for the dropdown
@@ -112,7 +113,8 @@ const Download = ({
                   resource,
                   isFilter,
                   isTreeMap,
-                  isSankey
+                  isSankey,
+                  isConditioning
                 );
               }}>
               <svg
@@ -174,7 +176,8 @@ const Download = ({
                   resource,
                   isFilter,
                   isTreeMap,
-                  isSankey
+                  isSankey,
+                  isConditioning
                 );
               }}>
               <svg

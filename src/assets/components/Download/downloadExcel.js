@@ -10,10 +10,34 @@ const downloadExcel = (
   resource,
   isFilter,
   isTreeMap,
-  isSankey
+  isSankey,
+  isConditioning
 ) => {
   const isGeorgian = language === "ge";
   const workbook = XLSX.utils.book_new();
+
+  if (isConditioning) {
+    const categories = ["", ...data.map((entry) => entry.category)]; // First empty column for row headers
+
+    // Extract row headers & values dynamically
+    const rowHeaders = Object.keys(data[0]).filter((key) => key !== "category");
+
+    const sheetData = [
+      categories, // Add column headers (first row)
+      ...rowHeaders.map((rowHeader) => [
+        rowHeader, // First column (row headers)
+        ...data.map((entry) => entry[rowHeader]), // Corresponding values
+      ]),
+    ];
+
+    // Convert structured data to an Excel sheet
+    const worksheet = XLSX.utils.aoa_to_sheet(sheetData);
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+
+    // Generate Excel file
+    XLSX.writeFile(workbook, `${fileName}_${year}.xlsx`);
+    return;
+  }
 
   if (isSankey) {
     const nodeMap = [
