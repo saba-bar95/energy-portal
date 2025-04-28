@@ -38,7 +38,7 @@ const VerticalStackedByYears = ({ info }) => {
               item.name_ge === "ქარის ელექტროსადგურები" ? "ქარი" : item.name_ge,
           }));
 
-        const newDataKeys = []; // Start with the current dataKeys
+        let newDataKeys = []; // Start with the current dataKeys
 
         filteredData.forEach((el) => {
           const name = el[`name_${language}`];
@@ -48,7 +48,20 @@ const VerticalStackedByYears = ({ info }) => {
           }
         });
 
-        // Update the state with the new array
+        if (info.chartID === 7 && info.chartName === 4) {
+          newDataKeys = [...newDataKeys].sort((a, b) => {
+            if (a === "Other" || a === "სხვა") return 1; // Move "Other" to the last position
+            if (b === "Other" || b === "სხვა") return -1;
+            return 0;
+          });
+        } else if (info.chartID === 7 && info.chartName === 5) {
+          newDataKeys = [...newDataKeys].sort((a, b) => {
+            if (a.includes("Other") || a.includes("სხვა")) return 1; // Move items containing "Other" or "სხვა" to the last position
+            if (b.includes("Other") || b.includes("სხვა")) return -1;
+            return 0;
+          });
+        }
+
         setDataKeys(newDataKeys);
 
         const stackedData = chartYears.map((year) => {
