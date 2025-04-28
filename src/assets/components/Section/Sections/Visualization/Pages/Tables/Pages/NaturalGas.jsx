@@ -10,12 +10,8 @@ const NaturalGas = () => {
         header: "Supply and Consumption of Natural Gas",
       },
     },
-    sourceTables: [
-      "api_object_items_tj",
-      "api_object_items_ktoe",
-      "api_object_items",
-    ],
-    name: "objects",
+    sourceTables: ["natural_gas_tj", "natural_gas_ktoe", "natural_gas_unit"],
+    name: "naturalGas",
   };
 
   return <TablesContainer info={info} />;

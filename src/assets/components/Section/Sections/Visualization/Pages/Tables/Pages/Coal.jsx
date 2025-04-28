@@ -10,12 +10,13 @@ const Coal = () => {
         header: "Supply and Consumption of Coal",
       },
     },
+
     sourceTables: [
-      "oil_and_oil_products_tj",
-      "oil_and_oil_products_ktoe",
-      "oil_and_oil_products_unit",
+      "api_object_items_tj",
+      "api_object_items_ktoe",
+      "api_object_items",
     ],
-    name: "oil",
+    name: "objects",
   };
 
   return <TablesContainer info={info} />;

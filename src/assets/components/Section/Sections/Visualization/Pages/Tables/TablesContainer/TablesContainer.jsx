@@ -41,11 +41,21 @@ const TablesContainer = ({ info }) => {
       const rows = [
         ...new Set(data.map((item) => item[`object_name_${language}`])),
       ]; // Unique row headers
-      const columns = [
+      let columns = [
         ...new Set(data.map((item) => item[`item_name_${language}`])),
       ]; // Unique column headers
 
+      // Move "Total" to the last position
+      // Determine correct column label based on language
+      const totalColumnName = language === "ge" ? "სულ" : "Total";
+
+      // Move only the correct "Total" or "სულ" to the last position
+      columns = columns
+        .filter((col) => col !== "Total" && col !== "სულ")
+        .concat(totalColumnName);
+
       const values = {};
+
       rows.forEach((row) => {
         values[row] = {};
         columns.forEach((column) => {
@@ -54,8 +64,7 @@ const TablesContainer = ({ info }) => {
               item[`object_name_${language}`] === row &&
               item[`item_name_${language}`] === column
           );
-
-          values[row][column] = item.number;
+          values[row][column] = item?.number || 0; // Ensure there's a default value
         });
       });
 
