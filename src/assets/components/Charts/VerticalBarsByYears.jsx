@@ -26,30 +26,37 @@ const VerticalBarsByYears = ({ info }) => {
     const fetchData = async () => {
       try {
         const rawData = await fetchDataWithCodes(info.chartID);
-        const filteredData = rawData.filter(
-          (item) =>
-            item.name === info.chartName &&
-            item.chart_id === info.chartID &&
-            item.name_ge !== "სულ"
-        );
 
-        const newDataKeys = []; // Start with the current dataKeys
+        // Filter Data and Modify "სხვა ბიტუმოვანი"
+        let filteredData = rawData
+          .filter(
+            (item) =>
+              item.name === info.chartName &&
+              item.chart_id === info.chartID &&
+              item.name_ge !== "სულ"
+          )
+          .map((item) => ({
+            ...item,
+            name_ge:
+              item.name_ge === "სხვა ბიტუმოვანი"
+                ? "სხვა ბიტუმოვანი ქვანახშირი"
+                : item.name_ge,
+          }));
 
+        // Extract unique data keys
+        const newDataKeys = [];
         filteredData.forEach((el) => {
           const name = el[`name_${language}`];
           if (name && !newDataKeys.includes(name)) {
-            // Check if name exists and is not already in newDataKeys
-            newDataKeys.push(name); // Push to newDataKeys if it exists and is unique
+            newDataKeys.push(name);
           }
         });
 
-        // Update the state with the new array
         setDataKeys(newDataKeys);
 
+        // Create stacked data grouped by years
         const stackedData = chartYears.map((year) => {
-          const yearData = {
-            year: year,
-          };
+          const yearData = { year: year };
 
           filteredData.forEach((item) => {
             yearData[item[`name_${language}`]] = item[`y_${year}`];
@@ -63,6 +70,7 @@ const VerticalBarsByYears = ({ info }) => {
         console.log("Fetch error:", error);
       }
     };
+
     fetchData();
   }, [language, info.chartID, info.chartName]);
 
