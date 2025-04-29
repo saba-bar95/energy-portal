@@ -64,7 +64,7 @@ const NaturalGas = () => {
     chartID: 12,
     chartName: 2,
     title_ge: "ბუნებრივი გაზის იმპორტი",
-    title_en: "Natural gas import",
+    title_en: "Natural gas imports",
     unit_ge: "ათასი ტნე",
     unit_en: "ktoe",
     colors: ["#ED4C5C"],
