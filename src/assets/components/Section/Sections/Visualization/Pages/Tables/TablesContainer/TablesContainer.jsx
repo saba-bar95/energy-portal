@@ -50,9 +50,11 @@ const TablesContainer = ({ info }) => {
       const totalColumnName = language === "ge" ? "სულ" : "Total";
 
       // Move only the correct "Total" or "სულ" to the last position
-      columns = columns
-        .filter((col) => col !== "Total" && col !== "სულ")
-        .concat(totalColumnName);
+      if (columns.includes(totalColumnName)) {
+        columns = columns
+          .filter((col) => col !== "Total" && col !== "სულ")
+          .concat(totalColumnName);
+      }
 
       const values = {};
 
