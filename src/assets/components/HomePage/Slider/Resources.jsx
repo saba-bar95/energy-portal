@@ -220,7 +220,7 @@ const EnergyConsumption = () => {
 
       {
         name_ge: "სხვა",
-        name_en: "Oher",
+        name_en: "Others",
         legendCode: 50,
         unit_ge: "პროცენტი",
         unit_en: "percent",
@@ -242,6 +242,7 @@ const EnergyConsumption = () => {
               throw new Error("Network response was not ok");
             }
             const rawData = await response.json();
+
             return {
               name_ge: widget.name_ge,
               name_en: widget.name_en,
