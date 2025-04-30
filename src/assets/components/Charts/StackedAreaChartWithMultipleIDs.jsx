@@ -30,7 +30,8 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
 
         const allRawData = await Promise.all(promises);
         const combinedRawData = allRawData.flat();
-        const filteredData = combinedRawData.filter((el) => {
+
+        let filteredData = combinedRawData.filter((el) => {
           if (el.chart_id === 10) {
             return el.name === 4;
           } else {
@@ -38,23 +39,22 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
           }
         });
 
-        const newDataKeys = []; // Start with the current dataKeys
+        // Sort data in ascending order based on y_2023
+        filteredData.sort((a, b) => b.y_2023 - a.y_2023);
+
+        const newDataKeys = [];
 
         filteredData.forEach((el) => {
           const name = el[`name_${language}`];
           if (name && !newDataKeys.includes(name)) {
-            // Check if name exists and is not already in newDataKeys
-            newDataKeys.push(name); // Push to newDataKeys if it exists and is unique
+            newDataKeys.push(name);
           }
         });
 
-        // Update the state with the new array
         setDataKeys(newDataKeys);
 
         const stackedData = chartYears.map((year) => {
-          const yearData = {
-            year: year,
-          };
+          const yearData = { year: year };
 
           filteredData.forEach((item) => {
             yearData[item[`name_${language}`]] = item[`y_${year}`];
@@ -68,6 +68,7 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
         console.log("Fetch error:", error);
       }
     };
+
     fetchData();
   }, [language, info.chartIDs, info.chartName]);
 

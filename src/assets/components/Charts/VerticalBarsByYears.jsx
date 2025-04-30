@@ -43,6 +43,24 @@ const VerticalBarsByYears = ({ info }) => {
                 : item.name_ge,
           }));
 
+        // Sort filteredData so "Other" or "სხვა" always appears last
+        filteredData = filteredData.sort((a, b) => {
+          const aContainsOther =
+            a.name_ge.includes("სხვა") || a.name_en.includes("Other");
+          const bContainsOther =
+            b.name_ge.includes("სხვა") || b.name_en.includes("Other");
+
+          // Ensure "Other"/"სხვა" goes last
+          if (aContainsOther) return 1;
+          if (bContainsOther) return -1;
+
+          // If neither contains "Other"/"სხვა", sort by value in ascending order
+          return (
+            b[`y_${chartYears[chartYears.length - 1]}`] -
+            a[`y_${chartYears[chartYears.length - 1]}`]
+          );
+        });
+
         // Extract unique data keys
         const newDataKeys = [];
         filteredData.forEach((el) => {

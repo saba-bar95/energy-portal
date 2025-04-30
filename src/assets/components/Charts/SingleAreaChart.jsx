@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import chartYears from "../../../../chartYears";
 import Download from "../Download/Download";
 import fetchDataIndicators from "../../../../fetchDataIndicators";
+import "./SingleAreaChart.scss";
 
 const SingleAreaChart = ({ info }) => {
   const { language } = useParams();
@@ -72,7 +73,7 @@ const SingleAreaChart = ({ info }) => {
                 </span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
-                  {value.toFixed(1)}
+                  {info.twoFixed ? value.toFixed(2) : value.toFixed(1)}
                 </span>
               </p>
             );
@@ -94,7 +95,7 @@ const SingleAreaChart = ({ info }) => {
   return (
     <>
       {data.length > 0 && (
-        <div className="main-chart">
+        <div className="main-chart single-area-chart">
           <div className="header-container">
             {info.svg}
             <div className="info-wrapper">
@@ -103,11 +104,19 @@ const SingleAreaChart = ({ info }) => {
                 <h3>{info[`unit_${language}`]}</h3>
               </div>
             </div>
-            <Download
-              data={data}
-              filename={info[`title_${language}`]}
-              unit={info[`unit_${language}`]}
-            />
+            <div className="wrapper-1">
+              <div
+                className="sdg-content"
+                style={{ backgroundColor: info.sdgColor }}>
+                {info.sdgText}
+              </div>
+              <Download
+                data={data}
+                filename={info[`title_${language}`]}
+                unit={info[`unit_${language}`]}
+                twoFixed={info.twoFixed}
+              />
+            </div>
           </div>
 
           <svg width="0" height="0">
@@ -123,7 +132,6 @@ const SingleAreaChart = ({ info }) => {
               </linearGradient>
             </defs>
           </svg>
-
           <ResponsiveContainer height={420} className="vertical-stacked">
             <AreaChart data={data}>
               <XAxis

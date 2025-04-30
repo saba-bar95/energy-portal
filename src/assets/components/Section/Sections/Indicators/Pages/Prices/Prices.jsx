@@ -6,18 +6,22 @@ const Prices = () => {
   const { language } = useParams();
 
   const chart1Info = {
-    chartID: 142,
     chartName: "electricityPriceGel",
     title_ge: "ელექტროენერგიის ფასი",
     title_en: "Electricity price",
     unit_ge: "ლარი/კვტ.სთ",
+    unit1_ge: "ლარი/მგვტ.სთ",
     unit_en: "GEL/GWh",
+    unit1_en: "GEL/MWh",
+
     colors: [
       "#ED4C5C",
       "rgb(255, 159, 10)",
       "rgb(86, 84, 212)",
       "#138C00",
       "#30B0C7",
+      "#5654D4",
+      "#BE6433",
     ],
     svg: (
       <svg
@@ -49,13 +53,14 @@ const Prices = () => {
       gap: "20px",
       marginTop: language === "en" ? "0px" : "-10px",
       marginLeft: "60px",
+      fontWeight: 600,
       // justifyContent: "start",
     },
     names: [
       {
         code: 158,
         name_ge: "1000-ზე ნაკლები",
-        name_en: "1000 or less",
+        name_en: "Less than 1000",
       },
       {
         code: 159,
@@ -74,20 +79,56 @@ const Prices = () => {
       },
       {
         code: 162,
-        name_ge: "15000 ან  მეტი",
-        name_en: "1500 or more",
+        name_ge: "15000 ან მეტი",
+        name_en: "15000 or more",
+      },
+    ],
+    names_n: [
+      {
+        code: 163,
+        name_ge: "20-ზე ნაკლები",
+        name_en: "Less than 20",
+      },
+      {
+        code: 164,
+        name_ge: "20-500",
+        name_en: "20-500",
+      },
+      {
+        code: 165,
+        name_ge: "500-2000",
+        name_en: "500-2000",
+      },
+      {
+        code: 166,
+        name_ge: "2000-20000",
+        name_en: "2000-20000",
+      },
+      {
+        code: 167,
+        name_ge: "20000-70000",
+        name_en: "20000-70000",
+      },
+      {
+        code: 168,
+        name_ge: "70000-150000",
+        name_en: "70000-150000",
+      },
+      {
+        code: 169,
+        name_ge: "150000 ან მეტი",
+        name_en: "150000 or more",
       },
     ],
   };
 
   const chart2Info = {
-    chartID: 142,
     chartName: "gasPriceGel",
     title_ge: "ბუნებრივი გაზის ფასები",
     title_en: "Natural gas prices",
     unit_ge: "ლარი/გჯ",
     unit_en: "GEL/GJ",
-    colors: ["#3C77F2", "#339F8D", "#9747FF"],
+    colors: ["#3C77F2", "#339F8D", "#9747FF", "#BE6433", "#ED4C5C", "#30B0C7"],
     svg: (
       <svg
         width="28"
@@ -118,23 +159,56 @@ const Prices = () => {
       gap: "20px",
       marginTop: language === "en" ? "0px" : "-10px",
       marginLeft: "60px",
+      fontWeight: 600,
       // justifyContent: "start",
     },
     names: [
       {
         code: 149,
         name_ge: "20-ზე ნაკლები",
-        name_en: "200 or less",
+        name_en: "Less than 20",
       },
       {
         code: 150,
         name_ge: "20-200",
-        name_en: "1000-2500",
+        name_en: "20-200",
       },
       {
         code: 151,
         name_ge: "200 ან მეტი",
         name_en: "200 or more",
+      },
+    ],
+    names_n: [
+      {
+        code: 152,
+        name_ge: "1000-ზე ნაკლები",
+        name_en: "Less than 1000",
+      },
+      {
+        code: 153,
+        name_ge: "1000-10000",
+        name_en: "1000-10000",
+      },
+      {
+        code: 154,
+        name_ge: "10000-100000",
+        name_en: "10000-100000",
+      },
+      {
+        code: 155,
+        name_ge: "100000-1000000",
+        name_en: "100000-1000000",
+      },
+      {
+        code: 156,
+        name_ge: "1000000-4000000",
+        name_en: "1000000-4000000",
+      },
+      {
+        code: 157,
+        name_ge: "4000000 ან მეტი",
+        name_en: "4000000 or more",
       },
     ],
   };

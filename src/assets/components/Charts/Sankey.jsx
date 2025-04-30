@@ -219,14 +219,20 @@ const SankeyChart = ({ info }) => {
     }
     const { payload: linkPayload } = payload[0];
 
+    const hoveredNode = linkPayload.payload;
+    const isMiddleNode =
+      hoveredNode.sourceLinks?.length > 0 &&
+      hoveredNode.targetLinks?.length > 0;
+
     const sourceName =
       linkPayload?.payload?.source?.[`name_${language}`] ||
       linkPayload?.payload?.[`name_${language}`] ||
       "Unknown Source";
-
     const targetName =
       linkPayload?.payload?.target?.[`name_${language}`] || null;
-    const value = linkPayload?.payload?.value || 0;
+    // const value = linkPayload?.payload?.value || 0;
+
+    const value = isMiddleNode ? null : linkPayload?.payload?.value;
 
     return (
       <div
@@ -258,7 +264,7 @@ const SankeyChart = ({ info }) => {
               fontSize: "13px",
               marginLeft: "5px",
             }}>
-            {value.toFixed(2)}
+            {value && value.toFixed(2)}
           </span>
         </p>
       </div>

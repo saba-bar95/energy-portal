@@ -9,13 +9,12 @@ const NaturalGas = () => {
   const { language } = useParams();
 
   const chart2Info = {
-    chartID: 142,
     chartName: "gasPriceGel",
     title_ge: "ბუნებრივი გაზის ფასები",
     title_en: "Natural gas prices",
     unit_ge: "ლარი/გჯ",
     unit_en: "GEL/GJ",
-    colors: ["#3C77F2", "#339F8D", "#9747FF"],
+    colors: ["#3C77F2", "#339F8D", "#9747FF", "#BE6433", "#ED4C5C", "#30B0C7"],
     svg: (
       <svg
         width="28"
@@ -46,13 +45,14 @@ const NaturalGas = () => {
       gap: "20px",
       marginTop: language === "en" ? "0px" : "-10px",
       marginLeft: "60px",
+      fontWeight: 600,
       // justifyContent: "start",
     },
     names: [
       {
         code: 149,
         name_ge: "20-ზე ნაკლები",
-        name_en: "200 or less",
+        name_en: "Less than 20",
       },
       {
         code: 150,
@@ -63,6 +63,38 @@ const NaturalGas = () => {
         code: 151,
         name_ge: "200 ან მეტი",
         name_en: "200 or more",
+      },
+    ],
+    names_n: [
+      {
+        code: 152,
+        name_ge: "1000-ზე ნაკლები",
+        name_en: "Less than 1000",
+      },
+      {
+        code: 153,
+        name_ge: "1000-10000",
+        name_en: "1000-10000",
+      },
+      {
+        code: 154,
+        name_ge: "10000-100000",
+        name_en: "10000-100000",
+      },
+      {
+        code: 155,
+        name_ge: "100000-1000000",
+        name_en: "100000-1000000",
+      },
+      {
+        code: 156,
+        name_ge: "1000000-4000000",
+        name_en: "1000000-4000000",
+      },
+      {
+        code: 157,
+        name_ge: "4000000 ან მეტი",
+        name_en: "4000000 or more",
       },
     ],
   };

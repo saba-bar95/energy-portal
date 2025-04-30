@@ -3,7 +3,6 @@ import Chart_2 from "./Chart_2";
 import Chart_3 from "./Chart_3";
 import Chart_4 from "./Chart_4";
 import { useParams } from "react-router-dom";
-import PieChartComponent from "../../../../../Charts/PieChart";
 import ChartWithFilters from "../../../../../Charts/ChartWithFilters";
 import "./Electricity.scss";
 
@@ -11,8 +10,6 @@ const Electricity = () => {
   const { language } = useParams();
 
   const chart1Info = {
-    tick: true,
-    chartID: 142,
     chartName: "electricityPriceGel",
     title_ge: "ელექტროენერგიის ფასი",
     title_en: "Electricity price",
@@ -24,6 +21,8 @@ const Electricity = () => {
       "rgb(86, 84, 212)",
       "#138C00",
       "#30B0C7",
+      "#5654D4",
+      "#BE6433",
     ],
     svg: (
       <svg
@@ -55,13 +54,14 @@ const Electricity = () => {
       gap: "20px",
       marginTop: language === "en" ? "0px" : "-10px",
       marginLeft: "60px",
+      fontWeight: 600,
       // justifyContent: "start",
     },
     names: [
       {
         code: 158,
         name_ge: "1000-ზე ნაკლები",
-        name_en: "1000 or less",
+        name_en: "Less than 1000",
       },
       {
         code: 159,
@@ -80,83 +80,47 @@ const Electricity = () => {
       },
       {
         code: 162,
-        name_ge: "15000 ან  მეტი",
+        name_ge: "15000 ან მეტი",
         name_en: "1500 or more",
       },
     ],
-  };
-
-  const chart3Info = {
-    styles: {
-      flexWrap: "wrap",
-      gap: "15px",
-      marginTop: language !== "en" ? "-170px" : "-170px",
-      alignItems: "start",
-      flexDirection: "column",
-      justifyContent: "start",
-    },
-    chartID: 32,
-    title_ge: "მოხმარება სექტორების მიხედვით",
-    title_en: "Consumption by sector",
-    colors: ["#6FAEA9", "#556EB0", "#5A9FDE", "#D5A43F", "#BE6433", "#994C8E"],
-    names: [
+    names_n: [
       {
-        code: 44,
-        name_ge: "მრეწველობა",
-        name_en: "Industry",
+        code: 163,
+        name_ge: "20-ზე ნაკლები",
+        name_en: "Less than 20",
       },
       {
-        code: 49,
-        name_ge: "მშენებლობა",
-        name_en: "Construction",
+        code: 164,
+        name_ge: "20-500",
+        name_en: "20-500",
       },
       {
-        code: 45,
-        name_ge: "ტრანსპორტი",
-        name_en: "Transport",
+        code: 165,
+        name_ge: "500-2000",
+        name_en: "500-2000",
       },
       {
-        code: 47,
-        name_ge: "კერძო და სახელმწიფო მომსახურება",
-        name_en: "Private and Public Services",
+        code: 166,
+        name_ge: "2000-20000",
+        name_en: "2000-20000",
       },
       {
-        code: 46,
-        name_ge: "შინამეურნეობები",
-        name_en: "Households",
+        code: 167,
+        name_ge: "20000-70000",
+        name_en: "20000-70000",
       },
       {
-        code: 48,
-        name_ge: "სოფლის, სატყეო და თევზის მეურნეობა",
-        name_en: "Agriculture, forestry and fisheries",
+        code: 168,
+        name_ge: "70000-150000",
+        name_en: "70000-150000",
       },
       {
-        code: 50,
-        name_ge: "სხვა",
-        name_en: "Other",
+        code: 169,
+        name_ge: "150000 ან მეტი",
+        name_en: "150000 or more",
       },
     ],
-    svg: (
-      <svg
-        width="26"
-        height="26"
-        viewBox="0 0 26 26"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M25.6173 7.26116C25.3806 7.12537 25.0893 7.12654 24.8538 7.26436L17.3164 11.6722V7.92188C17.3164 7.64898 17.1704 7.39695 16.9337 7.26116C16.697 7.12537 16.4057 7.12654 16.1702 7.26436L8.63281 11.6722V0.761719C8.63281 0.341047 8.29177 0 7.87109 0H0.761719C0.341047 0 0 0.341047 0 0.761719V25.2383C0 25.659 0.341047 26 0.761719 26H25.2383C25.659 26 26 25.659 26 25.2383V7.92188C26 7.64898 25.854 7.39695 25.6173 7.26116ZM1.52344 1.52344H7.10938V2.53906H1.52344V1.52344ZM24.4766 24.4766H1.52344V4.0625H7.10938V13C7.10938 13.5878 7.74891 13.9538 8.25561 13.6575L15.793 9.2497V13C15.793 13.5878 16.4325 13.9538 16.9392 13.6575L24.4766 9.2497V24.4766Z"
-          fill="#1E1E1E"
-        />
-        <path
-          d="M10.918 16.834H7.87109C7.45042 16.834 7.10938 17.175 7.10938 17.5957V20.6426C7.10938 21.0633 7.45042 21.4043 7.87109 21.4043H10.918C11.3386 21.4043 11.6797 21.0633 11.6797 20.6426V17.5957C11.6797 17.175 11.3386 16.834 10.918 16.834ZM10.1562 19.8809H8.63281V18.3574H10.1562V19.8809Z"
-          fill="#1E1E1E"
-        />
-        <path
-          d="M19.6016 16.834H16.5547C16.134 16.834 15.793 17.175 15.793 17.5957V20.6426C15.793 21.0633 16.134 21.4043 16.5547 21.4043H19.6016C20.0222 21.4043 20.3633 21.0633 20.3633 20.6426V17.5957C20.3633 17.175 20.0222 16.834 19.6016 16.834ZM18.8398 19.8809H17.3164V18.3574H18.8398V19.8809Z"
-          fill="#1E1E1E"
-        />
-      </svg>
-    ),
   };
 
   return (
@@ -164,7 +128,6 @@ const Electricity = () => {
       <div className="electricity">
         <div className="div">
           <ChartWithFilters info={chart1Info} />
-          <PieChartComponent info={chart3Info} />
         </div>
         <div className="div">
           <Chart_1 />

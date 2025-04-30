@@ -25,30 +25,42 @@ const StackedAreaChart = ({ info }) => {
     const fetchData = async () => {
       try {
         const rawData = await fetchDataWithCodes(info.chartID);
-        const filteredData = rawData.filter(
+        let filteredData = rawData.filter(
           (item) =>
             item.name === info.chartName &&
             item.chart_id === info.chartID &&
             item.name_ge !== "სულ"
         );
 
-        const newDataKeys = []; // Start with the current dataKeys
+        // Sort data: "Other"/"სხვა" last, others in ascending order
+        filteredData = filteredData.sort((a, b) => {
+          const aContainsOther =
+            a.name_ge.includes("სხვა") || a.name_en.includes("Other");
+          const bContainsOther =
+            b.name_ge.includes("სხვა") || b.name_en.includes("Other");
 
+          // Ensure "Other"/"სხვა" goes last
+          if (aContainsOther) return 1;
+          if (bContainsOther) return -1;
+
+          // Sort remaining items in ascending order based on the latest year (2023)
+          return b.y_2023 - a.y_2023;
+        });
+
+        // Extract unique data keys
+        const newDataKeys = [];
         filteredData.forEach((el) => {
           const name = el[`name_${language}`];
           if (name && !newDataKeys.includes(name)) {
-            // Check if name exists and is not already in newDataKeys
-            newDataKeys.push(name); // Push to newDataKeys if it exists and is unique
+            newDataKeys.push(name);
           }
         });
 
-        // Update the state with the new array
         setDataKeys(newDataKeys);
 
+        // Create stacked data grouped by years
         const stackedData = chartYears.map((year) => {
-          const yearData = {
-            year: year,
-          };
+          const yearData = { year: year };
 
           filteredData.forEach((item) => {
             yearData[item[`name_${language}`]] = item[`y_${year}`];
@@ -62,6 +74,7 @@ const StackedAreaChart = ({ info }) => {
         console.log("Fetch error:", error);
       }
     };
+
     fetchData();
   }, [language, info.chartID, info.chartName]);
 

@@ -6,12 +6,14 @@ const Indicators = () => {
     {
       chartName: 89,
       title_ge: "განახლებადი ენერგიის წილი მთლიან მიწოდებაში",
-      unit_ge: "ათასი ტნე",
+      unit_ge: "პროცენტი",
       title_en: "Share of renewable energy in total supply",
-      unit_en: "ktoe",
+      unit_en: "Percent",
       colors: ["#30B0C7"],
       linear:
         "linear-gradient(180deg, rgba(48, 176, 199, 0.5) 0%, rgba(255, 255, 255, 0) 100%)",
+      sdgColor: "#30B0C7",
+      sdgText: "SDG 7.2.1",
       svg: (
         <svg
           width="24"
@@ -30,9 +32,11 @@ const Indicators = () => {
       chartName: 90,
       title_ge: "ენერგოინტენსიურობა",
       unit_ge: "ტნე / მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)",
-      title_en: "Share of renewable energy in total supply",
-      unit_en: "Energy intensity / GDP at constant 2019 prices (million GEL)",
+      title_en: "Energy intensity",
+      unit_en: "ktoe/ GDP at constant 2019 prices (million GEL)",
       colors: ["#ED4C5C80"],
+      sdgColor: "#ED4C5C80",
+      sdgText: "SDG 7.3.1",
       linear:
         "linear-gradient(180deg, rgba(237, 76, 92, 0.5) 0%, rgba(255, 255, 255, 0) 100%)",
       svg: (
@@ -59,6 +63,7 @@ const Indicators = () => {
       colors: ["#6FAEA9"],
       linear:
         "linear-gradient(180deg, rgba(111, 174, 169, 0.5) 0%, rgba(255, 255, 255, 0) 100%)",
+      twoFixed: true,
       svg: (
         <svg
           width="23"
@@ -82,6 +87,7 @@ const Indicators = () => {
       colors: ["#BE6433"],
       linear:
         "linear-gradient(180deg, rgba(190, 100, 51, 0.5) 0%, rgba(255, 255, 255, 0) 100%)",
+      twoFixed: true,
       svg: (
         <svg
           width="34"
@@ -119,6 +125,7 @@ const Indicators = () => {
       colors: ["#084E99"],
       linear:
         "linear-gradient(180deg, rgba(8, 78, 153, 0.5) 0%, rgba(255, 255, 255, 0) 100%)",
+      twoFixed: true,
       svg: (
         <svg
           width="34"

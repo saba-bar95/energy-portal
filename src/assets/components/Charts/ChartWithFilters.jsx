@@ -14,24 +14,36 @@ import fetchPrices from "../../../../fetchPrices";
 import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import "./ChartWithFilters.scss";
-// import Filter from "./Filter/Filter";
+import Filter from "./Filter/Filter";
 
 const ChartWithFilters = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [vatID, setVatID] = useState(144);
+  const [typeID, setTypeID] = useState(142);
   const [dataKeys, setDataKeys] = useState([]);
 
-  // const vats = {
-  //   ge: [
-  //     { number: 144, name: "დღგ-ის გარეშე" },
-  //     { number: 145, name: "დღგ-ის ჩათვლით" },
-  //   ],
-  //   en: [
-  //     { number: 144, name: "Without VAT" },
-  //     { number: 145, name: "Including VAT" },
-  //   ],
-  // };
+  const vats = {
+    ge: [
+      { number: 144, name: "დღგ-ის გარეშე" },
+      { number: 145, name: "დღგ-ის ჩათვლით" },
+    ],
+    en: [
+      { number: 144, name: "Without VAT" },
+      { number: 145, name: "Including VAT" },
+    ],
+  };
+
+  const types = {
+    ge: [
+      { number: 142, name: "საყოფაცხოვრებო" },
+      { number: 143, name: "არასაყოფაცხოვრებო" },
+    ],
+    en: [
+      { number: 142, name: "Household" },
+      { number: 143, name: "Non-household" },
+    ],
+  };
 
   const years = useMemo(
     () => Array.from({ length: 2024 - 2018 + 1 }, (_, i) => 2018 + i),
@@ -41,9 +53,12 @@ const ChartWithFilters = ({ info }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const rawData = await fetchPrices(info.chartName, info.chartID);
+        const rawData = await fetchPrices(info.chartName, typeID);
         const newDataKeys = []; // Start with the current dataKeys
-        info.names.forEach((el) => {
+
+        const infoNames = typeID === 142 ? info.names : info.names_n;
+
+        infoNames.forEach((el) => {
           const name = el[`name_${language}`];
           if (name && !newDataKeys.includes(name)) {
             newDataKeys.push(name); // Push to newDataKeys if it exists and is unique
@@ -63,7 +78,7 @@ const ChartWithFilters = ({ info }) => {
           const yearData141 = { year: `${year}_141` };
 
           // Loop through names to populate data
-          info.names.forEach(({ code, name_en, name_ge }) => {
+          infoNames.forEach(({ code, name_en, name_ge }) => {
             const matchingRawData = rawData.find(
               (data) => data.quantity === code && data.vat === vatID
             );
@@ -87,7 +102,7 @@ const ChartWithFilters = ({ info }) => {
     };
 
     fetchData();
-  }, [language, info.chartID, info.chartName, years, info.names, vatID]);
+  }, [language, years, vatID, typeID, info]);
 
   const CustomTooltip = ({ active, payload }) => {
     if (!active || !payload || !payload.length) return null;
@@ -129,6 +144,12 @@ const ChartWithFilters = ({ info }) => {
     );
   };
 
+  let unitHeader = info[`unit_${language}`];
+
+  if (info.chartName === "electricityPriceGel" && typeID === 143) {
+    unitHeader = info[`unit1_${language}`];
+  }
+
   return (
     <>
       {data.length > 0 && (
@@ -138,7 +159,7 @@ const ChartWithFilters = ({ info }) => {
             <div className="info-wrapper">
               <div className="text-wrapper">
                 <h2>{info[`title_${language}`]}</h2>
-                <h3>{info[`unit_${language}`]}</h3>
+                <h3>{unitHeader}</h3>
               </div>
             </div>
             <div
@@ -150,15 +171,19 @@ const ChartWithFilters = ({ info }) => {
                 alignItems: "center",
                 gap: "15px",
               }}>
-              {/* <Filter
+              <Filter
                 vatID={vatID}
                 setVatID={setVatID}
                 vats={vats[`${language}`]}
-              /> */}
+                typeID={typeID}
+                setTypeID={setTypeID}
+                types={types[`${language}`]}
+              />
               <Download
                 data={data}
                 filename={info[`title_${language}`]}
-                unit={info[`unit_${language}`]}
+                unit={unitHeader}
+                isFiltered={true}
               />
             </div>
           </div>
@@ -241,7 +266,11 @@ const ChartWithFilters = ({ info }) => {
                 }}
                 height={1} // Adjust height for the shared year indicator
               />
-              <YAxis tickLine={false} axisLine={{ stroke: "#B7B7B7" }} />
+              <YAxis
+                tickLine={false}
+                axisLine={{ stroke: "#B7B7B7" }}
+                tickFormatter={(value) => parseFloat(value).toFixed(2)}
+              />
               <Tooltip content={<CustomTooltip />} />
               <Legend content={<CustomLegend />} />
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />

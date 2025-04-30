@@ -12,10 +12,55 @@ const downloadPDF = (
   isFilter,
   isTreeMap,
   isSankey,
-  isConditioning
+  isConditioning,
+  isFiltered,
+  twoFixed
 ) => {
   const isGeorgian = language === "ge";
   const doc = new jsPDF();
+
+  if (isFiltered) {
+    const yearHeader = isGeorgian ? "წელი" : "Year";
+
+    const formattedYear = (year) => {
+      const [yearValue, suffix] = year.split("_");
+      return suffix === "140"
+        ? `${yearValue} (I-VI)`
+        : `${yearValue} (VII-XII)`;
+    };
+
+    // Modify data to format year and round numbers
+    const modifiedData = data.map((entry) => ({
+      [yearHeader]: formattedYear(entry.year), // Format year dynamically
+      ...Object.fromEntries(
+        Object.entries(entry)
+          .filter(([key]) => key !== "year")
+          .map(([key, value]) => [key, value.toFixed(2)]) // Round numbers
+      ),
+    }));
+
+    // Extract table headers
+    const headers = [
+      yearHeader,
+      ...Object.keys(modifiedData[0]).filter((key) => key !== yearHeader),
+    ];
+
+    // Convert modified data into row format for autoTable
+    const tableData = modifiedData.map((row) =>
+      headers.map((header) => row[header])
+    );
+
+    // Generate the table in the PDF
+    autoTable(doc, {
+      head: [headers],
+      body: tableData,
+      theme: "grid",
+    });
+
+    // Save the PDF file
+    doc.save(`${fileName}.pdf`);
+    return;
+  }
 
   if (isConditioning) {
     const headers = ["", ...data.map((entry) => entry.category)]; // First empty column for row headers
@@ -270,7 +315,10 @@ const downloadPDF = (
       ) {
         if (isFilter) {
           newItem[key] = newItem[key].toFixed(2); // Only format non-year numerical values
-        } else newItem[key] = newItem[key].toFixed(1); // Only format non-year numerical values
+        } else
+          newItem[key] = twoFixed
+            ? newItem[key].toFixed(2)
+            : newItem[key].toFixed(1); // Only
       }
     });
 

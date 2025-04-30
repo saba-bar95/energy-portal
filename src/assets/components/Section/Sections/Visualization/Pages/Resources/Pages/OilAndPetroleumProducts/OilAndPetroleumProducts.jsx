@@ -215,7 +215,7 @@ const OilAndPetroleumProducts = () => {
     ),
     styles: {
       marginLeft: "60px",
-      justifyContent: "start",
+      justifyContent: "center",
     },
   };
 
@@ -258,8 +258,7 @@ const OilAndPetroleumProducts = () => {
     chartID: 24,
     chartName: 4,
     title_ge: "ნავთობპროდუქტების საბოლოო მოხმარება ტრანსპორტის სექტორში",
-    title_en:
-      "Final consumption of petroleum products in the transportation sector",
+    title_en: "Final consumption of petroleum products in the transport sector",
     unit_ge: "ათასი ტნე",
     unit_en: "ktoe",
     color: "#007C90",
@@ -296,10 +295,10 @@ const OilAndPetroleumProducts = () => {
       </div>
       <HorizontalBarsByYears info={chart2Info} />
       <HorizontalBarsByYears info={chart3Info} />
-      <HorizontalBarsByYears info={chart7Info} />
-      <HorizontalBarsByYears info={chart8Info} />
       <StackedAreaChart info={chart4Info} />
       <StackedAreaChartWithMultipleIDs info={chart5Info} />
+      <HorizontalBarsByYears info={chart7Info} />
+      <HorizontalBarsByYears info={chart8Info} />
       <LineChartByYears info={chart6Info} />
     </div>
   );

@@ -11,10 +11,47 @@ const downloadExcel = (
   isFilter,
   isTreeMap,
   isSankey,
-  isConditioning
+  isConditioning,
+  isFiltered,
+  twoFixed
 ) => {
   const isGeorgian = language === "ge";
   const workbook = XLSX.utils.book_new();
+
+  if (isFiltered) {
+    const yearHeader = isGeorgian ? "წელი" : "Year";
+
+    const formattedYear = (year) => {
+      const [yearValue, suffix] = year.split("_");
+      return suffix === "140"
+        ? `${yearValue} (I-VI)`
+        : `${yearValue} (VII-XII)`;
+    };
+
+    const modifiedData = data.map((entry) => ({
+      [yearHeader]: formattedYear(entry.year), // Format year dynamically
+      ...Object.fromEntries(
+        Object.entries(entry)
+          .filter(([key]) => key !== "year")
+          .map(([key, value]) => [key, value.toFixed(2)]) // Round numbers
+      ),
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(modifiedData, {
+      header: [
+        yearHeader,
+        ...Object.keys(modifiedData[0]).filter((key) => key !== yearHeader),
+      ],
+    });
+
+    // Create a new workbook and append the worksheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+    // Generate the Excel file and trigger the download
+    XLSX.writeFile(workbook, `${fileName}.xlsx`);
+    return;
+  }
 
   if (isConditioning) {
     const categories = ["", ...data.map((entry) => entry.category)]; // First empty column for row headers
@@ -259,7 +296,10 @@ const downloadExcel = (
       ) {
         if (isFilter) {
           newItem[key] = newItem[key].toFixed(2); // Only format non-year numerical values
-        } else newItem[key] = newItem[key].toFixed(1); // Only format non-year numerical values
+        } else
+          newItem[key] = twoFixed
+            ? newItem[key].toFixed(2)
+            : newItem[key].toFixed(1); // Only format non-year numerical values
       }
     });
 

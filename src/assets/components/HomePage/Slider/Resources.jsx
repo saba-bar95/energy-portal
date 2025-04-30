@@ -220,7 +220,7 @@ const EnergyConsumption = () => {
 
       {
         name_ge: "სხვა",
-        name_en: "Others",
+        name_en: "Other",
         legendCode: 50,
         unit_ge: "პროცენტი",
         unit_en: "percent",

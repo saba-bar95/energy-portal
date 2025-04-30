@@ -69,6 +69,11 @@ const Coal = () => {
   };
 
   const chart3Info = {
+    styles: {
+      flexWrap: "wrap",
+      marginLeft: "100px",
+      justifyContent: "start",
+    },
     chartID: 17,
     chartName: 3,
     title_ge: "ქვანახშირის იმპორტი სახეების მიხედვით",
@@ -137,7 +142,7 @@ const Coal = () => {
     styles: {
       flexWrap: "wrap",
       gap: "20px",
-      marginTop: language !== "en" ? "-70px" : "-40px",
+      marginTop: language !== "en" ? "-30px" : "-30px",
       marginLeft: "100px",
       justifyContent: "start",
     },
@@ -169,7 +174,7 @@ const Coal = () => {
     styles: {
       flexWrap: "wrap",
       gap: "20px",
-      // marginTop: language !== "en" ? "0px" : "0px",
+      marginTop: language !== "en" ? "-30px" : "0px",
       marginLeft: "100px",
       justifyContent: "start",
     },

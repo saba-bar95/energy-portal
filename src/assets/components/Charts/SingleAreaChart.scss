@@ -1,0 +1,21 @@
+.single-area-chart {
+  .wrapper-1 {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    justify-content: end;
+    align-items: center;
+
+    .sdg-content {
+      padding: 10px 20px;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 12px;
+      display: flex;
+    }
+    .download-container {
+      flex: none;
+    }
+  }
+}

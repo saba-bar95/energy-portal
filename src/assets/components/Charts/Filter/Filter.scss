@@ -1,4 +1,4 @@
-.filter {
+.table-filter-1 {
   display: flex;
   gap: 15px;
   justify-content: space-between;
@@ -26,9 +26,9 @@
     right: 0;
     z-index: 1;
     margin-top: 50px;
-    // overflow-y: scroll;
     gap: 30px;
     padding: 30px;
+    width: max-content;
 
     .unit-section {
       display: flex;
@@ -52,12 +52,25 @@
       }
     }
 
-    .year-section,
-    .name-section {
+    .section {
       display: flex;
       flex-direction: column;
       gap: 15px;
+
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .carry {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          justify-content: start;
+        }
+      }
     }
+
     h3 {
       font-size: 14px;
     }

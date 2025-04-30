@@ -25,7 +25,9 @@ const VerticalStackedByYears = ({ info }) => {
     const fetchData = async () => {
       try {
         const rawData = await fetchDataWithCodes(info.chartID);
-        const filteredData = rawData
+
+        // Filter Data and Modify specific items
+        let filteredData = rawData
           .filter(
             (item) =>
               item.name === info.chartName &&
@@ -35,39 +37,64 @@ const VerticalStackedByYears = ({ info }) => {
           .map((item) => ({
             ...item,
             name_ge:
-              item.name_ge === "ქარის ელექტროსადგურები" ? "ქარი" : item.name_ge,
+              item.name_ge === "ქარის ელექტროსადგურები"
+                ? "ქარი"
+                : item.name_ge === "სხვა ბიტუმოვანი"
+                ? "სხვა ბიტუმოვანი ქვანახშირი"
+                : item.name_ge, // Default case
           }));
 
-        let newDataKeys = []; // Start with the current dataKeys
+        // Sort filteredData so "Other" or "სხვა" always appears last, while others are sorted in ascending order
+        filteredData = filteredData.sort((a, b) => {
+          const aContainsOther =
+            a.name_ge.includes("სხვა") || a.name_en.includes("Other");
+          const bContainsOther =
+            b.name_ge.includes("სხვა") || b.name_en.includes("Other");
 
-        filteredData.forEach((el) => {
-          const name = el[`name_${language}`];
-          if (name && !newDataKeys.includes(name)) {
-            // Check if name exists and is not already in newDataKeys
-            newDataKeys.push(name); // Push to newDataKeys if it exists and is unique
-          }
+          // Ensure "Other"/"სხვა" goes last
+          if (aContainsOther) return 1;
+          if (bContainsOther) return -1;
+
+          // If neither contains "Other"/"სხვა", sort by value in ascending order for the latest year
+          return (
+            b[`y_${chartYears[chartYears.length - 1]}`] -
+            a[`y_${chartYears[chartYears.length - 1]}`]
+          );
         });
 
-        if (info.chartID === 7 && info.chartName === 4) {
-          newDataKeys = [...newDataKeys].sort((a, b) => {
-            if (a === "Other" || a === "სხვა") return 1; // Move "Other" to the last position
-            if (b === "Other" || b === "სხვა") return -1;
-            return 0;
-          });
-        } else if (info.chartID === 7 && info.chartName === 5) {
-          newDataKeys = [...newDataKeys].sort((a, b) => {
-            if (a.includes("Other") || a.includes("სხვა")) return 1; // Move items containing "Other" or "სხვა" to the last position
-            if (b.includes("Other") || b.includes("სხვა")) return -1;
-            return 0;
+        if (info.chartName === 4 && info.chartID === 7) {
+          filteredData = filteredData.sort((a, b) => {
+            const aIsExactOther =
+              a.name_ge.trim() === "სხვა" || a.name_en.trim() === "Other";
+            const bIsExactOther =
+              b.name_ge.trim() === "სხვა" || b.name_en.trim() === "Other";
+
+            // Move exact "Other" or "სხვა" to the last position
+            if (aIsExactOther) return 1;
+            if (bIsExactOther) return -1;
+
+            // If neither is the exact "Other"/"სხვა", sort by value in ascending order for the latest year
+            return (
+              b[`y_${chartYears[chartYears.length - 1]}`] -
+              a[`y_${chartYears[chartYears.length - 1]}`]
+            );
           });
         }
 
+        // Extract unique data keys
+        const newDataKeys = [];
+        filteredData.forEach((el) => {
+          const name = el[`name_${language}`];
+          if (name && !newDataKeys.includes(name)) {
+            newDataKeys.push(name);
+          }
+        });
+
         setDataKeys(newDataKeys);
 
+        // Create stacked data grouped by years
         const stackedData = chartYears.map((year) => {
-          const yearData = {
-            year: year,
-          };
+          const yearData = { year: year };
 
           filteredData.forEach((item) => {
             yearData[item[`name_${language}`]] = item[`y_${year}`];
@@ -81,6 +108,7 @@ const VerticalStackedByYears = ({ info }) => {
         console.log("Fetch error:", error);
       }
     };
+
     fetchData();
   }, [language, info.chartID, info.chartName]);
 

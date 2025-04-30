@@ -32,14 +32,25 @@ const HorizontalBarsByYears = ({ info }) => {
             item.chart_id === info.chartID &&
             item.name_ge !== "სულ"
         );
-
         const chartData = () => {
-          return filteredData.map((item) => {
-            return {
+          return filteredData
+            .map((item) => ({
               name: item[`name_${language}`],
               value: item[`y_${year}`],
-            };
-          });
+            }))
+            .sort((a, b) => {
+              const aContainsOther =
+                a.name.includes("სხვა") || a.name.includes("Other");
+              const bContainsOther =
+                b.name.includes("სხვა") || b.name.includes("Other");
+
+              // Ensure "Other"/"სხვა" is placed at the end
+              if (aContainsOther) return 1;
+              if (bContainsOther) return -1;
+
+              // If neither contains "Other"/"სხვა", sort by value in ascending order
+              return b.value - a.value;
+            });
         };
 
         setData(chartData);
