@@ -1,25 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 
 const AnimatedNumber = ({ targetValue, duration = 3000 }) => {
-  // Increased duration to 3 seconds
   const [animatedValue, setAnimatedValue] = useState(0);
   const animationFrameRef = useRef(null);
 
   useEffect(() => {
     let startTime;
 
-    const easeOutExpo = (t) => {
-      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); // Extremely slow at the end
-    };
+    const easeOutExpo = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
 
     const animate = (timestamp) => {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
       const percentage = Math.min(progress / duration, 1);
-      const easedPercentage = easeOutExpo(percentage); // Apply easing
+      const easedPercentage = easeOutExpo(percentage);
 
-      setAnimatedValue(easedPercentage * targetValue);
-
+      setAnimatedValue(Math.round(easedPercentage * targetValue * 10) / 10); // Keep consistency
       if (progress < duration) {
         animationFrameRef.current = requestAnimationFrame(animate);
       }
@@ -34,7 +30,9 @@ const AnimatedNumber = ({ targetValue, duration = 3000 }) => {
     };
   }, [targetValue, duration]);
 
-  return animatedValue.toFixed(1);
+  return new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 1 }).format(
+    animatedValue
+  );
 };
 
 export default AnimatedNumber;
