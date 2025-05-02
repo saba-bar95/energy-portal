@@ -264,7 +264,7 @@ const SankeyChart = ({ info }) => {
               fontSize: "13px",
               marginLeft: "5px",
             }}>
-            {value && value.toFixed(2)}
+            {value && value.toFixed(1)}
           </span>
         </p>
       </div>
@@ -300,12 +300,12 @@ const SankeyChart = ({ info }) => {
             </div>
           </div>
           <Sankey
-            width={1200}
+            width={1400}
             height={500}
             data={data}
             node={<MyCustomNode />}
             nodePadding={20}
-            margin={{ right: 80, left: 50, top: 20, bottom: 20 }}
+            margin={{ right: 260, left: 80, top: 0, bottom: 0 }}
             link={<CustomizedLink />} // Use CustomizedLink here
           >
             <Tooltip content={<CustomTooltip />} />{" "}

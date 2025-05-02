@@ -14,7 +14,9 @@ const Electricity = () => {
     title_ge: "ელექტროენერგიის ფასი",
     title_en: "Electricity price",
     unit_ge: "ლარი/კვტ.სთ",
-    unit_en: "GEL/GWh",
+    unit1_ge: "ლარი/მგვტ.სთ",
+    unit_en: "GEL/kWh",
+    unit1_en: "GEL/MWh",
     colors: [
       "#ED4C5C",
       "rgb(255, 159, 10)",
@@ -81,7 +83,7 @@ const Electricity = () => {
       {
         code: 162,
         name_ge: "15000 ან მეტი",
-        name_en: "1500 or more",
+        name_en: "15000 or more",
       },
     ],
     names_n: [

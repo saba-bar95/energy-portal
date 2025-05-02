@@ -31,9 +31,9 @@ const Indicators = () => {
     {
       chartName: 90,
       title_ge: "ენერგოინტენსიურობა",
-      unit_ge: "ტნე / მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)",
+      unit_ge: "ტნე/მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)",
       title_en: "Energy intensity",
-      unit_en: "ktoe/ GDP at constant 2019 prices (million GEL)",
+      unit_en: "toe/GDP at constant 2019 prices (million GEL)",
       colors: ["#ED4C5C80"],
       sdgColor: "#ED4C5C80",
       sdgText: "SDG 7.3.1",
@@ -56,10 +56,10 @@ const Indicators = () => {
     {
       chartName: 91,
       title_ge:
-        "პირველადი ენერგიის მთლიანი მიწოდება საშუალოდ ერთ სულ მოსახლეზე ტნე",
+        "პირველადი ენერგიის მთლიანი მიწოდება საშუალოდ ერთ სულ მოსახლეზე",
       unit_ge: "ტნე",
-      title_en: "Average total primary energy supply per capita",
-      unit_en: "ktoe",
+      title_en: "Total primary energy supply per capita ",
+      unit_en: "toe",
       colors: ["#6FAEA9"],
       linear:
         "linear-gradient(180deg, rgba(111, 174, 169, 0.5) 0%, rgba(255, 255, 255, 0) 100%)",
@@ -83,7 +83,7 @@ const Indicators = () => {
       title_ge: "ენერგოპროდუქტიულობა",
       unit_ge: "მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)/ტნე",
       title_en: "Energy productivity",
-      unit_en: "GDP at constant 2019 prices (mln. GEL)/tonne",
+      unit_en: "GDP at constant 2019 prices (mln. GEL)/toe",
       colors: ["#BE6433"],
       linear:
         "linear-gradient(180deg, rgba(190, 100, 51, 0.5) 0%, rgba(255, 255, 255, 0) 100%)",
@@ -119,9 +119,9 @@ const Indicators = () => {
     {
       chartName: 93,
       title_ge: "ენერგიის იმპორტზე დამოკიდებულება",
-      unit_ge: "(იმპორტი-ექსპორტი)/მთლიანი მიწოდება (ტნე)",
+      unit_ge: "პროცენტი, (იმპორტი-ექსპორტი)/მთლიანი მიწოდება",
       title_en: "Dependence on energy imports",
-      unit_en: "(Import-Export)/Total Supply (TNE)",
+      unit_en: "Percent, (Imports-Exports)/Total Supply",
       colors: ["#084E99"],
       linear:
         "linear-gradient(180deg, rgba(8, 78, 153, 0.5) 0%, rgba(255, 255, 255, 0) 100%)",

@@ -57,7 +57,7 @@ const NaturalGas = () => {
       {
         code: 150,
         name_ge: "20-200",
-        name_en: "1000-2500",
+        name_en: "20-200",
       },
       {
         code: 151,

@@ -11,7 +11,7 @@ const Prices = () => {
     title_en: "Electricity price",
     unit_ge: "ლარი/კვტ.სთ",
     unit1_ge: "ლარი/მგვტ.სთ",
-    unit_en: "GEL/GWh",
+    unit_en: "GEL/kWh",
     unit1_en: "GEL/MWh",
 
     colors: [
