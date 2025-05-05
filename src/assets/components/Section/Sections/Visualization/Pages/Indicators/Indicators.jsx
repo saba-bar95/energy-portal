@@ -120,7 +120,7 @@ const Indicators = () => {
       chartName: 93,
       title_ge: "ენერგიის იმპორტზე დამოკიდებულება",
       unit_ge: "პროცენტი, (იმპორტი-ექსპორტი)/მთლიანი მიწოდება",
-      title_en: "Dependence on energy imports",
+      title_en: "Energy import dependency",
       unit_en: "Percent, (Imports-Exports)/Total Supply",
       colors: ["#084E99"],
       linear:

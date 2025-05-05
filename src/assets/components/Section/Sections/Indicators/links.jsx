@@ -253,7 +253,7 @@ const links = {
       },
       { name: "Prices", id: 2, link: "prices", svg: svg2() },
       { name: "SDG Indicators", id: 3, link: "sdg-indicators", svg: svg3() },
-      { name: "Flow's diagram", id: 4, link: "flowsdiagram", svg: svg4() },
+      { name: "Energy Flow Diagram", id: 4, link: "flowsdiagram", svg: svg4() },
       { name: "Map ", id: 5, link: "map" },
     ],
   },
