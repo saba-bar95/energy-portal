@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .icons {
   display: flex;
   gap: 30px;
@@ -9,6 +11,26 @@
 
     &:hover {
       transform: scale(1.2); /* Scale up the icon on hover */
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: $tablet) {
+  .icons {
+    img {
+      width: 13px;
+      height: 13px;
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: $mobile) {
+  .icons {
+    gap: 20px;
+
+    img {
+      width: 18px;
+      height: 18px;
     }
   }
 }

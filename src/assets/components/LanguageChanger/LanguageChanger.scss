@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .language-changer-container {
   position: relative;
   cursor: pointer;
@@ -35,6 +37,30 @@
         background-color: lightgrey;
         border-bottom-left-radius: 14px;
         border-bottom-right-radius: 14px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: $tablet) {
+  .language-changer-container {
+    .language-changer {
+      .wrapper {
+        padding: 5px 6px;
+        font-size: 11px;
+        gap: 8px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: $mobile) {
+  .language-changer-container {
+    .language-changer {
+      .wrapper {
+        padding: 8px 10px;
+        font-size: 13px;
+        gap: 5px;
       }
     }
   }

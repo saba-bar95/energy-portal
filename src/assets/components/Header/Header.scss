@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 header {
   background-color: #ffffff;
   color: #1e1e1e;
@@ -7,10 +9,12 @@ header {
   box-shadow: 0 4px 8px #0003;
 
   .header-container {
+    max-width: 1800px;
     padding: 20px 200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: auto;
 
     .right {
       display: flex;
@@ -23,17 +27,17 @@ header {
 
       h1 {
         font-feature-settings: "case" on;
-        font-size: 15px;
+        font-size: 13px;
         color: #132447;
         text-transform: uppercase;
-        width: 45%;
-        font-family: FiraGOBold;
+        width: 40%;
+        font-family: FiraGOMedium;
       }
     }
 
     .left {
       display: flex;
-      gap: 130px;
+      gap: 100px;
       align-items: center;
 
       .texts {
@@ -107,6 +111,124 @@ header {
           border: 0.5px solid #a0a0a0;
           border-radius: 14px;
           cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1600px) {
+  header {
+    .header-container {
+      padding: 20px 100px;
+
+      .left {
+        gap: 90px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: $tablet) {
+  header {
+    .header-container {
+      padding: 20px 50px;
+      gap: 20px;
+
+      .right {
+        gap: 10px;
+
+        h1 {
+          font-size: 11px;
+        }
+        img {
+          width: 70px;
+        }
+
+        .english-img {
+          width: 100px;
+        }
+
+        svg {
+          width: 150px;
+        }
+      }
+
+      .left {
+        gap: 30px;
+
+        .texts {
+          gap: 5px;
+
+          .sections-container {
+            padding: 10px;
+            font-size: 12px;
+
+            ul li:not(:last-child) {
+              padding-bottom: 5px;
+            }
+
+            p {
+              padding: 8px;
+            }
+          }
+
+          h1 {
+            font-size: 12px;
+          }
+        }
+
+        .socials {
+          gap: 15px;
+
+          .icons {
+            gap: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: $mobile) {
+  header {
+    .header-container {
+      padding: 20px 30px 40px 30px;
+      gap: 15px;
+      display: flex;
+      flex-direction: column;
+
+      .right {
+        gap: 10px;
+        justify-content: center;
+
+        h1 {
+          font-size: 12px;
+        }
+
+        svg {
+          width: 150px;
+        }
+      }
+
+      .left {
+        gap: 20px;
+        flex-direction: column;
+
+        .texts {
+          gap: 5px;
+          .sections-container {
+            padding: 12px;
+            font-size: 13px;
+
+            ul li:not(:last-child) {
+              padding-bottom: 7px;
+            }
+
+            p {
+              padding: 10px;
+            }
+          }
         }
       }
     }
