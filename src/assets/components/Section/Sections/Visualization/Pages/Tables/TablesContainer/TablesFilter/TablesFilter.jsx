@@ -56,14 +56,14 @@ const TablesFilter = ({
     ge: {
       filter: "ფილტრი",
       year: "წელი",
-      units: ["ტჯ", "ტნე", "1000 ტ."],
+      units: ["ტჯ", "1000 ტნე", "ფიზიკური ერთეული"],
       name: "საერთო სახელი",
     },
 
     en: {
       filter: "Filter",
       year: "Year",
-      units: ["tj", "ktoe", "1000 tones"],
+      units: ["tj", "ktoe", "Physical unit"],
       name: "Name",
     },
   };

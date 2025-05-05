@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 footer {
   font-feature-settings: "case" on;
   background-color: #244966;
@@ -7,7 +9,8 @@ footer {
   gap: 50px;
 
   .footer-container {
-    padding: 0 200px;
+    max-width: 1800px;
+    padding: 20px 200px;
     display: flex;
     justify-content: space-between;
 
@@ -93,6 +96,86 @@ footer {
       font-size: 14px;
       font-weight: 300;
       letter-spacing: 0.02em;
+    }
+  }
+}
+
+@media only screen and (min-width: $desktop) and (max-width: $ultrawide) {
+  footer {
+    .footer-container {
+      width: 1800px;
+      margin: auto;
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1600px) {
+  footer {
+    .footer-container {
+      padding: 20px 100px;
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: $tablet) {
+  footer {
+    padding: 30px 0;
+    gap: 30px;
+
+    .footer-container {
+      padding: 20px 50px;
+      gap: 20px;
+
+      .container {
+        gap: 25px;
+
+        h1 {
+          font-size: 13px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+    .rights {
+      h1 {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: $mobile) {
+  footer {
+    padding: 20px 0;
+    gap: 20px;
+
+    .footer-container {
+      flex-direction: column;
+      padding: 0 30px;
+      gap: 30px;
+      align-items: center;
+      text-align: center;
+
+      .container {
+        gap: 10px;
+        width: 100%;
+        align-items: center;
+
+        .socials {
+          margin-top: 20px;
+          gap: 10px;
+        }
+
+        .paras {
+          gap: 8px;
+        }
+
+        h1 {
+          text-align: center;
+        }
+      }
     }
   }
 }
