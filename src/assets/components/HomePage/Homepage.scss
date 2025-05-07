@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .homepage-container {
   display: flex;
   flex-direction: column;
@@ -13,7 +15,7 @@
     justify-content: space-between;
 
     .texts {
-      width: 50%;
+      max-width: 1800px;
       display: flex;
       flex-direction: column;
       gap: 40px;
@@ -38,6 +40,7 @@
       display: flex;
       justify-content: space-between;
       gap: 30px;
+      max-width: 1800px;
 
       .wrapper {
         padding: 30px 20px;
@@ -114,8 +117,176 @@
   }
 
   .lower {
-    padding: 0 200px 120px 200px;
-    display: flex;
+    padding-bottom: 120px;
     background-color: #e6e6e6;
+  }
+}
+
+@media only screen and (min-width: $desktop) and (max-width: $ultrawide) {
+  .homepage-container {
+    .upper {
+      padding: 100px 0;
+
+      .texts {
+        width: 1800px;
+        margin: 0 auto;
+        padding: 0 200px;
+      }
+
+      .sections {
+        width: 1800px;
+        margin: 0 auto;
+        padding: 0 200px;
+      }
+    }
+
+    .lower {
+      padding-bottom: 120px;
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1400px) {
+  .homepage-container {
+    .upper {
+      .sections {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .wrapper {
+          width: 90%;
+          max-width: 420px;
+          padding: 20px;
+          height: 120px;
+          justify-content: center;
+
+          &:nth-child(2),
+          &:nth-child(4) {
+            justify-self: end;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .homepage-container {
+    .upper {
+      padding: 100px;
+      gap: 50px;
+
+      .texts {
+        h1 {
+          font-size: 35px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .homepage-container {
+    .upper {
+      padding: 100px 50px;
+      gap: 50px;
+      background-position: 70% center;
+
+      .sections {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .wrapper {
+          width: 90%;
+          max-width: 320px;
+          padding: 20px;
+          height: 120px;
+          align-items: center;
+          justify-content: center;
+
+          .para {
+            h1 {
+              font-size: 14px;
+            }
+
+            .svg-container {
+              padding: 15px;
+            }
+          }
+
+          &:nth-child(2),
+          &:nth-child(4) {
+            justify-self: end;
+          }
+        }
+      }
+
+      .texts {
+        h1 {
+          font-size: 30px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .homepage-container {
+    .lower {
+      padding-bottom: 80px;
+    }
+
+    .upper {
+      padding: 50px 30px;
+      background-position: 75% center;
+      height: max-content;
+      gap: 50px;
+
+      .sections {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        margin: auto;
+        align-items: center;
+        justify-content: center;
+
+        .wrapper {
+          padding: 15px 20px;
+          display: flex;
+          justify-content: center;
+          max-width: 350px;
+          width: 100%;
+
+          .para {
+            gap: 10px;
+
+            h1 {
+              font-size: 13px;
+              width: max-content;
+            }
+
+            .svg-container {
+              padding: 10px;
+
+              svg {
+                width: 20px;
+                height: 20px;
+              }
+            }
+          }
+
+          &:hover {
+            transform: translateX(5px);
+          }
+        }
+      }
+
+      .texts {
+        h1 {
+          font-size: 20px;
+          text-align: center;
+        }
+      }
+    }
   }
 }

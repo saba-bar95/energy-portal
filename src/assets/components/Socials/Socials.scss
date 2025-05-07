@@ -15,7 +15,7 @@
   }
 }
 
-@media only screen and (min-width: $mobile) and (max-width: $tablet) {
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
   .icons {
     img {
       width: 13px;
@@ -24,13 +24,13 @@
   }
 }
 
-@media only screen and (min-width: 0) and (max-width: $mobile) {
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
   .icons {
     gap: 20px;
 
     img {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
     }
   }
 }

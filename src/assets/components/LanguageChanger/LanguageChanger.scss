@@ -42,7 +42,7 @@
   }
 }
 
-@media only screen and (min-width: $mobile) and (max-width: $tablet) {
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
   .language-changer-container {
     .language-changer {
       .wrapper {
@@ -54,12 +54,12 @@
   }
 }
 
-@media only screen and (min-width: 0) and (max-width: $mobile) {
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
   .language-changer-container {
     .language-changer {
       .wrapper {
-        padding: 8px 10px;
-        font-size: 13px;
+        padding: 6px 8px;
+        font-size: 12px;
         gap: 5px;
       }
     }

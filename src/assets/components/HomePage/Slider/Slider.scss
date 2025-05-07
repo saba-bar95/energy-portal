@@ -1,15 +1,20 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .slider {
-  display: flex;
-  flex-direction: column; // Stack elements vertically
-  align-items: center; // Center align items
-  justify-content: center;
-  width: 100%;
   font-feature-settings: "case" on;
   gap: 50px;
-  padding: 30px;
-  background-color: #ffffff;
-  border-bottom-right-radius: 30px;
-  border-bottom-left-radius: 30px;
+  padding: 0 200px;
+
+  .slider-container {
+    background-color: #ffffff;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    max-width: 1800px;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
 
   .top-side {
     display: flex;
@@ -58,6 +63,24 @@
     .widget-container {
       display: flex;
       gap: 25px;
+      overflow-x: scroll;
+      padding-bottom: 20px;
+
+      &::-webkit-scrollbar {
+        height: 8px; // Horizontal scrollbar thickness
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #084e99; // Scroll handle color
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #b9c3c9; // Track color
+        border-radius: 10px;
+        cursor: pointer;
+      }
 
       .widget-wrapper {
         padding: 10px;
@@ -75,6 +98,7 @@
         .top {
           display: flex;
           gap: 15px;
+          flex: 1;
 
           svg {
             flex-shrink: 0;
@@ -82,6 +106,7 @@
 
           h3 {
             font-size: 15px;
+            width: max-content;
           }
         }
 
@@ -97,7 +122,7 @@
           }
 
           h3 {
-            font-size: 0.9em;
+            font-size: 0.8em;
           }
         }
 
@@ -117,6 +142,7 @@
             font-size: 13px;
             color: #1e1e1e;
             letter-spacing: 0.5px;
+            width: max-content;
           }
 
           .green {
@@ -148,6 +174,194 @@
       &.active {
         background-color: #084e99;
         width: 58px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $desktop) and (max-width: $ultrawide) {
+  .slider {
+    max-width: 1800px;
+    margin: auto;
+    padding: 0 200px;
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .slider {
+    max-width: 1800px;
+    margin: auto;
+    padding: 0 100px;
+
+    .top-side {
+      .slide {
+        h2 {
+          font-size: 22px;
+        }
+      }
+      .navigation {
+        button {
+          padding: 7px;
+        }
+      }
+    }
+
+    .slider-container {
+      gap: 30px;
+      padding: 20px 10px;
+    }
+
+    .content-container {
+      .widget-container {
+        .widget-wrapper {
+          gap: 10px;
+          padding: 5px;
+
+          .middle {
+            h2 {
+              font-size: 1.1em;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .slider {
+    padding: 0;
+
+    .top-side {
+      gap: 5px;
+
+      .slide {
+        h2 {
+          font-size: 18px;
+        }
+      }
+
+      .navigation {
+        button {
+          padding: 5px;
+
+          svg {
+            width: 13px;
+            height: 13px;
+          }
+        }
+      }
+    }
+
+    .slider-container {
+      gap: 30px;
+    }
+
+    .content-container {
+      .widget-container {
+        .widget-wrapper {
+          gap: 10px;
+          padding: 5px;
+
+          .middle {
+            h2 {
+              font-size: 1em;
+            }
+          }
+          .top {
+            h3 {
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+
+    .dots {
+      .dot {
+        width: 12px;
+        height: 12px;
+        &.active {
+          width: 40px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .slider {
+    padding: 0;
+
+    .top-side {
+      align-items: start;
+      gap: 10px;
+
+      .slide {
+        h2 {
+          font-size: 14px;
+        }
+      }
+
+      .navigation {
+        button {
+          padding: 5px;
+
+          svg {
+            width: 13px;
+            height: 13px;
+          }
+        }
+      }
+    }
+
+    .slider-container {
+      gap: 20px;
+      padding: 10px 15px;
+
+      .dots {
+        display: none;
+      }
+    }
+
+    .content-container {
+      .widget-container {
+        .widget-wrapper {
+          gap: 10px;
+          padding: 5px;
+
+          .middle {
+            h2 {
+              font-size: 0.9em;
+              text-align: center;
+            }
+          }
+          .top {
+            h3 {
+              font-size: 12px;
+            }
+          }
+
+          .bottom {
+            .left {
+              font-size: 11px;
+            }
+
+            span {
+              font-size: 11px;
+            }
+          }
+        }
+      }
+    }
+
+    .dots {
+      .dot {
+        width: 12px;
+        height: 12px;
+        &.active {
+          width: 40px;
+        }
       }
     }
   }
