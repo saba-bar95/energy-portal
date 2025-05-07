@@ -32,17 +32,26 @@ const MultipleLineChartByYears = ({ info }) => {
             item.name_ge !== "სულ"
         );
 
-        const newDataKeys = []; // Start with the current dataKeys
+        let newDataKeys = []; // Start with an empty array
 
         filteredData.forEach((el) => {
           const name = el[`name_${language}`];
           if (name && !newDataKeys.includes(name)) {
-            // Check if name exists and is not already in newDataKeys
             newDataKeys.push(name); // Push to newDataKeys if it exists and is unique
           }
         });
 
-        // Update the state with the new array
+        // **Sort newDataKeys to ensure "Other"/"სხვა" is last**
+        newDataKeys.sort((a, b) => {
+          const aContainsOther = a.includes("Other") || a.includes("სხვა");
+          const bContainsOther = b.includes("Other") || b.includes("სხვა");
+
+          if (aContainsOther) return 1;
+          if (bContainsOther) return -1;
+          return 0; // Maintain original order otherwise
+        });
+
+        // Update the state with the sorted array
         setDataKeys(newDataKeys);
 
         const stackedData = chartYears.map((year) => {

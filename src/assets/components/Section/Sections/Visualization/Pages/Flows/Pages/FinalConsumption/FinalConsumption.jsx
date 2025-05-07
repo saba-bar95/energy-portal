@@ -114,6 +114,7 @@ const FinalConsumption = () => {
       "#244966",
       "#17864C",
       "#007C90",
+      "#75cf5f",
       "#8C8C8C",
     ],
     legend: false,
