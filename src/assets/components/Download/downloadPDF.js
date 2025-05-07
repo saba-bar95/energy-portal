@@ -1,5 +1,6 @@
 import { jsPDF } from "jspdf";
 import { autoTable } from "jspdf-autotable";
+import georgianFont from "../../fonts/NotoSansGeorgian_ExtraCondensed-Bold.ttf";
 
 const downloadPDF = (
   data,
@@ -17,7 +18,19 @@ const downloadPDF = (
   twoFixed
 ) => {
   const isGeorgian = language === "ge";
+
   const doc = new jsPDF();
+
+  if (isGeorgian) {
+    doc.addFont(georgianFont, "NotoSansGeorgian", "normal");
+    doc.addFont(georgianFont, "NotoSansGeorgian", "bold");
+    doc.setFont("NotoSansGeorgian");
+  }
+
+  const fontStyles = {
+    font: isGeorgian ? "NotoSansGeorgian" : "helvetica",
+    fontSize: 10,
+  };
 
   if (isFiltered) {
     const yearHeader = isGeorgian ? "წელი" : "Year";
@@ -55,6 +68,7 @@ const downloadPDF = (
       head: [headers],
       body: tableData,
       theme: "grid",
+      styles: fontStyles,
     });
 
     // Save the PDF file
@@ -79,7 +93,10 @@ const downloadPDF = (
       head: [headers], // Add headers as first row
       body: tableData, // Add formatted row data
       theme: "grid", // Styled table format
-      styles: { fontSize: 10 },
+      styles: {
+        ...fontStyles,
+        fontSize: 10,
+      },
       headStyles: { fillColor: [41, 128, 185] }, // Header background color
     });
 
@@ -157,7 +174,10 @@ const downloadPDF = (
       head: [headers],
       body: tableData,
       theme: "grid", // Styled table
-      styles: { fontSize: 10 },
+      styles: {
+        ...fontStyles,
+        fontSize: 10,
+      },
       headStyles: { fillColor: [41, 128, 185] }, // Header color
       columnStyles: {
         0: { cellWidth: 50 }, // Source column width
@@ -207,6 +227,7 @@ const downloadPDF = (
       head: [headers],
       body: tableData,
       theme: "grid", // Optional: Change the theme
+      styles: fontStyles,
     });
 
     // Save the PDF
@@ -233,6 +254,7 @@ const downloadPDF = (
       head: [headers],
       body: tableData,
       theme: "grid", // Optional: you can change the theme
+      styles: fontStyles,
     });
 
     // Save the PDF
@@ -265,6 +287,7 @@ const downloadPDF = (
       head: [headers],
       body: tableData,
       theme: "grid", // Optional: you can change the theme
+      styles: fontStyles,
     });
 
     // Save the PDF
@@ -292,6 +315,7 @@ const downloadPDF = (
       head: [headers],
       body: tableData,
       theme: "grid", // Optional: you can change the theme
+      styles: fontStyles,
     });
 
     const fileNameWithUnit = unit
@@ -343,6 +367,7 @@ const downloadPDF = (
     head: [headers],
     body: tableData,
     styles: {
+      ...fontStyles,
       halign: "center", // Horizontal alignment
       valign: "middle", // Vertical alignment
     },
