@@ -18,7 +18,19 @@ const Chart = ({ data }) => {
     data.householdID === 104 || data.householdID === 105 ? 18 : 24;
 
   const { language } = useParams();
-  const sortedData = data.data.sort((a, b) => b.total - a.total);
+
+  const sortedData = data.data.sort((a, b) => {
+    const isAOther = a.name_en.includes("Other") || a.name_ge.includes("სხვა");
+    const isBOther = b.name_en.includes("Other") || b.name_ge.includes("სხვა");
+
+    if (isAOther && !isBOther) {
+      return 1; // Move "Other" or "სხვა" to the end
+    }
+    if (!isAOther && isBOther) {
+      return -1; // Keep non-"Other" entries at the top
+    }
+    return b.total - a.total; // Sort normally otherwise
+  });
 
   const CustomLegend = () => {
     return (

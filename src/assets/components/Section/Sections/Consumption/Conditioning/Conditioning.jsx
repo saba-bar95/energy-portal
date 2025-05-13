@@ -18,8 +18,8 @@ const Conditioning = () => {
           "შინამეურნეობების განაწილება საცხოვრისის კონდიცირების სისტემით უზრუნველყოფილი ფართობის მიხედვით",
         title_en:
           "Distribution of households by conditioned area in the dwelling ",
-        measurement_ge: "კვ.მ",
-        measurement_en: "sq.m",
+        measurement_ge: "%",
+        measurement_en: "%",
         icon: firstChartIcon,
         color: [
           "#3498DB",
@@ -30,8 +30,8 @@ const Conditioning = () => {
           "#30B0C7",
           "purple",
         ],
-        unit_ge: "კვ.მ",
-        unit_en: "sq.m",
+        unit_ge: "%",
+        unit_en: "%",
       },
       {
         householdID: 102,
@@ -43,7 +43,7 @@ const Conditioning = () => {
         icon: secondChartIcon,
         color: ["#5654D4", "#30B0C7", "#107C41"],
         unit_ge: "საათი",
-        unit_en: "hour",
+        unit_en: "hours",
         chart_unit_ge: "სთ",
         chart_unit_en: "hr",
       },

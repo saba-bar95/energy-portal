@@ -12,9 +12,11 @@ const HotWater = () => {
       householdID: 106,
       title_ge:
         "შინამეურნეობების მიერ საყოფაცხოვრებო საჭიროებისათვის მოხმარებული ენერგორესურსები",
-      title_en: "Energy resources consumed by households for domestic needs",
+      title_en: "Energy commodities consumed for household needs",
       icon: firstChartIcon,
       color: ["#3498DB", "#6CD68C", "#ED4C5C"],
+      measurement_ge: "ათასი ტნე",
+      measurement_en: "ktoe",
     }),
     []
   );

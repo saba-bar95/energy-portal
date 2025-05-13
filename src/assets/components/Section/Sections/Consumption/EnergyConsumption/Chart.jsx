@@ -14,7 +14,7 @@ import Download from "../../../../Download/Download";
 import "./EnergyConsumption.scss";
 
 const Chart = ({ data }) => {
-  const barSize = data.householdID === 106 ? 11 : 24;
+  const barSize = data.householdID === 106 ? 15 : 24;
 
   const { language } = useParams();
   const sortedData = data.data.sort((a, b) => b.total - a.total);
@@ -84,15 +84,13 @@ const Chart = ({ data }) => {
     );
   };
 
-  const unit = "%";
-
   return (
-    <div style={{ width: "50%" }} className="main-chart">
+    <div className="main-chart">
       <div className="header-container">
         <img src={data.icon} alt="" />
         <div className="text-wrapper">
           <h2>{data[`title_${language}`]}</h2>
-          <h3>{unit}</h3>
+          <h3>{data[`measurement_${language}`]}</h3>
         </div>
         <Download
           resource="resource"
@@ -102,7 +100,7 @@ const Chart = ({ data }) => {
           year={2022}
         />
       </div>
-      <ResponsiveContainer height={580}>
+      <ResponsiveContainer height={680}>
         <BarChart data={sortedData} layout="vertical" height={500} barGap={0}>
           <XAxis type="number" tickLine={false} />
           <YAxis

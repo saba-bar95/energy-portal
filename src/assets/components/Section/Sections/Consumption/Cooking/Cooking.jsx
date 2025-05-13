@@ -15,7 +15,7 @@ const Cooking = () => {
         title_ge:
           "შინამეურნეობების საცხოვრისის განაწილება ქურებში გამოყენებული ენერგორესურსების მიხედვით",
         title_en:
-          "Distribution of households by energy resources used in stoves",
+          "Distribution of households by energy commodities used for cooking",
         icon: firstChartIcon,
         color: ["#3498DB", "#6CD68C", "#ED4C5C"],
       },
@@ -24,7 +24,7 @@ const Cooking = () => {
         title_ge:
           "შინამეურნეობების საცხოვრისის განაწილება ღუმელებში გამოყენებული ენერგორესურსების მიხედვით",
         title_en:
-          "Distribution of household dwellings by energy resources used in stoves",
+          "Distribution of households by energy commodities used for cooking in the oven",
         icon: secondChartIcon,
         color: ["#556EB0", "#6FAEA9", "#FF9F0A"],
       },
