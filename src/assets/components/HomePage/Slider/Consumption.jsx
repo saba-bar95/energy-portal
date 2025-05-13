@@ -106,8 +106,8 @@ const EnergyConsumption = () => {
         name_en: "Natural Gas",
         legendCode: 2,
         svg: <Svg2 />,
-        unit_ge: "მლნ.მ³",
-        unit_en: "mil.m³",
+        unit_ge: "მლნ. მ³",
+        unit_en: "mil. m³",
       },
       {
         name_ge: "ქვანახშირი",
