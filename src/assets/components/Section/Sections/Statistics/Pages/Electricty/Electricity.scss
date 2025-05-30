@@ -1,13 +1,221 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .electricity {
   background-color: #f4f4f7;
   color: black;
-  gap: 40px;
-  padding: 50px 200px 200px 200px;
-  display: flex;
-  flex-direction: column;
 
-  .div {
+  .ss-container {
+    padding: 40px 200px 200px 200px;
     display: flex;
     gap: 40px;
+    flex-direction: column;
+    max-width: 1800px;
+    margin: auto;
+
+    .div {
+      display: flex;
+      gap: 40px;
+    }
+  }
+}
+
+.elec-1 {
+  .recharts-responsive-container {
+    .recharts-legend-wrapper {
+      .legend-container {
+        margin-left: 40px;
+        justify-content: start;
+        margin-left: 100px;
+      }
+    }
+  }
+}
+
+.elec-1-en {
+  .recharts-responsive-container {
+    .recharts-legend-wrapper {
+      .legend-container {
+        margin-left: 40px;
+        justify-content: start;
+        margin-left: 100px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .electricity {
+    .ss-container {
+      padding: 40px 100px 200px 100px;
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .electricity {
+    .ss-container {
+      padding: 40px 100px 200px 100px;
+
+      .div {
+        flex-direction: column;
+
+        .div-4 {
+          display: none;
+        }
+
+        .main-chart {
+          padding: 20px 20px 30px 0;
+          width: 80%;
+          max-width: 700px;
+          margin: auto;
+
+          .header-container {
+            .text-wrapper {
+              h2 {
+                font-size: 14px;
+              }
+
+              h3 {
+                font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .electricity {
+    .ss-container {
+      padding: 30px 30px 100px 30px;
+
+      .div {
+        flex-direction: column;
+
+        .div-4 {
+          display: none;
+        }
+
+        .main-chart {
+          padding: 10px 10px 10px 0px;
+          width: 90%;
+          margin: auto;
+          max-width: 400px;
+
+          .header-container {
+            gap: 10px;
+            margin-bottom: 0;
+            padding-left: 10px;
+
+            svg {
+              width: 20px;
+              height: 20px;
+            }
+
+            .text-wrapper {
+              min-height: 0;
+
+              h2 {
+                font-size: 12px;
+              }
+
+              h3 {
+                font-size: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: 1046px) {
+  .elec-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          gap: 15px;
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1047px) and (max-width: calc($tablet - 1px)) {
+  .elec-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          gap: 15px;
+          margin-top: -10px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $ultrawide) {
+  .elec-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: 881px) {
+  .elec-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          gap: 15px;
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 882px) and (max-width: calc($tablet - 1px)) {
+  .elec-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          gap: 15px;
+          margin-top: -10px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1390px) {
+  .elec-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1391px) and (max-width: $ultrawide) {
+  .elec-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: 0 !important;
+        }
+      }
+    }
   }
 }

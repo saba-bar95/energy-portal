@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .statistics {
   background: linear-gradient(to right, #1e3c72, #2a5298);
   color: #ffffff;
@@ -9,6 +11,7 @@
   h1 {
     font-family: FiraGORegular;
     letter-spacing: 0.02em;
+    margin-bottom: 30px;
   }
 
   .main-chart {
@@ -19,22 +22,13 @@
     flex: none;
   }
 
-  .child-container {
-    padding: 50px 200px 200px 200px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: center;
-    background-color: #f4f4f7;
-    color: black;
-    gap: 45px;
-  }
-
   .container {
     padding: 50px 200px 0 200px;
     display: flex;
     flex-direction: column;
     justify-content: start;
-    gap: 80px;
+    gap: 40px;
+    width: 100%;
 
     .links {
       a {
@@ -44,7 +38,8 @@
       ul {
         display: flex;
         list-style-type: none;
-        gap: 100px;
+        gap: 30px;
+        justify-content: space-between;
 
         a {
           display: flex;
@@ -77,6 +72,129 @@
             svg {
               path {
                 fill: #3c77f2;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $desktop) and (max-width: $ultrawide) {
+  .statistics {
+    .container {
+      max-width: 1800px;
+      margin: auto;
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .statistics {
+    .container {
+      padding: 50px 100px 0 100px;
+
+      .links {
+        ul {
+          gap: 35px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .statistics {
+    h1 {
+      font-size: 1.3em;
+    }
+
+    .container {
+      padding: 30px 50px 0 50px;
+      gap: 30px;
+
+      .links {
+        ul {
+          justify-content: space-between;
+          overflow-x: auto;
+          gap: 20px;
+
+          &::-webkit-scrollbar {
+            height: 6px; // Horizontal scrollbar thickness
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #084e99;
+            border-radius: 10px;
+            cursor: pointer;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #b9c3c9; // Track color
+            border-radius: 10px;
+            cursor: pointer;
+          }
+
+          .wrapper {
+            li {
+              padding: 10px;
+              font-size: 13px;
+
+              svg {
+                width: 15px;
+                height: 15px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .statistics {
+    h1 {
+      font-size: 1em;
+    }
+
+    .container {
+      padding: 30px 30px 0 30px;
+      gap: 30px;
+
+      .links {
+        margin-top: 30px;
+
+        ul {
+          gap: 10px;
+          overflow-x: auto;
+
+          &::-webkit-scrollbar {
+            height: 4px; // Horizontal scrollbar thickness
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #084e99;
+            border-radius: 10px;
+            cursor: pointer;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #b9c3c9; // Track color
+            border-radius: 10px;
+            cursor: pointer;
+          }
+
+          .wrapper {
+            li {
+              padding: 5px;
+              gap: 10px;
+              font-size: 11px;
+
+              svg {
+                width: 15px;
+                height: 15px;
               }
             }
           }

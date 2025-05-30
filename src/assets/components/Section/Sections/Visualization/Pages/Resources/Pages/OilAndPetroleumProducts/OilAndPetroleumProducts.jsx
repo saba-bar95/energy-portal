@@ -10,6 +10,7 @@ const OilAndPetroleumProducts = () => {
   const { language } = useParams();
 
   const chart1Info = {
+    id: "oil-1",
     styles: {
       gap: "30px",
       justifyContent: "center",
@@ -17,9 +18,9 @@ const OilAndPetroleumProducts = () => {
     chartName: 4,
     chartID: 7,
     title_ge: "ნავთობის მოპოვება და ნავთობპროდუქტების წარმოება",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Crude oil axtraction and production of petroleum products",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#6FAEA9", "#556EB0", "#5A9FDE", "#D5A43F", "#994C8E"],
     svg: (
       <svg
@@ -37,16 +38,18 @@ const OilAndPetroleumProducts = () => {
   };
 
   const chart2Info = {
+    id: "electricity-1",
     chartID: 17,
     chartName: 4,
     title_ge: "ნედლი ნავთობის და ნავთობპროდუქტების იმპორტი სახეების მიხედვით",
     title_en: "Imports of crude oil and petroleum products by type",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
     color: "#6FAEA9",
     initialYear: 2023,
     legend: true,
     height: 700,
+    mobileHeight: 550,
     svg: (
       <svg
         width="30"
@@ -72,15 +75,17 @@ const OilAndPetroleumProducts = () => {
 
   const chart3Info = {
     chartID: 20,
+    id: "electricity-1",
     chartName: 4,
     title_ge: "ნედლი ნავთობის და ნავთობპროდუქტების ექსპორტი სახეების მიხედვით",
     title_en: "Exports of crude oil and petroleum products by type",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
     color: "#084E99",
     initialYear: 2023,
     legend: true,
     height: 700,
+    mobileHeight: 400,
     svg: (
       <svg
         width="30"
@@ -106,11 +111,12 @@ const OilAndPetroleumProducts = () => {
 
   const chart4Info = {
     chartID: 21,
+    id: "oil-4",
     chartName: 4,
     title_ge: "ნავთობპროდუქტების საბოლოო მოხმარება სახეების მიხედვით",
     title_en: "Final consumption of petroleum products by type",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
     colors: [
       "#5654D4",
       "#3FC8E4",
@@ -146,19 +152,20 @@ const OilAndPetroleumProducts = () => {
     styles: {
       flexWrap: "wrap",
       gap: "20px",
-      marginTop: language === "en" ? "-60px" : "-60px",
+      marginTop: language === "en" ? "-70px" : "-70px",
       marginLeft: "60px",
       justifyContent: "start",
     },
   };
 
   const chart5Info = {
+    id: "oil-5",
     chartIDs: [10, 22],
     chartName: 4,
     title_ge: "ნავთობპროდუქტების საბოლოო მოხმარება სექტორების მიხედვით",
     title_en: "Final consumption of petroleum products by sectors",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
     colors: ["#9747FF", "#244966", "#016C7D", "#084E99", "#EB4C4B", "#30B0C7"],
     legend: true,
     svg: (
@@ -185,19 +192,20 @@ const OilAndPetroleumProducts = () => {
     styles: {
       flexWrap: "wrap",
       gap: "20px",
-      marginTop: language === "en" ? "-40px" : "-60px",
+      marginTop: language === "en" ? "-70px" : "-70px",
       marginLeft: "60px",
       justifyContent: "start",
     },
   };
 
   const chart6Info = {
+    id: "oil-6",
     chartID: 25,
     chartName: 4,
     title_ge: "საერთაშორისო საზღვაო და საჰაერო ბუნკერები",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "International Marine and Aviation Bunkers",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#FB3B52", "#30B0C7"],
     legend: true,
     svg: (
@@ -215,22 +223,25 @@ const OilAndPetroleumProducts = () => {
     ),
     styles: {
       marginLeft: "60px",
+      marginTop: language === "en" ? "0" : "-35px",
       justifyContent: "center",
     },
   };
 
   const chart7Info = {
+    id: "electricity-1",
     chartID: 23,
     chartName: 4,
     title_ge: "ნავთობპროდუქტების საბოლოო მოხმარება მრეწველობის სექტორში",
     title_en:
       "Final consumption of petroleum products in the industrial sector",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
     color: "#244966",
     initialYear: 2023,
     legend: true,
     height: 550,
+    mobileHeight: 380,
     svg: (
       <svg
         width="26"
@@ -255,16 +266,18 @@ const OilAndPetroleumProducts = () => {
   };
 
   const chart8Info = {
+    id: "electricity-1",
     chartID: 24,
     chartName: 4,
     title_ge: "ნავთობპროდუქტების საბოლოო მოხმარება ტრანსპორტის სექტორში",
     title_en: "Final consumption of petroleum products in the transport sector",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
     color: "#007C90",
     initialYear: 2023,
     legend: true,
     height: 550,
+    mobileHeight: 380,
     svg: (
       <svg
         width="32"

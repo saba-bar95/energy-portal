@@ -20,6 +20,17 @@ const StackedAreaChart = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const id = language === "en" ? `${info.id}-${language}` : info.id;
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,9 +98,7 @@ const StackedAreaChart = ({ info }) => {
             const displayName = name;
             return (
               <p key={`item-${index}`} className="text">
-                <span style={{ color }} className="before-span">
-                  ■
-                </span>
+                <span style={{ color }} className="before-span"></span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                   {value.toFixed(1)}
@@ -109,7 +118,7 @@ const StackedAreaChart = ({ info }) => {
           const displayName = entry.dataKey; // Fallback to the original dataKey if no match
           return (
             <p key={`item-${index}`}>
-              <span style={{ color: entry.color }}>■</span>
+              <span style={{ color: entry.color }}></span>
               {displayName}
             </p>
           );
@@ -121,7 +130,7 @@ const StackedAreaChart = ({ info }) => {
   return (
     <>
       {data.length > 0 && (
-        <div className="main-chart">
+        <div className="main-chart" id={id}>
           <div className="header-container">
             {info.svg}
             <div className="info-wrapper">
@@ -137,22 +146,26 @@ const StackedAreaChart = ({ info }) => {
             />
           </div>
 
-          <ResponsiveContainer height={info.height || 500}>
+          <ResponsiveContainer height={windowWidth < 768 ? 400 : 500}>
             <AreaChart data={data}>
               <XAxis
                 dataKey="year"
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
                 tickMargin={5}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <YAxis
                 padding={{ top: 20 }}
                 tickLine={false}
                 tickMargin={10}
                 axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <Tooltip content={CustomTooltip} />
-              {info.legend && <Legend content={CustomLegend} />}
+              {info.legend && windowWidth >= 820 && (
+                <Legend content={CustomLegend} />
+              )}
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
               {dataKeys.map((el, i) => {
                 return (
@@ -171,7 +184,7 @@ const StackedAreaChart = ({ info }) => {
               })}
               <Brush
                 dataKey="year"
-                height={20} // Reduce height by half
+                height={windowWidth < 768 ? 10 : 20}
                 stroke="#115EFE"
                 tickFormatter={() => ""} // Hide year labels
               />

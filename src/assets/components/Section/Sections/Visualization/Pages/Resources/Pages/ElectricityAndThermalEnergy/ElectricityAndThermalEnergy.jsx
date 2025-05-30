@@ -13,10 +13,11 @@ const ElectricityAndThermalEnergy = () => {
     chartID: 7,
     chartName: 1,
     title_ge: "ელექტროენერგიის და თბოენერგიის წარმოება",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Electricity and heat production",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#5654D4", "#3FC8E4", "#007C90", "#ED4C5C", "#FF9F0A"],
+    id: "electricity-1",
     svg: (
       <svg
         width="26"
@@ -33,10 +34,10 @@ const ElectricityAndThermalEnergy = () => {
     styles: {
       flexWrap: "wrap",
       gap: "20px",
-      marginTop: "-30px",
+      marginTop: "-40px",
       marginLeft: "100px",
       justifyContent: "start",
-      width: "80%",
+      width: "90%",
     },
   };
 
@@ -45,8 +46,9 @@ const ElectricityAndThermalEnergy = () => {
     chartName: 1,
     title_ge: "საერთაშორისო ვაჭრობა",
     title_en: "International trade",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
+    id: "electricity-2",
     colors: ["#30B0C7", "#ED4C5C"],
     legend: true,
     svg: (
@@ -75,11 +77,15 @@ const ElectricityAndThermalEnergy = () => {
     chartName: 1,
     title_ge:
       "ელექტროენერგიის და თბოენერგიის საბოლოო მოხმარება სახეების მიხედვით",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    id: "electricity-3",
     title_en: "Final consumption of Electricity and heat by type",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#30B0C7", "#138C00", "#ED4C5C"],
     legend: true,
+    styles: {
+      marginLeft: "50px",
+    },
     svg: (
       <svg
         width="26"
@@ -100,12 +106,14 @@ const ElectricityAndThermalEnergy = () => {
     chartName: 1,
     title_ge: "ელექტროენერგიის საბოლოო მოხმარება მრეწველობის სექტორში",
     title_en: "Final electricity consumption in the industrial sector",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
     color: "#3498DB",
+    id: "electricity-4",
     initialYear: 2023,
     legend: true,
-    height: 700,
+    height: 650,
+    mobileHeight: 500,
     svg: (
       <svg
         width="26"
@@ -135,8 +143,9 @@ const ElectricityAndThermalEnergy = () => {
     title_ge:
       "ელექტროენერგიის და თბოენერგიის საბოლოო მოხმარება სექტორების მიხედვით",
     title_en: "Final consumption of Electricity and heat by sectors",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
+    id: "electricity-5",
     colors: [
       "#5654D4",
       "#3FC8E4",
@@ -177,9 +186,7 @@ const ElectricityAndThermalEnergy = () => {
         <VerticalStackedByYears info={chart1Info} />
         <LineChartByYears info={chart2Info} />
         <VerticalBarsByYears info={chart3Info} />
-        <div
-          className="chart-4"
-          style={{ flexDirection: "row", height: "900px" }}>
+        <div className="chart-4">
           <HorizontalBarsByYears info={chart4Info} />
         </div>
         <StackedAreaChart info={chart5Info} />

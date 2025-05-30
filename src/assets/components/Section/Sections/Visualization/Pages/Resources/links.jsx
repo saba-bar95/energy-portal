@@ -17,9 +17,9 @@ const svg1 = () => {
 const svg2 = () => {
   return (
     <svg
-      width="19"
+      width="24"
       height="24"
-      viewBox="0 0 19 24"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <path
@@ -33,9 +33,9 @@ const svg2 = () => {
 const svg3 = () => {
   return (
     <svg
-      width="25"
+      width="24"
       height="24"
-      viewBox="0 0 25 24"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <path
@@ -65,7 +65,7 @@ const svg4 = () => {
 const svg5 = () => {
   return (
     <svg
-      width="25"
+      width="24"
       height="24"
       viewBox="0 0 25 24"
       fill="none"

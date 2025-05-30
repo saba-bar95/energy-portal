@@ -1,9 +1,9 @@
 const svg1 = () => {
   return (
     <svg
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <path
@@ -27,9 +27,9 @@ const svg1 = () => {
 const svg2 = () => {
   return (
     <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <path
@@ -49,9 +49,9 @@ const svg2 = () => {
 const svg3 = () => {
   return (
     <svg
-      width="21"
-      height="22"
-      viewBox="0 0 21 22"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <path
@@ -68,9 +68,9 @@ const svg3 = () => {
 const svg4 = () => {
   return (
     <svg
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <path
@@ -87,9 +87,9 @@ const svg4 = () => {
 const svg5 = () => {
   return (
     <svg
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <path

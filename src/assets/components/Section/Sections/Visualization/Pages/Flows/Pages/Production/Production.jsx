@@ -3,12 +3,20 @@ import VerticalStackedByYears from "../../../../../../../Charts/VerticalStackedB
 const Production = () => {
   const chartInfo = {
     chartName: 6,
+    id: "production-1",
     chartID: 28,
     title_ge: "ენერგორესურსების წარმოება",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Energy production",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#6FAEA9", "#556EB0", "#BE6433", "#5A9FDE", "#D5A43F"],
+    styles: {
+      flexWrap: "wrap",
+      gap: "20px",
+      marginLeft: "80px",
+      justifyContent: "center",
+      width: "90%",
+    },
     svg: (
       <svg
         width="26"
@@ -32,7 +40,11 @@ const Production = () => {
     ),
   };
 
-  return <VerticalStackedByYears info={chartInfo} />;
+  return (
+    <div className="charts-container flows-production">
+      <VerticalStackedByYears info={chartInfo} />
+    </div>
+  );
 };
 
 export default Production;

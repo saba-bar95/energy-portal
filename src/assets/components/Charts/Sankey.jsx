@@ -6,121 +6,12 @@ import { useState, useEffect, useMemo } from "react";
 import fetchSankeyData from "../../../../fetchSankeyData";
 import YearDropdown from "../YearDropdown/YearDropdown";
 import chartYears from "../../../../chartYears";
+import { useRef } from "react";
 
 const SankeyChart = ({ info }) => {
-  const { language } = useParams();
-  const [hoveredLinkIndex, setHoveredLinkIndex] = useState(null);
-  const [year, setYear] = useState(2023);
-  const [data, setData] = useState(null);
-  const [excelData, setExcelData] = useState(null);
-
-  const nodeMap = useMemo(
-    () => [
-      { name_en: "Production", name_ge: "წარმოება" },
-      { name_en: "Imports", name_ge: "იმპორტი" },
-      { name_en: "Electricity", name_ge: "ელექტროენერგია" },
-      {
-        name_en: "Electricity and heat",
-        name_ge: "ელექტროენერგია და თბოენერგია",
-      },
-      { name_en: "Natural gas", name_ge: "ბუნებრივი გაზი" },
-      { name_en: "Coal", name_ge: "ქვანახშირი" },
-      {
-        name_en: "Oil and oil products",
-        name_ge: "ნავთობი და ნავთობპროდუქტები",
-      },
-      { name_en: "Biofuel and waste", name_ge: "ბიოსაწვავი და ნარჩენები" },
-      { name_en: "Exports", name_ge: "ექსპორტი" },
-      {
-        name_en: "International Marine Bunkers",
-        name_ge: "საერთაშორისო საზღვაო ბუნკერები",
-      },
-      {
-        name_en: "International aviation bunkers",
-        name_ge: "საერთაშორისო საჰაერო ბუნკერები",
-      },
-      { name_en: "Stock Changes", name_ge: "მარაგების ცვლილება" },
-      { name_en: "Industry", name_ge: "მრეწველობა" },
-      { name_en: "Construction", name_ge: "მშენებლობა" },
-      { name_en: "Transport", name_ge: "ტრანსპორტი" },
-      {
-        name_en: "Commercial and public services",
-        name_ge: "კერძო და სახელმწიფო მომსახურება",
-      },
-      { name_en: "Residential", name_ge: "შინამეურნეობები" },
-      {
-        name_en: "Agriculture, forestry and fishing",
-        name_ge: "სოფლის, სატყეო და თევზის მეურნეობა",
-      },
-      { name_en: "Other", name_ge: "სხვა" },
-    ],
-    []
-  );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const rawData = await fetchSankeyData(year);
-        setExcelData(rawData);
-
-        const nodes = [];
-        const links = [];
-        const nodeIndex = new Map(); // Tracks unique nodes and their indices
-
-        const getNodeIndex = (name) => {
-          const normalizedName = name.toLowerCase().trim(); // Normalize names
-
-          // Find matching entry from nodeMap
-          const nodeEntry = nodeMap.find(
-            (node) => node.name_en.toLowerCase().trim() === normalizedName
-          );
-
-          if (!nodeIndex.has(normalizedName)) {
-            nodeIndex.set(normalizedName, nodes.length);
-            nodes.push({
-              name_en: name,
-              name_ge: nodeEntry ? nodeEntry.name_ge : name, // Use mapped Georgian name if available
-            });
-          }
-
-          return nodeIndex.get(normalizedName);
-        };
-
-        rawData.forEach((entry) => {
-          const sourceIndex =
-            entry.column_name === 201 ? getNodeIndex(entry.res_chart_id) : null;
-          const targetIndex =
-            entry.column_name === 202 ? getNodeIndex(entry.res_chart_id) : null;
-          const middleIndex = getNodeIndex(entry.res_legend_code);
-
-          if (sourceIndex !== null) {
-            links.push({
-              source: sourceIndex,
-              target: middleIndex,
-              value: entry.value,
-            });
-          } else if (targetIndex !== null) {
-            links.push({
-              source: middleIndex,
-              target: targetIndex,
-              value: entry.value,
-            });
-          }
-        });
-
-        setData({ nodes, links }); // Update state with final Sankey data
-      } catch (error) {
-        console.error("Fetch error:", error);
-      }
-    };
-
-    fetchData();
-  }, [year, nodeMap]); // Runs effect when `year` changes
-
   const MyCustomNode = ({ x, y, width, height, payload }) => {
-    const isRightNode = x > 500; // Adjust threshold based on your chart's layout
+    const isRightNode = x > 100; // Adjust threshold based on your chart's layout
 
-    // Color mapping similar to CustomizedLink
     const colorMap = {
       Coal: "#d83712",
       "Biofuel and waste": "#28ce46",
@@ -144,6 +35,8 @@ const SankeyChart = ({ info }) => {
 
     const fillColor = colorMap[payload.name_en] || "#93c5fd"; // Fallback color
 
+    const fontsize = chartWidth >= 600 ? 13 : 10;
+
     return (
       <g>
         <rect
@@ -161,7 +54,7 @@ const SankeyChart = ({ info }) => {
           textAnchor={isRightNode ? "start" : "end"} // Align text appropriately
           fill="black"
           fontWeight="bold"
-          fontSize={13}>
+          fontSize={fontsize}>
           {language === "ge" ? payload.name_ge : payload.name_en}
         </text>
       </g>
@@ -271,18 +164,161 @@ const SankeyChart = ({ info }) => {
     );
   };
 
+  const nodeMap = useMemo(
+    () => [
+      { name_en: "Production", name_ge: "წარმოება" },
+      { name_en: "Imports", name_ge: "იმპორტი" },
+      { name_en: "Electricity", name_ge: "ელექტროენერგია" },
+      {
+        name_en: "Electricity and heat",
+        name_ge: "ელექტროენერგია და თბოენერგია",
+      },
+      { name_en: "Natural gas", name_ge: "ბუნებრივი გაზი" },
+      { name_en: "Coal", name_ge: "ქვანახშირი" },
+      {
+        name_en: "Oil and oil products",
+        name_ge: "ნავთობი და ნავთობპროდუქტები",
+      },
+      { name_en: "Biofuel and waste", name_ge: "ბიოსაწვავი და ნარჩენები" },
+      { name_en: "Exports", name_ge: "ექსპორტი" },
+      {
+        name_en: "International Marine Bunkers",
+        name_ge: "საერთაშორისო საზღვაო ბუნკერები",
+      },
+      {
+        name_en: "International aviation bunkers",
+        name_ge: "საერთაშორისო საჰაერო ბუნკერები",
+      },
+      { name_en: "Stock Changes", name_ge: "მარაგების ცვლილება" },
+      { name_en: "Industry", name_ge: "მრეწველობა" },
+      { name_en: "Construction", name_ge: "მშენებლობა" },
+      { name_en: "Transport", name_ge: "ტრანსპორტი" },
+      {
+        name_en: "Commercial and public services",
+        name_ge: "კერძო და სახელმწიფო მომსახურება",
+      },
+      { name_en: "Residential", name_ge: "შინამეურნეობები" },
+      {
+        name_en: "Agriculture, forestry and fishing",
+        name_ge: "სოფლის, სატყეო და თევზის მეურნეობა",
+      },
+      { name_en: "Other", name_ge: "სხვა" },
+    ],
+    []
+  );
+
+  const { language } = useParams();
+  const [hoveredLinkIndex, setHoveredLinkIndex] = useState(null);
+  const [year, setYear] = useState(2023);
+  const [data, setData] = useState(null);
+  const [excelData, setExcelData] = useState(null);
+
+  const chartContainerRef = useRef(null);
+
+  const initialWidth =
+    window.innerWidth >= 2301 && window.innerWidth <= 2700
+      ? window.innerWidth - 650
+      : window.innerWidth >= 1921 && window.innerWidth <= 2300
+      ? window.innerWidth - 500
+      : window.innerWidth >= 1600 && window.innerWidth <= 1920
+      ? window.innerWidth - 440
+      : window.innerWidth >= 1200 && window.innerWidth <= 1599
+      ? window.innerWidth - 210
+      : window.innerWidth >= 950 && window.innerWidth <= 1199
+      ? window.innerWidth - 100
+      : window.innerWidth >= 650 && window.innerWidth <= 949
+      ? window.innerWidth - 50 // Adjust as needed
+      : window.innerWidth >= 0 && window.innerWidth <= 649
+      ? window.innerWidth - 30
+      : window.innerWidth - 1000; // Default case
+
+  const [chartWidth, setChartWidth] = useState(initialWidth);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (chartContainerRef.current) {
+        setChartWidth(chartContainerRef.current.offsetWidth - 50);
+      }
+    };
+
+    // Set initial width when the component mounts
+    updateWidth();
+
+    // Update width dynamically on window resize
+    window.addEventListener("resize", updateWidth);
+
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const rawData = await fetchSankeyData(year);
+        setExcelData(rawData);
+
+        const nodes = [];
+        const links = [];
+        const nodeIndex = new Map(); // Tracks unique nodes and their indices
+
+        const getNodeIndex = (name) => {
+          const normalizedName = name.toLowerCase().trim(); // Normalize names
+
+          // Find matching entry from nodeMap
+          const nodeEntry = nodeMap.find(
+            (node) => node.name_en.toLowerCase().trim() === normalizedName
+          );
+
+          if (!nodeIndex.has(normalizedName)) {
+            nodeIndex.set(normalizedName, nodes.length);
+            nodes.push({
+              name_en: name,
+              name_ge: nodeEntry ? nodeEntry.name_ge : name, // Use mapped Georgian name if available
+            });
+          }
+
+          return nodeIndex.get(normalizedName);
+        };
+
+        rawData.forEach((entry) => {
+          const sourceIndex =
+            entry.column_name === 201 ? getNodeIndex(entry.res_chart_id) : null;
+          const targetIndex =
+            entry.column_name === 202 ? getNodeIndex(entry.res_chart_id) : null;
+          const middleIndex = getNodeIndex(entry.res_legend_code);
+
+          if (sourceIndex !== null) {
+            links.push({
+              source: sourceIndex,
+              target: middleIndex,
+              value: entry.value,
+            });
+          } else if (targetIndex !== null) {
+            links.push({
+              source: middleIndex,
+              target: targetIndex,
+              value: entry.value,
+            });
+          }
+        });
+
+        setData({ nodes, links }); // Update state with final Sankey data
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    fetchData();
+  }, [year, nodeMap]); // Runs effect when `year` changes
+
   return (
     <>
       {data && (
-        <div
-          className="main-chart tree-map-chart"
-          style={{
-            width: "max-content",
-            margin: "auto",
-          }}>
+        <div className="main-chart sankey-1" ref={chartContainerRef}>
           <div className="header-container">
-            {info.svg}
             <div className="info-wrapper">
+              {info.svg}
               <div className="text-wrapper">
                 <h2>{info[`title_${language}`]}</h2>
                 <h3>{info[`unit_${language}`]}</h3>
@@ -300,7 +336,8 @@ const SankeyChart = ({ info }) => {
             </div>
           </div>
           <Sankey
-            width={1400}
+            width={window.innerWidth >= 800 ? chartWidth : window.innerWidth}
+            // width={chartWidth}
             height={500}
             data={data}
             node={<MyCustomNode />}

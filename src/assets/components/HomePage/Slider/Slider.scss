@@ -63,7 +63,7 @@
     .widget-container {
       display: flex;
       gap: 25px;
-      overflow-x: scroll;
+      overflow-x: auto;
       padding-bottom: 20px;
 
       &::-webkit-scrollbar {

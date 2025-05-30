@@ -9,7 +9,6 @@ header {
   box-shadow: 0 4px 8px #0003;
 
   .header-container {
-    max-width: 1800px;
     padding: 20px 200px;
     display: flex;
     justify-content: space-between;
@@ -117,7 +116,16 @@ header {
   }
 }
 
-@media only screen and (min-width: $tablet) and (max-width: 1600px) {
+@media only screen and (min-width: $desktop) and (max-width: $ultrawide) {
+  header {
+    .header-container {
+      width: 1800px;
+      margin: auto;
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
   header {
     .header-container {
       padding: 20px 100px;
@@ -129,7 +137,7 @@ header {
   }
 }
 
-@media only screen and (min-width: $mobile) and (max-width: $tablet) {
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
   header {
     .header-container {
       padding: 20px 50px;
@@ -190,24 +198,30 @@ header {
   }
 }
 
-@media only screen and (min-width: 0) and (max-width: $mobile) {
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
   header {
     .header-container {
-      padding: 20px 30px 40px 30px;
+      padding: 30px;
       gap: 15px;
       display: flex;
       flex-direction: column;
 
       .right {
-        gap: 10px;
         justify-content: center;
+        gap: 15px;
+        width: 100%;
+
+        .english-img {
+          width: 110px;
+        }
 
         h1 {
           font-size: 12px;
+          width: 150px;
         }
 
-        svg {
-          width: 150px;
+        img {
+          width: 80px;
         }
       }
 
@@ -228,6 +242,10 @@ header {
             p {
               padding: 10px;
             }
+          }
+
+          h1 {
+            font-size: 13px;
           }
         }
       }

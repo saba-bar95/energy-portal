@@ -1,6 +1,45 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .child-container {
-  padding: 50px 200px 200px 200px;
   display: grid;
   gap: 40px;
-  // grid-template-columns: 1fr 1fr;
+  background-color: #f4f4f7;
+
+  .container-ss {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 200px 200px 200px;
+    gap: 40px;
+    max-width: 1800px;
+    margin: auto;
+    width: 100%;
+  }
+
+  .download-container {
+    flex: 0 !important;
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .child-container {
+    .container-ss {
+      padding: 40px 100px 200px 100px;
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .child-container {
+    .container-ss {
+      padding: 40px 50px 200px 50px;
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .child-container {
+    .container-ss {
+      padding: 30px 30px 100px 30px;
+    }
+  }
 }

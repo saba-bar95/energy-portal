@@ -31,9 +31,11 @@ const SDGIndicators = () => {
     {
       chartName: 90,
       title_ge: "ენერგოინტენსიურობა",
-      unit_ge: "ტნე/მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)",
+      unit_ge:
+        "ტონა ნავთობის ექვივალენტი/მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)",
       title_en: "Energy intensity",
-      unit_en: "toe/GDP at constant 2019 prices (million GEL)",
+      unit_en:
+        "Ton of oil equivalent/GDP at constant 2019 prices (million GEL)",
       colors: ["#ED4C5C80"],
       sdgColor: "#ED4C5C80",
       sdgText: "SDG 7.3.1",
@@ -56,10 +58,12 @@ const SDGIndicators = () => {
   ];
 
   return (
-    <div className="indicators-container">
-      {chartNames.map((chart, i) => (
-        <SingleAreaChart key={i} info={chart} />
-      ))}
+    <div className="child-container sdg-indicator-container">
+      <div className="container-ss">
+        {chartNames.map((chart, i) => (
+          <SingleAreaChart key={i} info={chart} />
+        ))}
+      </div>
     </div>
   );
 };

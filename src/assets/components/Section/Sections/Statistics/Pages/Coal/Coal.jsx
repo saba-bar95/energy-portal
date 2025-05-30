@@ -5,11 +5,17 @@ import Chart_4 from "./Chart_4";
 
 const Coal = () => {
   return (
-    <div className="child-container">
-      <Chart_1 />
-      <Chart_2 />
-      <Chart_3 />
-      <Chart_4 />
+    <div className="electricity">
+      <div className="ss-container">
+        <div className="div">
+          <Chart_1 />
+          <Chart_2 />
+        </div>
+        <div className="div">
+          <Chart_3 />
+          <Chart_4 />
+        </div>
+      </div>
     </div>
   );
 };

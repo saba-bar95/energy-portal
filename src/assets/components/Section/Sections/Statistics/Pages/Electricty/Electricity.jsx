@@ -128,16 +128,18 @@ const Electricity = () => {
   return (
     <>
       <div className="electricity">
-        <div className="div">
-          <ChartWithFilters info={chart1Info} />
-        </div>
-        <div className="div">
-          <Chart_1 />
-          <Chart_2 />
-        </div>
-        <div className="div">
-          <Chart_3 />
-          <Chart_4 />
+        <div className="ss-container">
+          <div className="div">
+            <ChartWithFilters info={chart1Info} />
+          </div>
+          <div className="div">
+            <Chart_1 />
+            <Chart_2 />
+          </div>
+          <div className="div">
+            <Chart_3 />
+            <Chart_4 />
+          </div>
         </div>
       </div>
     </>

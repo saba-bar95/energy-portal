@@ -11,25 +11,36 @@ import {
 import { useParams } from "react-router-dom";
 import "./Chart.scss";
 import Download from "../../../../Download/Download";
+import { useEffect, useState } from "react";
 
 const SecondChart = ({ data }) => {
   const { language } = useParams();
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const CustomLegend = () => {
     return (
       <div className="legend-container">
         <p>
-          <span style={{ color: data.color[0] }}>■</span>
+          <span style={{ color: data.color[0] }}></span>
 
           {language === "ge" ? "სულ" : "Total"}
         </p>
         <p>
-          <span style={{ color: data.color[1] }}>■</span>
+          <span style={{ color: data.color[1] }}></span>
           {language === "ge" ? "ქალაქად" : "Urban"}
         </p>
         <p>
-          <span style={{ color: data.color[2] }}>■</span>
-          {language === "ge" ? "სოფლად" : "City"}
+          <span style={{ color: data.color[2] }}></span>
+          {language === "ge" ? "სოფლად" : "Rural"}
         </p>
       </div>
     );
@@ -56,9 +67,7 @@ const SecondChart = ({ data }) => {
         <div className="tooltip-container">
           {payload.map(({ name, value, color }, index) => (
             <p key={`item-${index}`} className="text">
-              <span style={{ color }} className="before-span">
-                ■
-              </span>
+              <span style={{ color }} className="before-span"></span>
               {language === "en"
                 ? capitalizeFirstLetter(
                     name === "city"
@@ -81,7 +90,13 @@ const SecondChart = ({ data }) => {
 
   const CustomXAxisTick = ({ x, y, payload }) => {
     return (
-      <text x={x} y={y} dy={16} textAnchor="middle" fill="#1E1E1E">
+      <text
+        x={x}
+        y={y}
+        dy={16}
+        textAnchor="middle"
+        fill="#1E1E1E"
+        fontSize={14}>
         {payload.value}
       </text>
     );
@@ -107,7 +122,7 @@ const SecondChart = ({ data }) => {
   };
 
   return (
-    <div style={{ width: "100%" }} className="main-chart">
+    <div style={{ width: "100%" }} className="main-chart second-chart">
       <div className="header-container">
         <img src={data.icon} alt="" />
         <div className="text-wrapper">
@@ -123,10 +138,10 @@ const SecondChart = ({ data }) => {
         />
       </div>
 
-      <ResponsiveContainer height={600}>
+      <ResponsiveContainer
+        height={windowWidth < 768 ? 400 : windowWidth < 1200 ? 500 : 600}>
         <BarChart
           width={500}
-          height={300}
           data={data.data}
           margin={{
             top: 5,
@@ -146,7 +161,8 @@ const SecondChart = ({ data }) => {
             padding={{ top: 15 }}
           />
           <Tooltip content={CustomTooltip} />
-          <Legend content={CustomLegend} />
+
+          {windowWidth >= 820 && <Legend content={CustomLegend} />}
           <Bar dataKey="total" fill={data.color[0]} minPointSize={5} />
           <Bar dataKey="city" fill={data.color[1]} minPointSize={10} />
           <Bar dataKey="village" fill={data.color[2]} minPointSize={10} />

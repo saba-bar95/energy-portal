@@ -12,8 +12,9 @@ const FinalConsumption = () => {
     chartName: 6,
     title_ge: "ენერგორესურსების საბოლოო მოხმარება ენერგიის სახეების მიხედვით",
     title_en: "Final consumption of energy resources by type of energy",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    id: "final-1",
+    unit_en: "Ton of oil equivalent",
     colors: [
       "#9747FF",
       "#244966",
@@ -59,10 +60,11 @@ const FinalConsumption = () => {
   const chart2Info = {
     chartID: 32,
     chartName: 6,
+    id: "final-2",
     title_ge: "ენერგორესურსების საბოლოო მოხმარება სექტორების მიხედვით",
     title_en: "Final consumption of energy resources by sectors",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
     colors: [
       "#5654D4",
       "#138C00",
@@ -100,10 +102,11 @@ const FinalConsumption = () => {
   const chart3Info = {
     chartID: 33,
     chartName: 6,
+    id: "final-3",
     title_ge: "ენერგორესურსების საბოლოო მოხმარება მრეწველობის სექტორში",
     title_en: "Final consumption of energy resources in the industrial sector",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
     colors: [
       "#084E99",
       "#016C7D",
@@ -149,6 +152,7 @@ const FinalConsumption = () => {
   };
 
   const chart4Info = {
+    id: "final-4",
     styles: {
       flexWrap: "wrap",
       gap: "20px",
@@ -159,9 +163,9 @@ const FinalConsumption = () => {
     chartName: 6,
     chartID: 34,
     title_ge: "ენერგორესურსების საბოლოო მოხმარება ტრანსპორტის სექტორში",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Final energy consumption in the transport sector",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#5654D4", "#3FC8E4", "#ED4C5C", "#007C90", "#FF9F0A", "#929497"],
 
     svg: (
@@ -206,14 +210,15 @@ const FinalConsumption = () => {
   };
 
   const chart5Info = {
+    id: "final-5",
     chartName: 6,
     chartID: 35,
     title_ge:
       "ენერგორესურსების საბოლოო მოხმარება ენერგეტიკული და არაენერგეტიკული მიზნებისთვის",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en:
       "Final consumption of energy resources for energy and non-energy purposes",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#ED4C5C", "#3FC8E4"],
 
     svg: (
@@ -232,7 +237,7 @@ const FinalConsumption = () => {
   };
 
   return (
-    <div className="final-consumption">
+    <div className="charts-container final-consumption">
       <StackedAreaChart info={chart1Info} />
       <StackedAreaChart info={chart2Info} />
       <MultipleLineChartByYears info={chart3Info} />

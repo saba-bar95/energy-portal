@@ -6,7 +6,6 @@ import secondChartIcon from "/src/assets/images/sections/consumption/2-chart-ico
 
 const Heating = () => {
   const [chartData, setChartData] = useState([null, null]);
-  const [loading, setLoading] = useState(true); // New loading state
 
   const chartsConfig = useMemo(
     () => [
@@ -33,28 +32,21 @@ const Heating = () => {
 
   useEffect(() => {
     const getData = async () => {
-      setLoading(true); // Set loading to true before fetching data
       const dataPromises = chartsConfig.map(async (chart) => {
         const respData = await fetchData(chart.householdID);
         return respData.filter((el) => el.name_ge !== "სულ");
       });
       const results = await Promise.all(dataPromises);
       setChartData(results);
-      setLoading(false); // Set loading to false after data is fetched
     };
 
     getData();
   }, [chartsConfig]);
 
   return (
-    <div className="heating-container">
-      {loading ? ( // Render loading container if loading is true
-        <div className="loading-container">
-          <p style={{ fontSize: "20px" }}>Loading...</p>{" "}
-          {/* You can customize this loading message or add a spinner */}
-        </div>
-      ) : (
-        chartData.map(
+    <div className="container-ss">
+      <div className="heating-container">
+        {chartData.map(
           (data, index) =>
             data && (
               <Chart
@@ -62,8 +54,8 @@ const Heating = () => {
                 data={{ ...chartsConfig[index], data }}
               />
             )
-        )
-      )}
+        )}
+      </div>
     </div>
   );
 };

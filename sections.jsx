@@ -1,3 +1,8 @@
+import Visualization from "./src/assets/components/Section/Sections/Visualization/Visualization";
+import Consumption from "./src/assets/components/Section/Sections/Consumption/Consumption";
+import Indicators from "./src/assets/components/Section/Sections/Indicators/Indicators";
+import Statistics from "./src/assets/components/Section/Sections/Statistics/Statistics";
+
 const svg1 = () => {
   return (
     <svg
@@ -101,6 +106,7 @@ const sections = [
     href: "balance",
     background: "#E9ECFF",
     svg: svg1(),
+    component: Visualization,
   },
   {
     name_ge: "მოკლევადიანი ენერგეტიკული სტატისტიკა",
@@ -109,6 +115,7 @@ const sections = [
     href: "statistics",
     background: "#D9F1FE",
     svg: svg2(),
+    component: Statistics,
   },
   {
     name_ge: "ენერგორესურსების მოხმარება ",
@@ -117,6 +124,7 @@ const sections = [
     href: "consumption",
     background: "#FDE6E9",
     svg: svg3(),
+    component: Consumption,
   },
   {
     name_ge: "ძირითადი მაჩვენებლები ",
@@ -125,6 +133,7 @@ const sections = [
     href: "indicators",
     background: "#F2E8D9",
     svg: svg4(),
+    component: Indicators,
   },
 ];
 

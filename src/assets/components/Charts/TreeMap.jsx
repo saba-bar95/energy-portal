@@ -80,9 +80,7 @@ const TreeMap = ({ info }) => {
               <p key={`item-${index}`} className="text" style={{ color }}>
                 <span
                   style={{ color, fontWeight: "bold" }}
-                  className="before-span">
-                  ■
-                </span>
+                  className="before-span"></span>
                 {name} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                   {value.toFixed(1)} %
@@ -116,6 +114,7 @@ const TreeMap = ({ info }) => {
             textAnchor="middle"
             dominantBaseline="central"
             fontSize="11"
+            fontFamily="FiraGOLight"
             fontWeight="300"
             fill="white">
             {name}

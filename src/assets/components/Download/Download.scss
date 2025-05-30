@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .download-container {
   position: relative;
   display: flex;
@@ -67,6 +69,54 @@
         p {
           color: #1e1e1e;
           font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .download-container {
+    .svg-container {
+      svg {
+        width: 28px;
+        height: 28px;
+      }
+    }
+
+    .dropdown-content {
+      padding: 10px 8px;
+
+      .upper,
+      .lower {
+        .wrapper {
+          p {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: $mobile) {
+  .download-container {
+    .svg-container {
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .dropdown-content {
+      padding: 8px 6px;
+
+      .upper,
+      .lower {
+        .wrapper {
+          p {
+            font-size: 11px;
+          }
         }
       }
     }

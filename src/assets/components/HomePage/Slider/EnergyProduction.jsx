@@ -130,8 +130,8 @@ const EnergyProduction = () => {
         name_en: "Biofuels and Waste",
         legendCode: 5,
         svg: <Svg5 />,
-        unit_ge: "ათასი ტნე",
-        unit_en: "ktoe",
+        unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+        unit_en: "Ton of oil equivalent",
       },
     ],
     []

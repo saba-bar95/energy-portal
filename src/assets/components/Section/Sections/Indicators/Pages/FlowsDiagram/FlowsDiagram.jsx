@@ -1,12 +1,11 @@
-import "./FlowsDiagram.scss";
 import SankeyChart from "../../../../../Charts/Sankey";
 
 const Diagram = () => {
   const chartInfo = {
     title_ge: "ნაკადები",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Flows",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     svg: (
       <svg
         width="28"
@@ -68,7 +67,9 @@ const Diagram = () => {
 
   return (
     <div className="diagram-container">
-      <SankeyChart info={chartInfo} />
+      <div className="container-ss">
+        <SankeyChart info={chartInfo} />
+      </div>
     </div>
   );
 };

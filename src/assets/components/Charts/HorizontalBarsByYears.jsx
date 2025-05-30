@@ -20,6 +20,15 @@ const HorizontalBarsByYears = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [year, setYear] = useState(2023);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,8 +72,10 @@ const HorizontalBarsByYears = ({ info }) => {
 
   const customNameLabel = (props) => {
     const { x, y, value } = props;
+    const fontSize = window.innerWidth < 768 ? 11 : 16; // Adjust font size based on window width
+
     return (
-      <text x={x + 5} y={y - 10}>
+      <text x={x + 5} y={y - 10} fontSize={fontSize}>
         {value}
       </text>
     );
@@ -73,7 +84,9 @@ const HorizontalBarsByYears = ({ info }) => {
   const renderCustomizedLabel = (props) => {
     const { x, y, width, value } = props;
     const rectWidth = 50; // Width of the rectangle
-    const rectHeight = 25; // Set this to match the barSize
+    const rectHeight = window.innerWidth < 768 ? 18 : 25; // Set this to match the barSize
+
+    const fontSize = window.innerWidth < 768 ? 11 : 16; // Adjust font size based on window width
 
     return (
       <g>
@@ -86,6 +99,7 @@ const HorizontalBarsByYears = ({ info }) => {
           rx={5} // Rounded corners
         />
         <text
+          fontSize={fontSize}
           x={x + width + 10 + rectWidth / 2} // Center the text inside the rectangle
           y={y + rectHeight / 2} // Align the text vertically in the middle of the rectangle
           fill="#1E1E1E" // Text color
@@ -106,9 +120,7 @@ const HorizontalBarsByYears = ({ info }) => {
             const displayName = payload[0].payload.name;
             return (
               <p key={`item-${index}`} className="text">
-                <span style={{ color }} className="before-span">
-                  ■
-                </span>
+                <span style={{ color }} className="before-span"></span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                   {value.toFixed(1)}
@@ -124,7 +136,7 @@ const HorizontalBarsByYears = ({ info }) => {
   return (
     <>
       {data.length > 0 && (
-        <div className="main-chart">
+        <div className="main-chart" id={info?.id}>
           <div className="header-container">
             {info.svg}
             <div className="text-wrapper">
@@ -141,17 +153,27 @@ const HorizontalBarsByYears = ({ info }) => {
               />
             </div>
           </div>
-          <ResponsiveContainer height={info.height ? info.height : "100%"}>
+          <ResponsiveContainer
+            height={
+              window.innerWidth < 768
+                ? info?.mobileHeight
+                : info?.height
+                ? info.height
+                : "100%"
+            }>
             <BarChart
               data={data}
               layout="vertical" // Set layout to vertical for horizontal bars
-              margin={{
-                top: 20,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}>
-              <XAxis type="number" tickLine={false} />
+              margin={
+                windowWidth < 768
+                  ? { top: 15, right: 5, left: -30, bottom: 5 }
+                  : { top: 20, right: 30, left: 20, bottom: 5 }
+              }>
+              <XAxis
+                type="number"
+                tickLine={false}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+              />
               <YAxis
                 dataKey={"name"}
                 type="category"
@@ -161,7 +183,10 @@ const HorizontalBarsByYears = ({ info }) => {
               />
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
               <Tooltip content={CustomTooltip} />
-              <Bar dataKey="value" fill={info.color} barSize={25}>
+              <Bar
+                dataKey="value"
+                fill={info.color}
+                barSize={windowWidth < 768 ? 18 : 25}>
                 <LabelList dataKey={"name"} content={customNameLabel} />
                 <LabelList dataKey="value" content={renderCustomizedLabel} />
                 {/* Labels on top of bars */}

@@ -21,6 +21,17 @@ const VerticalBarsByYears = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const id = language === "en" ? `${info.id}-${language}` : info.id;
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,9 +112,7 @@ const VerticalBarsByYears = ({ info }) => {
             const displayName = name;
             return (
               <p key={`item-${index}`} className="text">
-                <span style={{ color }} className="before-span">
-                  ■
-                </span>
+                <span style={{ color }} className="before-span"></span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                   {value.toFixed(1)}
@@ -135,7 +144,9 @@ const VerticalBarsByYears = ({ info }) => {
   const renderCustomizedLabel = (props) => {
     const { x, y, width, value } = props;
     const rectWidth = width; // Width of the rectangle
-    const rectHeight = 25; // Height of the rectangle
+    const rectHeight = window.innerWidth < 768 ? 18 : 25; // Set this to match the barSize
+
+    const fontSize = window.innerWidth < 768 ? 11 : 16; // Adjust font size based on window width
 
     return (
       <g>
@@ -148,6 +159,7 @@ const VerticalBarsByYears = ({ info }) => {
           rx={5} // Rounded corners
         />
         <text
+          fontSize={fontSize}
           x={x + width / 2} // Center the text inside the rectangle
           y={y - rectHeight / 2 - 5} // Center vertically within the rectangle
           fill="#1E1E1E" // Text color
@@ -162,7 +174,7 @@ const VerticalBarsByYears = ({ info }) => {
   return (
     <>
       {data.length > 0 && (
-        <div className="main-chart">
+        <div className="main-chart" id={id}>
           <div className="header-container">
             {info.svg}
             <div className="info-wrapper">
@@ -177,27 +189,30 @@ const VerticalBarsByYears = ({ info }) => {
               unit={info[`unit_${language}`]}
             />
           </div>
-          <ResponsiveContainer height={420}>
+          <ResponsiveContainer height={windowWidth < 768 ? 380 : 420}>
             <BarChart
               data={data}
-              margin={{
-                top: 20,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}>
+              margin={
+                windowWidth < 768
+                  ? { top: 15, right: 5, left: -10, bottom: 5 }
+                  : { top: 20, right: 30, left: 20, bottom: 5 }
+              }>
               <XAxis
                 dataKey="year"
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <YAxis
                 tickLine={false}
                 padding={{ top: 30 }}
                 axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <Tooltip content={CustomTooltip} />
-              {info.legend && <Legend content={CustomLegend} />}
+              {info.legend && windowWidth >= 820 && (
+                <Legend content={CustomLegend} />
+              )}
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
               {dataKeys.map((el, i) => {
                 return (
@@ -214,7 +229,7 @@ const VerticalBarsByYears = ({ info }) => {
               })}
               <Brush
                 dataKey="year"
-                height={20} // Reduce height by half
+                height={windowWidth < 768 ? 10 : 20}
                 stroke="#115EFE"
                 tickFormatter={() => ""} // Hide year labels
               />

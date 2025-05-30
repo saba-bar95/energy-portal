@@ -74,8 +74,8 @@ const ProductionAndConsumption = () => {
   const chart2Info = {
     styles: {
       flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language !== "en" ? "-170px" : "-170px",
+      gap: "10px",
+      marginTop: language !== "en" ? "-220px" : "-220px",
       alignItems: "start",
       flexDirection: "column",
       justifyContent: "start",
@@ -144,8 +144,8 @@ const ProductionAndConsumption = () => {
   const chart3Info = {
     styles: {
       flexWrap: "wrap",
-      gap: "15px",
-      marginTop: language !== "en" ? "-170px" : "-170px",
+      gap: "8px",
+      marginTop: language !== "en" ? "-240px" : "-240px",
       alignItems: "start",
       flexDirection: "column",
       justifyContent: "start",
@@ -217,9 +217,13 @@ const ProductionAndConsumption = () => {
   return (
     <>
       <div className="production-consumption">
-        <MyTreeMap info={chart1Info} />
-        <PieChartComponent info={chart2Info} />
-        <PieChartComponent info={chart3Info} />
+        <div className="container-ss">
+          <MyTreeMap info={chart1Info} />
+          <div className="div">
+            <PieChartComponent info={chart2Info} />
+            <PieChartComponent info={chart3Info} />
+          </div>
+        </div>
       </div>
     </>
   );

@@ -31,9 +31,11 @@ const Indicators = () => {
     {
       chartName: 90,
       title_ge: "ენერგოინტენსიურობა",
-      unit_ge: "ტნე/მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)",
+      unit_ge:
+        "ტონა ნავთობის ექვივალენტი/მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)",
       title_en: "Energy intensity",
-      unit_en: "toe/GDP at constant 2019 prices (million GEL)",
+      unit_en:
+        "Ton of oil equivalent/GDP at constant 2019 prices (million GEL)",
       colors: ["#ED4C5C80"],
       sdgColor: "#ED4C5C80",
       sdgText: "SDG 7.3.1",
@@ -57,9 +59,9 @@ const Indicators = () => {
       chartName: 91,
       title_ge:
         "პირველადი ენერგიის მთლიანი მიწოდება საშუალოდ ერთ სულ მოსახლეზე",
-      unit_ge: "ტნე",
+      unit_ge: "ტონა ნავთობის ექვივალენტი",
       title_en: "Total primary energy supply per capita ",
-      unit_en: "toe",
+      unit_en: "Ton of oil equivalent",
       colors: ["#6FAEA9"],
       linear:
         "linear-gradient(180deg, rgba(111, 174, 169, 0.5) 0%, rgba(255, 255, 255, 0) 100%)",
@@ -81,9 +83,10 @@ const Indicators = () => {
     {
       chartName: 92,
       title_ge: "ენერგოპროდუქტიულობა",
-      unit_ge: "მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)/ტნე",
+      unit_ge:
+        "მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)/ტონა ნავთობის ექვივალენტი",
       title_en: "Energy productivity",
-      unit_en: "GDP at constant 2019 prices (mln. GEL)/toe",
+      unit_en: "GDP at constant 2019 prices (mln. GEL)/Ton of oil equivalent",
       colors: ["#BE6433"],
       linear:
         "linear-gradient(180deg, rgba(190, 100, 51, 0.5) 0%, rgba(255, 255, 255, 0) 100%)",
@@ -151,10 +154,12 @@ const Indicators = () => {
   ];
 
   return (
-    <div className="indicators-container">
-      {chartNames.map((chart, i) => (
-        <SingleAreaChart key={i} info={chart} />
-      ))}
+    <div className="resources-container ">
+      <div className="charts-container indicators-container">
+        {chartNames.map((chart, i) => (
+          <SingleAreaChart key={i} info={chart} />
+        ))}
+      </div>
     </div>
   );
 };

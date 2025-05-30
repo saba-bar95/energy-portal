@@ -42,19 +42,21 @@ const Map = () => {
 
   return (
     <div className="map-container">
-      <div className="header-container">
-        {svg()}
-        <div className="info-wrapper">
-          <div className="text-wrapper">
-            <h2>{text[language].title}</h2>
+      <div className="container-ss">
+        <div className="header-container">
+          {svg()}
+          <div className="info-wrapper">
+            <div className="text-wrapper">
+              <h2>{text[language].title}</h2>
+            </div>
           </div>
         </div>
+        <iframe
+          src="https://www.google.com/maps/d/embed?mid=1xFFkxTjQ1Rxfz1QA62KOYMIjuGyH6-w&ll=42.20504413014053%2C43.93333055555553&z=8"
+          width="100%"
+          height="500"
+          allowFullScreen></iframe>
       </div>
-      <iframe
-        src="https://www.google.com/maps/d/embed?mid=1xFFkxTjQ1Rxfz1QA62KOYMIjuGyH6-w&ll=42.20504413014053%2C43.93333055555553&z=8"
-        width="100%"
-        height="500"
-        allowFullScreen></iframe>
     </div>
   );
 };

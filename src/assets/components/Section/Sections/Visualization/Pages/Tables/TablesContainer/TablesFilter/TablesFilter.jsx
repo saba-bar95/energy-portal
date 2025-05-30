@@ -56,14 +56,14 @@ const TablesFilter = ({
     ge: {
       filter: "ფილტრი",
       year: "წელი",
-      units: ["ტჯ", "1000 ტნე", "ფიზიკური ერთეული"],
+      units: ["ტჯ", "1000 ტონა ნავთობის ექვივალენტი", "ფიზიკური ერთეული"],
       name: "საერთო სახელი",
     },
 
     en: {
       filter: "Filter",
       year: "Year",
-      units: ["tj", "ktoe", "Physical unit"],
+      units: ["tj", "Ton of oil equivalent", "Physical unit"],
       name: "Name",
     },
   };

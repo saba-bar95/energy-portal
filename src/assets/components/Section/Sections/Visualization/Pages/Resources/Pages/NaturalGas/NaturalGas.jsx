@@ -12,8 +12,9 @@ const NaturalGas = () => {
     chartName: 2,
     title_ge: "ბუნებრივი გაზის წარმოება",
     title_en: "Natural gas production",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
+    id: "electricity-1",
     colors: ["#3498DB"],
     legend: false,
     label: true,
@@ -65,8 +66,9 @@ const NaturalGas = () => {
     chartName: 2,
     title_ge: "ბუნებრივი გაზის იმპორტი",
     title_en: "Natural gas imports",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
+    id: "electricity-1",
     colors: ["#ED4C5C"],
     legend: false,
     svg: (
@@ -89,8 +91,9 @@ const NaturalGas = () => {
     chartName: 2,
     title_ge: "ბუნებრივი გაზის საბოლოო მოხმარება სექტორების მიხედვით",
     title_en: "Final consumption of natural gas by sector",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
+    id: "naturalgas-3",
     colors: [
       "#5654D4",
       "#3FC8E4",
@@ -118,8 +121,8 @@ const NaturalGas = () => {
     styles: {
       flexWrap: "wrap",
       gap: "20px",
-      marginTop: language === "en" ? "-30px" : "-60px",
-      marginLeft: "-30px",
+      marginTop: language === "en" ? "-30px" : "-70px",
+      marginLeft: "60px",
       justifyContent: "start",
     },
   };
@@ -129,11 +132,14 @@ const NaturalGas = () => {
     chartName: 2,
     title_ge: "ბუნებრივი გაზის საბოლოო მოხმარება მრეწველობის სექტორში",
     title_en: "Final consumption of natural gas in the industrial sector",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
     color: "#007C90",
+    id: "electricity-4",
     initialYear: 2023,
     height: 800,
+    mobileHeight: 600,
+
     legend: true,
     svg: (
       <svg
@@ -159,7 +165,7 @@ const NaturalGas = () => {
   };
 
   return (
-    <div className="container natural-gas">
+    <div className="charts-container natural-gas">
       <VerticalBarsByYears info={chart1Info} />
       <VerticalBarsByYears info={chart2Info} />
       <div>

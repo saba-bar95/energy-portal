@@ -5,10 +5,18 @@ const Exports = () => {
     chartName: 6,
     chartID: 30,
     title_ge: "ენერგორესურსების ექსპორტი",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    id: "exports-1",
     title_en: "Energy exports",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#5654D4", "#007C90", "#3FC8E4", "#ED4C5C", "#FF9F0A"],
+    styles: {
+      flexWrap: "wrap",
+      gap: "20px",
+      marginLeft: "80px",
+      justifyContent: "center",
+      width: "90%",
+    },
     legend: true,
     svg: (
       <svg
@@ -33,7 +41,11 @@ const Exports = () => {
     ),
   };
 
-  return <VerticalBarsByYears info={chartInfo} />;
+  return (
+    <div className="charts-container flows-production">
+      <VerticalBarsByYears info={chartInfo} />
+    </div>
+  );
 };
 
 export default Exports;

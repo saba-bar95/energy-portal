@@ -48,23 +48,25 @@ const Cooking = () => {
   }, [chartsConfig]);
 
   return (
-    <div className="heating-container">
-      {loading ? ( // Render loading container if loading is true
-        <div className="loading-container">
-          <p style={{ fontSize: "20px" }}>Loading...</p>{" "}
-          {/* You can customize this loading message or add a spinner */}
-        </div>
-      ) : (
-        chartData.map(
-          (data, index) =>
-            data && (
-              <Chart
-                key={chartsConfig[index].householdID}
-                data={{ ...chartsConfig[index], data }}
-              />
-            )
-        )
-      )}
+    <div className="container-ss">
+      <div className="heating-container">
+        {loading ? ( // Render loading container if loading is true
+          <div className="loading-container">
+            <p style={{ fontSize: "20px" }}>Loading...</p>{" "}
+            {/* You can customize this loading message or add a spinner */}
+          </div>
+        ) : (
+          chartData.map(
+            (data, index) =>
+              data && (
+                <Chart
+                  key={chartsConfig[index].householdID}
+                  data={{ ...chartsConfig[index], data }}
+                />
+              )
+          )
+        )}
+      </div>
     </div>
   );
 };

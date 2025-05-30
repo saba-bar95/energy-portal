@@ -1,85 +1,55 @@
-.consumption {
-  background: linear-gradient(to right, #1e3c72, #2a5298);
-  color: #ffffff;
-  font-feature-settings: "case" on;
-  display: flex;
-  flex-direction: column;
+@use "/src/styles/_breakpoints.scss" as *;
 
-  /* სექციის ფონი */
+.container-ss {
+  background-color: #f4f4f7;
 
-  h1 {
-    font-family: FiraGORegular;
-    text-transform: capitalize;
-    letter-spacing: 0.02em;
+  .heating-container {
+    padding: 40px 200px 200px 200px;
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+    color: black;
+    gap: 40px;
+    max-width: 1800px;
+    margin: auto;
 
-    span {
-      margin-left: 10px;
-      font-size: 0.8em;
+    .hot-water-chart {
+      max-width: 800px;
+      width: 70%;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
     }
   }
+}
 
-  .container {
-    padding: 50px 200px 0 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    gap: 80px;
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .container-ss {
+    .heating-container {
+      padding: 40px 100px 200px 100px;
+    }
+  }
+}
 
-    .links {
-      a {
-        text-decoration: none;
-      }
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .container-ss {
+    .heating-container {
+      padding: 40px 50px 200px 50px;
+      flex-direction: column;
+    }
+  }
+}
 
-      ul {
-        display: flex;
-        list-style-type: none;
-        gap: 100px;
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .container-ss {
+    .heating-container {
+      padding: 30px 30px 100px 30px;
+      flex-direction: column;
 
-        a {
-          display: flex;
-        }
-
-        .wrapper {
-          position: relative;
-          background-color: transparent;
-          display: flex;
-
-          li {
-            padding: 15px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            color: #ffffff;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            background-color: inherit;
-          }
-
-          li.selected {
-            background-color: #ffffff;
-            color: #3c77f2;
-            font-family: FiraGOMedium;
-
-            svg {
-              path {
-                fill: #3c77f2;
-              }
-            }
-          }
-
-          .left-span {
-            left: -20px;
-          }
-
-          .right-span {
-            right: -20px;
-          }
-        }
+      .hot-water-chart {
+        width: 100%;
+        max-width: 400px;
       }
     }
   }

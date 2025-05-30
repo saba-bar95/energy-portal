@@ -5,6 +5,7 @@ import TablesFilter from "./TablesFilter/TablesFilter";
 import TableDownloadBtn from "./TableDownloadBtn/TableDownloadBtn";
 import { useEffect, useState } from "react";
 import fetchTableData from "../../../../../../../../../fetchTableData";
+import { useRef } from "react";
 
 const TablesContainer = ({ info }) => {
   const { language } = useParams();
@@ -132,10 +133,29 @@ const TablesContainer = ({ info }) => {
     },
   ];
 
+  const containerRef = useRef(null);
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (containerRef.current && headerRef.current) {
+        const scrollAmount = containerRef.current.scrollLeft;
+        headerRef.current.style.transform = `translateX(${scrollAmount}px)`;
+      }
+    };
+
+    const container = containerRef.current;
+    container.addEventListener("scroll", handleScroll);
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
-      <div className="tables-container">
-        <div className="header">
+      <div className="tables-container" ref={containerRef}>
+        <div className="header" ref={headerRef}>
           <h1 style={{ textTransform: "initial" }}>
             {info.text[`${language}`].header}
           </h1>

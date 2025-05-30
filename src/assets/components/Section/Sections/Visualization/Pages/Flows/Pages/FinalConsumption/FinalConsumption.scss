@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .final-consumption {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -30,6 +32,17 @@
 
     #consumption-2 {
       margin-top: -50px !important;
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($tablet - 1px)) {
+  .final-consumption {
+    display: flex;
+    flex-direction: column;
+
+    .last-chart {
+      margin-top: 0;
     }
   }
 }

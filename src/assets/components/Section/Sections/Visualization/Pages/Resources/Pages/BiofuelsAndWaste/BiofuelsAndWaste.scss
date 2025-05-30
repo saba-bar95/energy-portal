@@ -1,8 +1,4 @@
 .biofuelsandwaste-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-
   .chart-1 {
     grid-column: 1/-1;
   }

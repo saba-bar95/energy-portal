@@ -12,8 +12,9 @@ const Coal = () => {
     chartName: 3,
     title_ge: "ქვანახშირის წარმოება",
     title_en: "Coal production",
-    unit_ge: "ათასი ტნე",
-    unit_en: "ktoe",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_en: "Ton of oil equivalent",
+    id: "electricity-1",
     colors: ["#2C3E50"],
     legend: false,
     label: true,
@@ -45,6 +46,7 @@ const Coal = () => {
   };
 
   const chart2Info = {
+    id: "electricity-1",
     chartID: 16,
     chartName: 3,
     title_ge: "ადგილობრივი წარმოებული ქვანახშირის წილი ქვანახშირის მიწოდებაში",
@@ -69,17 +71,19 @@ const Coal = () => {
   };
 
   const chart3Info = {
+    id: "coal-3",
     styles: {
       flexWrap: "wrap",
       marginLeft: "100px",
       justifyContent: "start",
+      marginTop: language !== "en" ? "-50px" : "-70px",
     },
     chartID: 17,
     chartName: 3,
     title_ge: "ქვანახშირის იმპორტი სახეების მიხედვით",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Coal imports by type",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#30B0C7", "#138C00", "#ED4C5C"],
     legend: true,
     svg: (
@@ -106,12 +110,13 @@ const Coal = () => {
   };
 
   const chart4Info = {
+    id: "electricity-1",
     chartID: 18,
     chartName: 3,
     title_ge: "ქვანახშირის ექსპორტი",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Coal exports",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#3358EB"],
     legend: false,
 
@@ -139,6 +144,7 @@ const Coal = () => {
   };
 
   const chart5Info = {
+    id: "coal-5",
     styles: {
       flexWrap: "wrap",
       gap: "20px",
@@ -149,9 +155,9 @@ const Coal = () => {
     chartName: 3,
     chartID: 19,
     title_ge: "ქვანახშირის საბოლოო მოხმარება სექტორების მიხედვით",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Final consumption of coal by sectors",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#5654D4", "#007C90", "#3FC8E4", "#ED4C5C"],
     svg: (
       <svg
@@ -171,6 +177,7 @@ const Coal = () => {
   };
 
   const chart6Info = {
+    id: "coal-6",
     styles: {
       flexWrap: "wrap",
       gap: "20px",
@@ -181,9 +188,9 @@ const Coal = () => {
     chartName: 3,
     chartID: 9,
     title_ge: "ქვანახშირის საბოლოო მოხმარება სახეების მიხედვით",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Final consumption of coal by type",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#2C84FE", "#6CD68C", "#FFC060", "#EB4C4B"],
     svg: (
       <svg
@@ -201,7 +208,7 @@ const Coal = () => {
   };
 
   return (
-    <div className="container" id="coal-container">
+    <div className="charts-container">
       <VerticalBarsByYears info={chart1Info} />
       <LineChartByYears info={chart2Info} />
       <VerticalBarsByYears info={chart3Info} />

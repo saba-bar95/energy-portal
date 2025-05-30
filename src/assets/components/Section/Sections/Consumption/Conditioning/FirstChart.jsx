@@ -11,9 +11,20 @@ import {
 import { useParams } from "react-router-dom";
 import "./Chart.scss";
 import Download from "../../../../Download/Download";
+import { useState, useEffect } from "react";
 
 const SecondChart = ({ data }) => {
   const { language } = useParams();
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Function to translate categories if language is Georgian
   const getGeorgianName = (entry) => {
@@ -55,9 +66,7 @@ const SecondChart = ({ data }) => {
         <div className="tooltip-container">
           {payload.map(({ name, value, color }, index) => (
             <p key={`item-${index}`} className="text">
-              <span style={{ color }} className="before-span">
-                ■
-              </span>
+              <span style={{ color }} className="before-span"></span>
               {language === "ge" ? getGeorgianName(name) : name}:
               <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                 {value.toFixed(1)}
@@ -93,8 +102,11 @@ const SecondChart = ({ data }) => {
     );
   };
 
+  const classN =
+    language === "en" ? "main-chart first-chart-en" : "main-chart first-chart";
+
   return (
-    <div style={{ width: "100%" }} className="main-chart">
+    <div style={{ width: "100%" }} className={classN}>
       <div className="header-container">
         <img src={data.icon} alt="" />
         <div className="text-wrapper">
@@ -111,7 +123,8 @@ const SecondChart = ({ data }) => {
         />
       </div>
 
-      <ResponsiveContainer height={600}>
+      <ResponsiveContainer
+        height={windowWidth < 768 ? 400 : windowWidth < 1200 ? 500 : 600}>
         <BarChart
           layout="horizontal" // ✅ Set layout to horizontal
           data={transformedData}
@@ -119,17 +132,19 @@ const SecondChart = ({ data }) => {
           <XAxis
             type="category"
             dataKey="category"
-            tick={{ fontSize: 14 }}
             tickLine={false}
+            tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
           />
           <YAxis
             tickLine={false}
             type="number"
             domain={[0, 100]}
             tickFormatter={(value) => Math.round(value)}
+            tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
           />
           <Tooltip content={CustomTooltip} />
-          <Legend content={CustomLegend} />
+
+          {windowWidth >= 820 && <Legend content={CustomLegend} />}
           {data.data.map((entry, index) => (
             <Bar
               key={index}

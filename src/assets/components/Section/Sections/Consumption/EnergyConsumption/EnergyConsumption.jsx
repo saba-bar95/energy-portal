@@ -15,8 +15,8 @@ const HotWater = () => {
       title_en: "Energy commodities consumed for household needs",
       icon: firstChartIcon,
       color: ["#3498DB", "#6CD68C", "#ED4C5C"],
-      measurement_ge: "ათასი ტნე",
-      measurement_en: "ktoe",
+      measurement_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+      measurement_en: "Ton of oil equivalent",
     }),
     []
   );
@@ -34,19 +34,21 @@ const HotWater = () => {
   }, [chartConfig]);
 
   return (
-    <div className="heating-container">
-      {loading ? (
-        <div className="loading-container">
-          <p style={{ fontSize: "20px" }}>Loading...</p>
-        </div>
-      ) : (
-        chartData && (
-          <Chart
-            key={chartConfig.householdID}
-            data={{ ...chartConfig, data: chartData }}
-          />
-        )
-      )}
+    <div className="container-ss">
+      <div className="heating-container">
+        {loading ? (
+          <div className="loading-container">
+            <p style={{ fontSize: "20px" }}>Loading...</p>
+          </div>
+        ) : (
+          chartData && (
+            <Chart
+              key={chartConfig.householdID}
+              data={{ ...chartConfig, data: chartData }}
+            />
+          )
+        )}
+      </div>
     </div>
   );
 };

@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .tables-years-container {
   position: relative;
 
@@ -63,6 +65,82 @@
       p {
         color: #1e1e1e;
         font-size: 14px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .tables-years-container {
+    .svg-wrapper {
+      padding: 4px 6px;
+      svg {
+        width: 12px;
+      }
+    }
+
+    .heading {
+      gap: 10px;
+      padding: 10px;
+      justify-content: space-between;
+
+      h3 {
+        font-size: 13px;
+      }
+    }
+
+    .dropdown-content {
+      padding: 10px 8px;
+      width: 100%;
+      margin-top: 10px;
+      height: 200px;
+      gap: 5px;
+
+      .wrapper {
+        gap: 10px;
+        padding: 5px;
+
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($tablet - 1px)) {
+  .tables-years-container {
+    .svg-wrapper {
+      padding: 2px 3px;
+      svg {
+        width: 10px;
+      }
+    }
+
+    .heading {
+      gap: 10px;
+      padding: 10px;
+      justify-content: space-between;
+
+      h3 {
+        font-size: 12px;
+      }
+    }
+
+    .dropdown-content {
+      padding: 10px 8px;
+      width: 100%;
+      margin-top: 10px;
+      height: 200px;
+      gap: 5px;
+
+      .wrapper {
+        gap: 10px;
+        padding: 5px;
+
+        p {
+          font-size: 11px;
+        }
       }
     }
   }

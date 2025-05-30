@@ -78,9 +78,7 @@ const PieChartComponent = ({ info }) => {
             <p key={`item-${index}`} className="text">
               <span
                 style={{ color: fill, fontWeight: "bold" }}
-                className="before-span">
-                ■
-              </span>
+                className="before-span"></span>
               {name} :
               <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                 {value.toFixed(1)} %
@@ -104,7 +102,7 @@ const PieChartComponent = ({ info }) => {
                 fontWeight: 700,
                 width: "100%",
                 borderBottom: "1px solid #E9E9E9",
-                paddingBottom: "15px",
+                paddingBottom: "10px",
               }}>
               <span
                 style={{
@@ -155,11 +153,13 @@ const PieChartComponent = ({ info }) => {
     );
   };
 
+  const classN = `main-chart pie-chart pie-chart-${info.chartID}`;
+
   return (
     <>
       {data.length > 0 && (
         <div
-          className="main-chart pie-chart"
+          className={classN}
           style={{
             padding: "20px",
           }}>
@@ -180,7 +180,7 @@ const PieChartComponent = ({ info }) => {
             </div>
           </div>
           <YearDropdown years={chartYears} year={year} setYear={setYear} />
-          <ResponsiveContainer height={420}>
+          <ResponsiveContainer height={520}>
             <PieChart>
               <Pie
                 data={data}

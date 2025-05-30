@@ -23,6 +23,16 @@ const ChartWithFilters = ({ info }) => {
   const [typeID, setTypeID] = useState(142);
   const [dataKeys, setDataKeys] = useState([]);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const vats = {
     ge: [
       { number: 144, name: "დღგ-ის გარეშე" },
@@ -113,9 +123,7 @@ const ChartWithFilters = ({ info }) => {
             const displayName = name;
             return (
               <p key={`item-${index}`} className="text">
-                <span style={{ color }} className="before-span">
-                  ■
-                </span>
+                <span style={{ color }} className="before-span"></span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                   {value.toFixed(2)}
@@ -150,10 +158,15 @@ const ChartWithFilters = ({ info }) => {
     unitHeader = info[`unit1_${language}`];
   }
 
+  const classN =
+    language === "en"
+      ? `main-chart ${info.chartName}-${typeID}-chart-with-filters-en`
+      : `main-chart ${info.chartName}-${typeID}-chart-with-filters`;
+
   return (
     <>
       {data.length > 0 && (
-        <div className="main-chart chart-with-filters">
+        <div className={classN}>
           <div className="header-container">
             {info.svg}
             <div className="info-wrapper">
@@ -204,8 +217,8 @@ const ChartWithFilters = ({ info }) => {
                 interval={0}
                 tick={({ x, y, payload }) => {
                   const strValue = String(payload.value); // Ensure value is a string
-                  const isTickLineVisible = strValue.includes("_141"); // Check if tick line should be rendered
-
+                  // const isTickLineVisible = strValue.includes("_141"); // Check if tick line should be rendered
+                  const fontsize = windowWidth < 1200 ? "10" : "14";
                   return (
                     <g className="tick">
                       {/* Render the tick label */}
@@ -213,7 +226,7 @@ const ChartWithFilters = ({ info }) => {
                         x={x}
                         y={y + 10} // Adjust position
                         textAnchor="middle"
-                        fontSize="14"
+                        fontSize={fontsize}
                         fill="#000">
                         {strValue.includes("_140")
                           ? "I-VI"
@@ -223,7 +236,7 @@ const ChartWithFilters = ({ info }) => {
                       </text>
 
                       {/* Conditionally render tick line */}
-                      {!info.tick && isTickLineVisible && (
+                      {/* {!info.tick && isTickLineVisible && (
                         <line
                           x1={x + 47} // Shift start of line 5px to the right
                           x2={x + 47} // Shift end of line 5px to the right
@@ -232,7 +245,7 @@ const ChartWithFilters = ({ info }) => {
                           stroke="#A0A0A0"
                           strokeWidth={2}
                         />
-                      )}
+                      )} */}
                     </g>
                   );
                 }}
@@ -251,11 +264,15 @@ const ChartWithFilters = ({ info }) => {
                     ? strValue.split("_")[0]
                     : ""; // Show year only for _140
 
+                  const fontsize = windowWidth < 1200 ? "12px" : "16px";
+                  const right = windowWidth < 1200 ? 5 : 50;
+                  const top = windowWidth < 1200 ? 0 : 10;
+
                   return (
                     <text
-                      x={x + 50} // Base x-coordinate
-                      y={y + 10} // Adjust y-coordinate for positioning
-                      fontSize="16px"
+                      x={x + right} // Base x-coordinate
+                      y={y + top} // Adjust y-coordinate for positioning
+                      fontSize={fontsize}
                       textAnchor="middle"
                       fill="#1E1E1E" // Set font color
                       fontWeight="900" // Make bold
@@ -270,9 +287,11 @@ const ChartWithFilters = ({ info }) => {
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
                 tickFormatter={(value) => parseFloat(value).toFixed(2)}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <Tooltip content={<CustomTooltip />} />
-              <Legend content={<CustomLegend />} />
+
+              {windowWidth >= 820 && <Legend content={CustomLegend} />}
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
               {dataKeys.map((el, i) => (
                 <Bar

@@ -6,12 +6,13 @@ const BiofuelsAndWaste = () => {
   const { language } = useParams();
 
   const chart1Info = {
+    id: "biofuel-1",
     chartName: 5,
     chartID: 7,
     title_ge: "ბიოსაწვავის და ნარჩენებიდან წარმოებული ენერგია",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Energy from biofuels and waste",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#2C6552", "#339F8D", "#9EE9C4", "#ED4C5C"],
     svg: (
       <svg
@@ -33,17 +34,19 @@ const BiofuelsAndWaste = () => {
   };
 
   const chart2Info = {
+    id: "biofuel-2",
     styles: {
-      gap: "30px",
+      gap: "15px",
       marginLeft: "90px",
       justifyContent: "start",
+      marginTop: language !== "en" ? "-40px" : "0",
     },
     chartName: 5,
     chartID: 26,
     title_ge: "ბიოსაწვავის და ნარჩენების საბოლოო მოხმარება სახეების მიხედვით",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Final consumption of biofuels and waste by type",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#5654D4", "#007C90", "#FF9F0A"],
     svg: (
       <svg
@@ -69,6 +72,7 @@ const BiofuelsAndWaste = () => {
   };
 
   const chart3Info = {
+    id: "biofuel-3",
     styles: {
       flexWrap: "wrap",
       gap: "20px",
@@ -79,9 +83,9 @@ const BiofuelsAndWaste = () => {
     chartName: 5,
     chartID: 27,
     title_ge: "ბიოსაწვავის და ნარჩენების საბოლოო მოხმარება სექტორების მიხედვით",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Final consumption of biofuels and waste by type",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#2C84FE", "#084E99", "#994C8E", "#6CD68C", "#17864C"],
     svg: (
       <svg
@@ -107,7 +111,7 @@ const BiofuelsAndWaste = () => {
   };
 
   return (
-    <div className=" biofuelsandwaste-container">
+    <div className="charts-container biofuelsandwaste-container">
       <div className="chart-1">
         <VerticalStackedByYears info={chart1Info} />
       </div>

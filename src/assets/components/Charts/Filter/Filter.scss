@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .table-filter-1 {
   display: flex;
   gap: 15px;
@@ -30,28 +32,6 @@
     padding: 30px;
     width: max-content;
 
-    .unit-section {
-      display: flex;
-      font-feature-settings: "case" on;
-      background-color: #efefef;
-      padding: 5px 10px;
-      border-radius: 14px;
-
-      p {
-        min-width: 100px;
-        padding: 10px;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 900;
-        text-align: center;
-      }
-
-      p.selected {
-        background-color: #ffffff;
-        color: #138c00;
-      }
-    }
-
     .section {
       display: flex;
       flex-direction: column;
@@ -79,4 +59,73 @@
 
 .open {
   border: 1px solid #3c77f2;
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .table-filter-1 {
+    gap: 10px;
+    padding: 10px;
+    font-size: 12px;
+
+    .dropdown-content {
+      margin-top: 40px;
+      gap: 20px;
+      padding: 20px;
+
+      .section {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .wrapper {
+          gap: 5px;
+
+          .carry {
+            gap: 5px;
+          }
+        }
+      }
+
+      h3 {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .table-filter-1 {
+    gap: 10px;
+    padding: 8px;
+    font-size: 12px;
+
+    svg {
+      width: 12px !important;
+      height: 12px !important;
+    }
+
+    .dropdown-content {
+      margin-top: 30px;
+      gap: 20px;
+      padding: 20px;
+
+      .section {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .wrapper {
+          gap: 5px;
+
+          .carry {
+            gap: 5px;
+          }
+        }
+      }
+
+      h3 {
+        font-size: 12px;
+      }
+    }
+  }
 }

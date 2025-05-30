@@ -1,0 +1,23 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
+.sdg-indicator-container {
+  .container-ss {
+    flex-direction: row;
+
+    .single-area-chart {
+      flex: 1;
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($tablet - 1px)) {
+  .sdg-indicator-container {
+    .container-ss {
+      flex-direction: column;
+
+      .single-area-chart {
+        flex: 1;
+      }
+    }
+  }
+}

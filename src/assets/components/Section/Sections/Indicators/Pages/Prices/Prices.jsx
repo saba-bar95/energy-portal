@@ -214,12 +214,12 @@ const Prices = () => {
   };
 
   return (
-    <>
-      <div className="child-container">
+    <div className="child-container">
+      <div className="container-ss">
         <ChartWithFilters info={chart1Info} />
         <ChartWithFilters info={chart2Info} />
       </div>
-    </>
+    </div>
   );
 };
 

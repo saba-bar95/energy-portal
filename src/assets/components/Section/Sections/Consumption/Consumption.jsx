@@ -12,7 +12,7 @@ const Consumption = () => {
 
   return (
     <>
-      <div className="consumption">
+      <div className="visualization consumption">
         <div className="container">
           <h1>
             {links[language].header}

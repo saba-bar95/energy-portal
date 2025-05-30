@@ -30,6 +30,12 @@ const Header = () => {
     setIsSectionsOpen(false);
     setSectionID(null);
     navigate(`/${language}`);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+      easing: "ease-in-out",
+    });
   };
 
   const isEnglish = language === "en";

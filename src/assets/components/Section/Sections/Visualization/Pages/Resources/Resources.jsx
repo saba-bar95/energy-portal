@@ -24,7 +24,7 @@ const Resources = () => {
                     }}
                     className={selectedId === link.id ? "selected" : ""}>
                     {link.svg}
-                    {link.name}
+                    <p>{link.name}</p>
                   </li>
                 </div>
               </Link>

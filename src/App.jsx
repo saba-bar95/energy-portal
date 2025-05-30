@@ -16,6 +16,9 @@ function App() {
 
   const [sectionID, setSectionID] = useState(initialSectionID);
 
+  // const SelectedSectionComponent =
+  //   sections.find((s) => s.id === sectionID)?.component || null;
+
   return (
     <>
       <SectionsContext.Provider
@@ -25,8 +28,8 @@ function App() {
         }}>
         <Header />
         <main>
-          <Section />
           <Outlet />
+          <Section />
         </main>
         <Footer />
       </SectionsContext.Provider>

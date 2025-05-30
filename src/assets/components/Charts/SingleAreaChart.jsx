@@ -20,6 +20,15 @@ const SingleAreaChart = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -133,16 +142,24 @@ const SingleAreaChart = ({ info }) => {
             </defs>
           </svg>
           <ResponsiveContainer height={420} className="vertical-stacked">
-            <AreaChart data={data}>
+            <AreaChart
+              data={data}
+              margin={
+                windowWidth < 768
+                  ? { top: 15, right: 5, left: -10, bottom: 5 }
+                  : { top: 20, right: 30, left: 20, bottom: 5 }
+              }>
               <XAxis
                 dataKey="year"
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <YAxis
                 tickLine={false}
                 padding={{ top: 30, bottom: 10 }}
                 axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <Tooltip content={CustomTooltip} />
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
@@ -162,7 +179,7 @@ const SingleAreaChart = ({ info }) => {
               })}
               <Brush
                 dataKey="year"
-                height={20} // Reduce height by half
+                height={windowWidth < 768 ? 10 : 20}
                 stroke="#115EFE"
                 tickFormatter={() => ""} // Hide year labels
               />

@@ -3,7 +3,6 @@ import Chart_1 from "./Chart_1";
 import Chart_2 from "./Chart_2";
 import Chart_3 from "./Chart_3";
 import ChartWithFilters from "../../../../../Charts/ChartWithFilters";
-import "./NaturalGas.scss";
 
 const NaturalGas = () => {
   const { language } = useParams();
@@ -100,13 +99,20 @@ const NaturalGas = () => {
   };
 
   return (
-    <div className="child-container natural-gas1">
-      <div className="item-1">
-        <ChartWithFilters info={chart2Info} />
+    <div className="electricity">
+      <div className="ss-container">
+        <div className="div">
+          <ChartWithFilters info={chart2Info} />
+        </div>
+        <div className="div">
+          <Chart_1 />
+          <Chart_2 />
+        </div>
+        <div className="div">
+          <Chart_3 />
+          <div style={{ flex: 1 }} className="div-4"></div>
+        </div>
       </div>
-      <Chart_1 />
-      <Chart_2 />
-      <Chart_3 />
     </div>
   );
 };

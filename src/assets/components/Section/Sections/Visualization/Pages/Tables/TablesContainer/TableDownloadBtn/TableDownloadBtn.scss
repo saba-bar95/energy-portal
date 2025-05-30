@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .table-download-btn {
   display: flex;
   gap: 10px;
@@ -9,4 +11,33 @@
   border-radius: 12px;
   font-size: 14px;
   font-feature-settings: "case" off;
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .table-download-btn {
+    padding: 7px;
+    font-size: 12px;
+    gap: 8px;
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .table-download-btn {
+    padding: 7px;
+    font-size: 11px;
+    gap: 7px;
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .table-download-btn {
+    padding: 6px;
+    font-size: 10px;
+    gap: 6px;
+
+    svg {
+      width: 13px;
+      height: auto;
+    }
+  }
 }

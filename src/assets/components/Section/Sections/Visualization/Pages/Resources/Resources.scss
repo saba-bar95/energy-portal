@@ -1,28 +1,59 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .resources-container {
   background-color: #f4f4f7;
   color: black;
-  padding: 40px 200px 200px 200px;
+  padding-bottom: 200px;
   display: flex;
   flex-direction: column;
   gap: 30px;
 
+  .flows-production {
+    grid-template-columns: 1fr;
+  }
+
+  .links {
+    padding: 40px 200px 0 200px;
+    width: 100%;
+  }
+
+  .flows-links {
+    ul {
+      justify-content: center !important;
+    }
+  }
+
+  .charts-container {
+    padding: 0 200px;
+  }
+
   ul {
     display: flex;
     list-style-type: none;
-    justify-content: space-between;
+    justify-content: center;
     color: #6f6f6f;
+    gap: 20px;
 
     li {
       padding: 10px;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       font-feature-settings: "case" off;
+
+      a svg {
+        flex-shrink: 0;
+      }
     }
 
     a {
       text-decoration: none;
       color: inherit;
+    }
+
+    svg {
+      flex-shrink: 0;
     }
 
     .selected {
@@ -39,5 +70,132 @@
 
   .container {
     padding: 0;
+  }
+}
+
+@media only screen and (min-width: $desktop) and (max-width: $ultrawide) {
+  .resources-container {
+    .links,
+    .charts-container {
+      max-width: 1800px;
+      margin: auto;
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .resources-container {
+    .links {
+      padding: 40px 100px 0 100px;
+    }
+    .charts-container {
+      padding: 0 100px;
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .resources-container {
+    .links {
+      padding: 40px 50px 0 50px;
+      font-size: 13px;
+
+      ul {
+        overflow-x: auto;
+        gap: 20px;
+        justify-content: space-between;
+
+        &::-webkit-scrollbar {
+          height: 4px; // Horizontal scrollbar thickness
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #084e99;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #b9c3c9; // Track color
+          border-radius: 10px;
+          cursor: pointer;
+        }
+      }
+
+      li {
+        width: max-content;
+      }
+
+      .wrapper {
+        li {
+          padding: 10px;
+          font-size: 13px;
+
+          svg {
+            width: 15px;
+            height: 15px;
+          }
+        }
+      }
+    }
+    .charts-container {
+      padding: 0 50px;
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .resources-container {
+    padding-bottom: 100px;
+    .flows-links {
+      ul {
+        justify-content: space-between !important;
+      }
+    }
+
+    .links {
+      padding: 30px 30px 0 30px;
+      font-size: 11px;
+
+      ul {
+        overflow-x: auto;
+        gap: 20px;
+        justify-content: space-between;
+        &::-webkit-scrollbar {
+          height: 4px; // Horizontal scrollbar thickness
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #084e99;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #b9c3c9; // Track color
+          border-radius: 10px;
+          cursor: pointer;
+        }
+      }
+
+      li {
+        width: max-content;
+      }
+
+      .wrapper {
+        li {
+          padding: 5px;
+          gap: 10px;
+
+          svg {
+            width: 15px;
+            height: 15px;
+          }
+        }
+      }
+    }
+    .charts-container {
+      padding: 0 30px;
+    }
   }
 }

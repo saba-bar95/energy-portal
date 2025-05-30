@@ -3,13 +3,10 @@ import SankeyChart from "../../../../../Charts/Sankey";
 
 const Diagram = () => {
   const chartInfo = {
-    // chartName: 5,
-    // chartID: 26,
     title_ge: "ნაკადები",
-    unit_ge: "ათასი ტნე",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Flows",
-    unit_en: "ktoe",
-    // colors: ["#2C6552", "#339F8D", "#9EE9C4", "#ED4C5C"],
+    unit_en: "Ton of oil equivalent",
     svg: (
       <svg
         width="28"
@@ -70,9 +67,10 @@ const Diagram = () => {
   };
 
   return (
-    <div className="diagram-container">
-      <SankeyChart info={chartInfo} />
-      {/* <NewSankey /> */}
+    <div className="diagram-container ">
+      <div className="container-ss">
+        <SankeyChart info={chartInfo} />
+      </div>
     </div>
   );
 };

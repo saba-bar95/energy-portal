@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .visualization {
   color: #ffffff;
   font-feature-settings: "case" on;
@@ -18,6 +20,7 @@
     flex-direction: column;
     justify-content: start;
     gap: 40px;
+    width: 100%;
 
     .links {
       a {
@@ -27,7 +30,8 @@
       ul {
         display: flex;
         list-style-type: none;
-        gap: 100px;
+        justify-content: space-between;
+        gap: 30px;
 
         a {
           display: flex;
@@ -53,6 +57,10 @@
             font-size: 15px;
             text-transform: capitalize;
             font-feature-settings: "case" on;
+
+            svg {
+              flex-shrink: 0;
+            }
           }
 
           li.selected {
@@ -63,6 +71,129 @@
             svg {
               path {
                 stroke: #3c77f2;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $desktop) and (max-width: $ultrawide) {
+  .visualization {
+    .container {
+      max-width: 1800px;
+      margin: auto;
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .visualization {
+    .container {
+      padding: 50px 100px 0 100px;
+
+      .links {
+        ul {
+          gap: 35px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .visualization {
+    h1 {
+      font-size: 1.3em;
+    }
+
+    .container {
+      padding: 30px 50px 0 50px;
+      gap: 30px;
+
+      .links {
+        ul {
+          justify-content: space-between;
+          overflow-x: auto;
+          gap: 20px;
+
+          &::-webkit-scrollbar {
+            height: 6px; // Horizontal scrollbar thickness
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #084e99;
+            border-radius: 10px;
+            cursor: pointer;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #b9c3c9; // Track color
+            border-radius: 10px;
+            cursor: pointer;
+          }
+
+          .wrapper {
+            li {
+              padding: 10px;
+              font-size: 13px;
+
+              svg {
+                width: 15px;
+                height: 15px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .visualization {
+    h1 {
+      font-size: 1em;
+    }
+
+    .container {
+      padding: 30px 30px 0 30px;
+      gap: 30px;
+
+      .links {
+        margin-top: 30px;
+
+        ul {
+          gap: 10px;
+          overflow-x: auto;
+
+          &::-webkit-scrollbar {
+            height: 4px; // Horizontal scrollbar thickness
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #084e99;
+            border-radius: 10px;
+            cursor: pointer;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #b9c3c9; // Track color
+            border-radius: 10px;
+            cursor: pointer;
+          }
+
+          .wrapper {
+            li {
+              padding: 5px;
+              gap: 10px;
+              font-size: 11px;
+
+              svg {
+                width: 15px;
+                height: 15px;
               }
             }
           }

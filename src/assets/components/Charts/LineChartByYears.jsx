@@ -20,6 +20,17 @@ const LineChartByYears = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const id = language === "en" ? `${info.id}-${language}` : info.id;
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,9 +85,7 @@ const LineChartByYears = ({ info }) => {
             const displayName = name;
             return (
               <p key={`item-${index}`} className="text">
-                <span style={{ color }} className="before-span">
-                  ■
-                </span>
+                <span style={{ color }} className="before-span"></span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                   {value.toFixed(1)}
@@ -108,7 +117,7 @@ const LineChartByYears = ({ info }) => {
   return (
     <>
       {data.length > 0 && (
-        <div className="main-chart">
+        <div className="main-chart" id={id}>
           <div className="header-container">
             {info.svg}
             <div className="info-wrapper">
@@ -143,27 +152,30 @@ const LineChartByYears = ({ info }) => {
             );
           })}
 
-          <ResponsiveContainer height={info.height || 420}>
+          <ResponsiveContainer height={windowWidth < 768 ? 380 : 420}>
             <LineChart
               data={data}
-              margin={{
-                top: 20,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}>
+              margin={
+                windowWidth < 768
+                  ? { top: 15, right: 5, left: -10, bottom: 5 }
+                  : { top: 20, right: 30, left: 20, bottom: 5 }
+              }>
               <XAxis
                 dataKey="year"
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <YAxis
                 tickLine={false}
                 padding={{ top: 30, bottom: 10 }}
                 axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <Tooltip content={CustomTooltip} />
-              {info.legend && <Legend content={CustomLegend} />}
+              {info.legend && windowWidth >= 820 && (
+                <Legend content={CustomLegend} />
+              )}
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
               {dataKeys.map((el, i) => {
                 return (
@@ -180,7 +192,7 @@ const LineChartByYears = ({ info }) => {
               })}
               <Brush
                 dataKey="year"
-                height={20} // Reduce height by half
+                height={windowWidth < 768 ? 10 : 20} // Reduce height by half
                 stroke="#115EFE"
                 tickFormatter={() => ""} // Hide year labels
               />

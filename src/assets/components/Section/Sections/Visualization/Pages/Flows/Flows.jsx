@@ -1,4 +1,3 @@
-import "./Flows.scss";
 import { Link, Outlet, useParams } from "react-router-dom";
 import { useState } from "react";
 import links from "./links";
@@ -11,8 +10,8 @@ const Flows = () => {
     setSelected(id);
   };
   return (
-    <div className="flows-container">
-      <div className="links">
+    <div className="resources-container">
+      <div className="links flows-links">
         <ul>
           {links[language].links.map((link) => {
             return (

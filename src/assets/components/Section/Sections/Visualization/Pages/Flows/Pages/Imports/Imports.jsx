@@ -5,9 +5,10 @@ const Imports = () => {
     chartName: 6,
     chartID: 29,
     title_ge: "ენერგორესურსების იმპორტი",
-    unit_ge: "ათასი ტნე",
+    id: "imports-1",
+    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
     title_en: "Energy Imports",
-    unit_en: "ktoe",
+    unit_en: "Ton of oil equivalent",
     colors: ["#6FAEA9", "#5A9FDE", "#D5A43F", "#BE6433"],
     legend: true,
     svg: (
@@ -33,7 +34,11 @@ const Imports = () => {
     ),
   };
 
-  return <VerticalBarsByYears info={chartInfo} />;
+  return (
+    <div className="charts-container flows-production">
+      <VerticalBarsByYears info={chartInfo} />
+    </div>
+  );
 };
 
 export default Imports;

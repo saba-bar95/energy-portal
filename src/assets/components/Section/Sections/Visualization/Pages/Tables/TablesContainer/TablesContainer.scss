@@ -1,14 +1,34 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .tables-container {
   padding: 20px;
   background-color: #f9f9f9; // Light background for the container
   border-radius: 24px; // Rounded corners
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    height: 6px; // Horizontal scrollbar thickness
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #084e99;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #b9c3c9; // Track color
+    border-radius: 10px;
+    cursor: pointer;
+  }
 
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    gap: 15px;
   }
 
   h1 {
@@ -45,14 +65,12 @@
   }
 
   td {
-    // font-family: FiraGORegular;
     background-color: #fff; // White background for data cells
     border-bottom: 1px solid #e0e0e0; // Bottom border for data cells
     font-feature-settings: "case" off;
     font-size: 14px;
   }
 
-  // Make row headers bold and left-aligned
   td:first-child {
     display: flex;
     white-space: nowrap; // Prevent wrapping to keep the width minimal
@@ -65,52 +83,6 @@
   tr:hover {
     background-color: #ddd; // Highlight row on hover
   }
-
-  .units {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-    h3 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 15px;
-    }
-
-    p {
-      font-size: 1rem;
-      color: #444;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 400px;
-      padding: 10px;
-      background-color: #ffffff;
-      border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      margin-bottom: 8px;
-      transition: transform 0.2s ease-in-out;
-
-      &:hover {
-        transform: scale(1.05);
-      }
-
-      span:first-child {
-        font-weight: bold;
-        color: #007bff;
-      }
-
-      span:last-child {
-        font-style: italic;
-        color: #28a745;
-      }
-    }
-  }
 }
 
 .units {
@@ -118,6 +90,7 @@
   flex-direction: column;
   padding: 20px;
   border-radius: 8px;
+  font-feature-settings: "case" off;
 
   h3 {
     font-size: 1rem;
@@ -131,17 +104,13 @@
     color: #444;
     display: flex;
     justify-content: space-between;
-    width: 50%;
+    width: 35%;
     padding: 10px;
     background-color: #ffffff;
     border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     margin-bottom: 8px;
     transition: transform 0.2s ease-in-out;
-
-    &:hover {
-      transform: scale(1.05);
-    }
 
     span:first-child {
       font-weight: bold;
@@ -151,6 +120,107 @@
     span:last-child {
       font-style: italic;
       color: #28a745;
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .tables-container {
+    padding: 15px;
+
+    h1 {
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #f1f4ff; // Background color for header
+      padding: 10px; // Padding inside cells
+      font-size: 12px;
+    }
+
+    td {
+      font-size: 12px;
+    }
+  }
+
+  .units {
+    h3 {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 0.8rem;
+      width: 35%;
+      margin-bottom: 6px;
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .tables-container {
+    padding: 15px;
+
+    h1 {
+      font-size: 13px;
+    }
+
+    th {
+      background-color: #f1f4ff; // Background color for header
+      padding: 8px; // Padding inside cells
+      font-size: 11px;
+    }
+
+    td {
+      font-size: 11px;
+    }
+  }
+
+  .units {
+    h3 {
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 0.7rem;
+      width: 35%;
+      margin-bottom: 6px;
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .tables-container {
+    padding: 15px;
+
+    h1 {
+      font-size: 12px;
+    }
+
+    th {
+      background-color: #f1f4ff; // Background color for header
+      padding: 6px; // Padding inside cells
+      font-size: 10px;
+    }
+
+    td {
+      font-size: 10px;
+    }
+  }
+
+  .units {
+    padding: 0;
+
+    h3 {
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 0.7rem;
+      width: 80%;
+      margin-bottom: 6px;
     }
   }
 }

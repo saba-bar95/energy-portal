@@ -5,7 +5,6 @@ import SecondChart from "./SecondChart";
 import firstChartIcon from "/src/assets/images/sections/conditioning/1-chart-icon.svg";
 import secondChartIcon from "/src/assets/images/sections/conditioning/2-chart-icon.svg";
 import "./Chart.scss";
-import "./Conditioning.scss";
 
 const Conditioning = () => {
   const [chartData, setChartData] = useState([null, null]);
@@ -67,13 +66,15 @@ const Conditioning = () => {
   }, [chartsConfig]); // chartsConfig is stable due to useMemo with []
 
   return (
-    <div className="conditioning-container">
-      {chartData[0] && (
-        <FirstChart data={{ ...chartsConfig[0], data: chartData[0] }} />
-      )}
-      {chartData[1] && (
-        <SecondChart data={{ ...chartsConfig[1], data: chartData[1] }} />
-      )}
+    <div className="container-ss">
+      <div className="heating-container">
+        {chartData[0] && (
+          <FirstChart data={{ ...chartsConfig[0], data: chartData[0] }} />
+        )}
+        {chartData[1] && (
+          <SecondChart data={{ ...chartsConfig[1], data: chartData[1] }} />
+        )}
+      </div>
     </div>
   );
 };

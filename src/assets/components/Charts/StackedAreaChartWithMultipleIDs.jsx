@@ -21,6 +21,18 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const id = language === "en" ? `${info.id}-${language}` : info.id;
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -115,7 +127,7 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
   return (
     <>
       {data.length > 0 && (
-        <div className="main-chart">
+        <div className="main-chart" id={id}>
           <div className="header-container">
             {info.svg}
             <div className="info-wrapper">
@@ -131,19 +143,21 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
             />
           </div>
 
-          <ResponsiveContainer height={info.height || 500}>
+          <ResponsiveContainer height={windowWidth < 768 ? 400 : 500}>
             <AreaChart data={data}>
               <XAxis
                 dataKey="year"
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
                 tickMargin={5}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <YAxis
                 padding={{ top: 20 }}
                 tickLine={false}
                 tickMargin={10}
                 axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <Tooltip content={CustomTooltip} />
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
@@ -162,11 +176,13 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
                   />
                 );
               })}
-              {info.legend && <Legend content={CustomLegend} />}
+              {info.legend && windowWidth >= 820 && (
+                <Legend content={CustomLegend} />
+              )}
               <Brush
                 dataKey="year"
-                height={20} // Reduce height by half
                 stroke="#115EFE"
+                height={windowWidth < 768 ? 10 : 20}
                 tickFormatter={() => ""} // Hide year labels
               />
             </AreaChart>

@@ -1,7 +1,11 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .charts-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
+  padding: 0 200px;
+  width: 100%;
 }
 
 .chart-4 {
@@ -14,14 +18,1739 @@
   flex-direction: column; /* Stack children vertically */
 }
 
-.chart-5 {
-  padding-bottom: 60px;
+#electricity-1 {
+  .chart-5 {
+    padding-bottom: 60px;
 
-  .legend-container {
-    gap: 20px !important;
-    flex-wrap: wrap !important;
-    margin-top: -50px !important;
-    justify-content: normal !important;
-    padding: 0 50px !important;
+    .legend-container {
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: -50px;
+      justify-content: normal;
+      padding: 0 50px;
+    }
+  }
+}
+
+#coal-3-en {
+  .recharts-responsive-container {
+    .recharts-legend-wrapper {
+      .legend-container {
+        margin-top: 0 !important;
+      }
+    }
+  }
+}
+
+#oil-1 {
+  .recharts-responsive-container {
+    .recharts-legend-wrapper {
+      .legend-container {
+        margin-left: 55px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .charts-container {
+    grid-template-columns: 1fr; /* Only one column */
+  }
+
+  .chart-4 {
+    grid-column: auto; /* Remove explicit column placement */
+    grid-row: auto; /* Reset row spanning */
+  }
+
+  #electricity-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+
+  #electricity-1,
+  #electricity-1-en,
+  #electricity-2,
+  #electricity-2-en,
+  #electricity-3,
+  #electricity-3-en,
+  #electricity-4,
+  #electricity-4-en,
+  #electricity-5,
+  #electricity-5-en,
+  #naturalgas-3,
+  #naturalgas-3-en,
+  #coal-3,
+  #coal-3-en,
+  #coal-5,
+  #coal-5-en,
+  #coal-6,
+  #coal-6-en,
+  #oil-1,
+  #oil-1-en,
+  #oil-4,
+  #oil-4-en,
+  #oil-5,
+  #oil-5-en,
+  #oil-6,
+  #oil-6-en,
+  #biofuel-1,
+  #biofuel-1-en,
+  #biofuel-2,
+  #biofuel-2-en,
+  #biofuel-3,
+  #biofuel-3-en,
+  #production-1-en,
+  #production-1,
+  #imports-1,
+  #imports-1-en,
+  #exports-1,
+  #exports-1-en,
+  #final-1,
+  #final-1-en,
+  #final-2,
+  #final-2-en,
+  #final-3,
+  #final-3-en,
+  #final-4,
+  #final-4-en,
+  #final-5,
+  #final-5-en,
+  .single-area-chart {
+    padding: 20px 20px 30px 0;
+    width: 80%;
+    max-width: 700px;
+    margin: auto;
+
+    .header-container {
+      .text-wrapper {
+        h2 {
+          font-size: 14px;
+        }
+
+        h3 {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  #electricity-2 {
+    .legend-container {
+      margin-top: 0px;
+    }
+  }
+
+  #electricity-3 {
+    .legend-container {
+      margin-top: 0px;
+    }
+  }
+
+  .recharts-responsive-container {
+    .recharts-legend-wrapper {
+      .legend-container {
+        margin-top: -50px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: $mobile) {
+  .charts-container {
+    display: flex;
+    flex-direction: column;
+
+    .chart-4 {
+      grid-column: auto; /* Remove explicit column placement */
+      grid-row: auto; /* Reset row spanning */
+    }
+
+    #electricity-1,
+    #electricity-1-en,
+    #electricity-2,
+    #electricity-2-en,
+    #electricity-3,
+    #electricity-3-en,
+    #electricity-4,
+    #electricity-4-en,
+    #electricity-5,
+    #electricity-5-en,
+    #naturalgas-3,
+    #naturalgas-3-en,
+    #coal-3,
+    #coal-3-en,
+    #coal-5,
+    #coal-5-en,
+    #coal-6,
+    #coal-6-en,
+    #oil-1,
+    #oil-1-en,
+    #oil-4,
+    #oil-4-en,
+    #oil-5,
+    #oil-5-en,
+    #oil-6,
+    #oil-6-en,
+    #biofuel-1,
+    #biofuel-1-en,
+    #biofuel-2,
+    #biofuel-2-en,
+    #biofuel-3,
+    #biofuel-3-en,
+    #production-1-en,
+    #production-1,
+    #imports-1,
+    #imports-1-en,
+    #exports-1,
+    #exports-1-en,
+    #final-1,
+    #final-1-en,
+    #final-2,
+    #final-2-en,
+    #final-3,
+    #final-3-en,
+    #final-4,
+    #final-4-en,
+    #final-5,
+    #final-5-en,
+    .single-area-chart {
+      padding: 10px 10px 10px 0px;
+      width: 90%;
+      max-width: 400px;
+      margin: auto;
+
+      .header-container {
+        gap: 10px;
+        margin-bottom: 0;
+        padding-left: 10px;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+
+        .text-wrapper {
+          min-height: 0;
+
+          h2 {
+            font-size: 12px;
+          }
+
+          h3 {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1278px) {
+  #electricity-5 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -100px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1268px) {
+  #naturalgas-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -145px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1451px) {
+  #electricity-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: 844px) {
+  #electricity-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1269px) and (max-width: 1274px) {
+  #naturalgas-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -105px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1601px) and (max-width: 1666px) {
+  #naturalgas-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1466px) {
+  #naturalgas-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 854px) {
+  #naturalgas-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 855px) and (max-width: calc($tablet - 1px)) {
+  #naturalgas-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: $mobile) {
+  #electricity-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -10px !important;
+          gap: 5px !important;
+
+          p {
+            font-size: 9px;
+
+            span {
+              width: 10px;
+              height: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 907px) and (max-width: calc($tablet )) {
+  #electricity-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1382px) {
+  #electricity-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -70px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1841px) and (max-width: 1919px) {
+  #coal-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -0 !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  #coal-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -0 !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 964px) {
+  #coal-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -50px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1414px) {
+  #coal-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1601px) and (max-width: 1614px) {
+  #coal-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1476px) {
+  #coal-5 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -120px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1477px) and (max-width: 1510px) {
+  #coal-5 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1601px) and (max-width: 1676px) {
+  #coal-5 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -110px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1677px) and (max-width: 1710px) {
+  #coal-5 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 860px) {
+  #coal-5 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -120px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 861px) and (max-width: 881px) {
+  #coal-5 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 882px) and (max-width: calc($tablet - 1px)) {
+  #coal-5 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1208px) {
+  #coal-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -120px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1209px) and (max-width: 1248px) {
+  #coal-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1249px) and (max-width: 1280px) {
+  #coal-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: calc($tablet - 1px)) {
+  #coal-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -45px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1300px) {
+  #coal-6 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: calc($tablet - 1px)) {
+  #coal-6 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -45px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1724px) {
+  #coal-6-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1525px) and (max-width: 1600px) {
+  #coal-6-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: 0px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 890px) {
+  #coal-6-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: calc($tablet - 1px)) {
+  #oil-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          gap: 15px !important;
+          justify-content: start !important;
+          margin-left: 70px;
+          margin-top: -70px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 825px) and (max-width: calc($tablet - 1px)) {
+  #oil-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: calc($tablet - 1px)) {
+  #oil-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          gap: 15px !important;
+          justify-content: start !important;
+          margin-left: 80px;
+          margin-top: -40px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 881px) {
+  #oil-4 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -155px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 882px) and (max-width: 901px) {
+  #oil-4 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -110px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 902px) and (max-width: $tablet) {
+  #oil-4 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1511px) and (max-width: 1542px) {
+  #oil-4 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -110px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1510px) {
+  #oil-4 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -150px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1600px) and (max-width: 1710px) {
+  #oil-4 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -145px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1711px) and (max-width: 1742px) {
+  #oil-4 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -110px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: $tablet) {
+  #oil-4-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1246px) {
+  #oil-4-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -145px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1247px) and (max-width: 1347px) {
+  #oil-4-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -110px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1329px) and (max-width: 1347px) {
+  #oil-4-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: $tablet) {
+  #oil-5 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1350px) {
+  #oil-5 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -110px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 864px) {
+  #oil-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 865px) and (max-width: calc($tablet - 1px)) {
+  #oil-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1483px) and (max-width: $ultrawide) {
+  #oil-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1224px) {
+  #electricity-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+          justify-content: start;
+          margin-left: 80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1224px) {
+  #electricity-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+          justify-content: start !important;
+          margin-left: 80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1601px) and (max-width: 1650px) {
+  #electricity-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -70px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1388px) {
+  #oil-6-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+          justify-content: start !important;
+          margin-left: 140px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: calc($tablet - 1px)) {
+  #electricity-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -10px !important;
+        }
+      }
+    }
+  }
+  #oil-6-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -5px !important;
+        }
+      }
+    }
+  }
+  #oil-6 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -50px !important;
+        }
+      }
+    }
+  }
+
+  #biofuel-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -50px !important;
+          justify-content: start;
+          margin-left: 100px;
+        }
+      }
+    }
+  }
+
+  #biofuel-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: 0px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 942px) and (max-width: calc($tablet - 1px)) {
+  #biofuel-2 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: 0 !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1807px) and (max-width: 1919px) {
+  #biofuel-2 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: 0 !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1464px) {
+  #biofuel-2-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -30px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 854px) {
+  #biofuel-2-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 854px) and (max-width: calc($tablet - 1px)) {
+  #biofuel-2-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: 0 !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1601px) and (max-width: 1664px) {
+  #biofuel-2-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -30px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 861px) {
+  #biofuel-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -115px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1478px) {
+  #biofuel-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -115px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1601px) and (max-width: 1678px) {
+  #biofuel-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -115px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1224px) {
+  #biofuel-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -115px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1225px) and (max-width: 1406px) {
+  #biofuel-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -75px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 825px) and (max-width: 966px) {
+  #production-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          justify-content: start !important;
+          gap: 15px !important;
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 967px) and (max-width: calc($tablet - 1px)) {
+  #production-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          justify-content: start !important;
+          gap: 15px !important;
+          margin-top: -10px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 825px) and (max-width: $tablet) {
+  #imports-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+          gap: 15px;
+          justify-content: start;
+          margin-left: 80px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 866px) {
+  #imports-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -70px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 825px) {
+  #production-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -30px !important;
+          justify-content: start !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 878px) {
+  #production-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+          justify-content: start !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 879px) and (max-width: 1347px) {
+  #production-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+          justify-content: start !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 839px) {
+  #imports-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+          gap: 15px;
+          justify-content: start;
+          margin-left: 80px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 840px) and (max-width: calc($tablet - 1px)) {
+  #imports-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -10px !important;
+          gap: 15px;
+          justify-content: start;
+          margin-left: 80px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1221px) {
+  #exports-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -45px !important;
+          justify-content: start !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1122px) and (max-width: calc($tablet - 1px)) {
+  #exports-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: 0 !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: calc($tablet - 1px)) {
+  #exports-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: 0 !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: calc($tablet - 1px)) {
+  #electricity-2-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -10px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 906px) {
+  #final-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 906px) and (max-width: calc($tablet - 1px)) {
+  #final-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1555px) {
+  #final-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -70px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1601px) and (max-width: 1750px) {
+  #final-1 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -70px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: calc($tablet - 1px)) {
+  #final-1-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: calc($tablet - 1px)) {
+  #final-2 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1268px) {
+  #final-2 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -130px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1269px) and (max-width: 1274px) {
+  #final-2 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -100px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 854px) {
+  #final-2-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 855px) and (max-width: calc($tablet - 1px)) {
+  #final-2-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1466px) {
+  #final-2-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -70px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1601px) and (max-width: 1666px) {
+  #final-2-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -70px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 824px) {
+  #final-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -260px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 825px) and (max-width: calc($tablet - 1px)) {
+  #final-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -230px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1219px) {
+  #final-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -360px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1220px) and (max-width: 1304px) {
+  #final-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -330px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1305px) and (max-width: 1400px) {
+  #final-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -300px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1400px) and (max-width: 1418px) {
+  #final-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -250px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1419px) and (max-width: 1600px) {
+  #final-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -210px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1600px) and (max-width: 1618px) {
+  #final-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -250px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1619px) and (max-width: $ultrawide) {
+  #final-3 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -210px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 839px) {
+  #final-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -190px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 840px) and (max-width: 939px) {
+  #final-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -150px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 940px) and (max-width: calc($tablet - 1px)) {
+  #final-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -110px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $tablet) {
+  #final-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -250px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1201px) and (max-width: 1262px) {
+  #final-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -210px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1262px) and (max-width: 1442px) {
+  #final-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -180px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1442px) and (max-width: 1600px) {
+  #final-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -140px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1601px) and (max-width: 1642px) {
+  #final-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -180px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1643px) and (max-width: 1802px) {
+  #final-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -140px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1920px) and (max-width: $ultrawide) {
+  #final-3-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -140px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 835px) {
+  #final-4 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 836px) and (max-width: calc($tablet - 1px)) {
+  #final-4 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -40px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1436px) {
+  #final-4 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -60px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1601px) and (max-width: 1636px) {
+  #final-4 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -60px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: 1306px) {
+  #final-4-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -60px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 820px) and (max-width: calc($tablet - 1px)) {
+  #final-5 {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -10px !important;
+        }
+      }
+    }
+  }
+
+  #final-5-en {
+    .recharts-responsive-container {
+      .recharts-legend-wrapper {
+        .legend-container {
+          margin-top: -10px !important;
+        }
+      }
+    }
   }
 }

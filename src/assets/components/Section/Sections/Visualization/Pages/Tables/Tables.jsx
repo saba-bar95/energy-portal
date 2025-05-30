@@ -12,27 +12,29 @@ const Tables = () => {
   };
   return (
     <div className="tables">
-      <div className="links">
-        <ul>
-          {links[language].links.map((link) => {
-            return (
-              <Link key={link.id} to={link.link}>
-                <div className="wrapper" key={link.id}>
-                  <li
-                    onClick={() => {
-                      handleLinkSelect(link.id);
-                    }}
-                    className={selectedId === link.id ? "selected" : ""}>
-                    {link.svg}
-                    {link.name}
-                  </li>
-                </div>
-              </Link>
-            );
-          })}
-        </ul>
+      <div className="tables-wrapper">
+        <div className="links">
+          <ul>
+            {links[language].links.map((link) => {
+              return (
+                <Link key={link.id} to={link.link}>
+                  <div className="wrapper" key={link.id}>
+                    <li
+                      onClick={() => {
+                        handleLinkSelect(link.id);
+                      }}
+                      className={selectedId === link.id ? "selected" : ""}>
+                      {link.svg}
+                      {link.name}
+                    </li>
+                  </div>
+                </Link>
+              );
+            })}
+          </ul>
+        </div>
+        <Outlet />
       </div>
-      <Outlet />
     </div>
   );
 };

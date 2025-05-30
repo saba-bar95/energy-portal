@@ -20,6 +20,38 @@ const VerticalStackedByYears = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [hiddenBars, setHiddenBars] = useState(new Set()); // Track hidden bars
+
+  const id = language === "en" ? `${info.id}-${language}` : info.id;
+
+  const toggleBarVisibility = (key) => {
+    setHiddenBars((prev) => {
+      const newSet = new Set(prev);
+
+      // If it's the last remaining visible bar, prevent hiding
+      if (newSet.size === dataKeys.length - 1 && !newSet.has(key)) {
+        return prev;
+      }
+
+      // Toggle visibility
+      if (newSet.has(key)) {
+        newSet.delete(key);
+      } else {
+        newSet.add(key);
+      }
+
+      return newSet;
+    });
+  };
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -121,9 +153,7 @@ const VerticalStackedByYears = ({ info }) => {
             const displayName = name;
             return (
               <p key={`item-${index}`} className="text">
-                <span style={{ color }} className="before-span">
-                  ■
-                </span>
+                <span style={{ color }} className="before-span"></span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                   {value.toFixed(1)}
@@ -136,26 +166,30 @@ const VerticalStackedByYears = ({ info }) => {
     );
   };
 
-  const CustomLegend = ({ payload }) => {
-    return (
-      <div className="legend-container" style={info?.styles}>
-        {payload.map((entry, index) => {
-          const displayName = entry.dataKey; // Fallback to the original dataKey if no match
-          return (
-            <p key={`item-${index}`}>
-              <span style={{ color: entry.color }}>■</span>
-              {displayName}
-            </p>
-          );
-        })}
-      </div>
-    );
-  };
+  const CustomLegend = () => (
+    <div className="legend-container" style={info?.styles}>
+      {dataKeys.map((key, index) => {
+        const isActive = !hiddenBars.has(key);
+        return (
+          <p
+            key={index}
+            onClick={() => toggleBarVisibility(key)}
+            style={{
+              cursor: "pointer",
+              opacity: isActive ? 1 : 0.3,
+            }}>
+            <span style={{ color: info.colors[index] }}>■</span>
+            {key}
+          </p>
+        );
+      })}
+    </div>
+  );
 
   return (
     <>
       {data.length > 0 && (
-        <div className="main-chart">
+        <div className="main-chart" id={id}>
           <div className="header-container">
             {info.svg}
             <div className="info-wrapper">
@@ -170,42 +204,43 @@ const VerticalStackedByYears = ({ info }) => {
               unit={info[`unit_${language}`]}
             />
           </div>
-          <ResponsiveContainer height={420}>
+          <ResponsiveContainer height={windowWidth < 768 ? 380 : 420}>
             <BarChart
               data={data}
-              margin={{
-                top: 20,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}>
+              margin={
+                windowWidth < 768
+                  ? { top: 15, right: 5, left: -10, bottom: 5 }
+                  : { top: 20, right: 30, left: 20, bottom: 5 }
+              }>
               <XAxis
                 dataKey="year"
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <YAxis
                 tickLine={false}
                 padding={{ top: 30 }}
                 axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
+                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <Tooltip content={CustomTooltip} />
-              <Legend content={CustomLegend} />
+              {windowWidth >= 820 && <Legend content={CustomLegend} />}
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />;
-              {dataKeys.map((el, i) => {
-                return (
+              {dataKeys.map((key, i) =>
+                hiddenBars.has(key) ? null : (
                   <Bar
-                    dataKey={el}
+                    key={key}
+                    dataKey={key}
                     stackId="a"
-                    key={el}
-                    fill={info.colors[i]}
                     minPointSize={3}
+                    fill={info.colors[i]}
                   />
-                );
-              })}
+                )
+              )}
               <Brush
                 dataKey="year"
-                height={20} // Reduce height by half
+                height={windowWidth < 768 ? 10 : 20} // Reduce height by half
                 stroke="#115EFE"
                 tickFormatter={() => ""} // Hide year labels
               />

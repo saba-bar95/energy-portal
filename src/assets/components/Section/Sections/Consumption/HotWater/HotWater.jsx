@@ -68,19 +68,21 @@ const HotWater = () => {
   }, [chartConfig]);
 
   return (
-    <div className="heating-container">
-      {loading ? (
-        <div className="loading-container">
-          <p style={{ fontSize: "20px" }}>Loading...</p>
-        </div>
-      ) : (
-        chartData && (
-          <Chart
-            key={chartConfig.householdID}
-            data={{ ...chartConfig, data: chartData }}
-          />
-        )
-      )}
+    <div className="container-ss">
+      <div className="heating-container">
+        {loading ? (
+          <div className="loading-container">
+            <p style={{ fontSize: "20px" }}>Loading...</p>
+          </div>
+        ) : (
+          chartData && (
+            <Chart
+              key={chartConfig.householdID}
+              data={{ ...chartConfig, data: chartData }}
+            />
+          )
+        )}
+      </div>
     </div>
   );
 };

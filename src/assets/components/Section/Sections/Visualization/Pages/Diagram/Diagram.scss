@@ -1,12 +1,86 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .diagram-container {
   background-color: #f4f4f7;
   color: black;
-  padding: 50px 200px 200px 200px;
-  // display: grid;
-  // grid-template-columns: 1fr 1fr;
-  // gap: 40px;
+  padding: 40px 200px 200px 200px;
+  padding-top: 40px;
 
-  .container {
-    padding: 50px 0;
+  .header-container {
+    justify-content: space-between;
+  }
+
+  .container-ss {
+    max-width: 1800px;
+    margin: auto;
+
+    .info-wrapper {
+      display: flex;
+      gap: 20px;
+    }
+
+    .year-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+}
+
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .diagram-container {
+    padding: 40px 100px 200px 100px !important;
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .diagram-container {
+    padding: 40px 50px 200px 50px !important;
+
+    .sankey-1 {
+      .header-container {
+        .info-wrapper {
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+        .text-wrapper {
+          h2 {
+            font-size: 14px;
+          }
+
+          h3 {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .diagram-container {
+    padding: 30px 30px 100px 30px !important;
+
+    .sankey-1 {
+      .header-container {
+        .info-wrapper {
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+        }
+        .text-wrapper {
+          h2 {
+            font-size: 12px;
+          }
+
+          h3 {
+            font-size: 11px;
+          }
+        }
+      }
+    }
   }
 }

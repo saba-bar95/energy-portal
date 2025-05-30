@@ -20,6 +20,16 @@ const Chart_1 = () => {
   const { language } = useParams();
   const [year, setYear] = useState(2024);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const years = useMemo(
     () => Array.from({ length: 2024 - 2018 + 1 }, (_, i) => 2018 + i),
     []
@@ -141,9 +151,22 @@ const Chart_1 = () => {
         </div>
       </div>
       <ResponsiveContainer height={400}>
-        <BarChart data={chartData}>
-          <XAxis dataKey="name" tickLine={false} />
-          <YAxis tickLine={false} />
+        <BarChart
+          data={chartData}
+          margin={
+            windowWidth < 768
+              ? { top: 15, right: 5, left: -10, bottom: 5 }
+              : { top: 20, right: 30, left: 20, bottom: 5 }
+          }>
+          <XAxis
+            dataKey="name"
+            tickLine={false}
+            tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+          />
+          <YAxis
+            tickLine={false}
+            tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+          />
           <Tooltip content={CustomTooltip} />
           <CartesianGrid horizontal={false} strokeDasharray="3 3" />
           <Bar
@@ -154,7 +177,7 @@ const Chart_1 = () => {
           />
           <Brush
             dataKey="name" // The key to brush on (e.g., months or years)
-            height={20} // Brush height
+            height={windowWidth < 768 ? 10 : 20}
             stroke="#115EFE" // Brush color
           />
         </BarChart>
