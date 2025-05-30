@@ -111,7 +111,7 @@
 }
 
 @media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
-  .visualization {
+  .consumption {
     .recharts-surface {
       margin-left: -40px !important;
     }
@@ -152,7 +152,7 @@
 }
 
 @media only screen and (min-width: 0) and (max-width: $mobile) {
-  .visualization {
+  .consumption {
     .recharts-surface {
       margin-left: -40px !important;
     }
