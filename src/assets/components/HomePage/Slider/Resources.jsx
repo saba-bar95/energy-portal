@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import AnimatedNumber from "./AnimatedNumber";
+import backEndUrl from "../../../../../backEndUrl";
 
 const Svg1 = () => {
   return (
@@ -235,7 +236,7 @@ const EnergyConsumption = () => {
         const allData = await Promise.all(
           widgets.map(async (widget) => {
             const response = await fetch(
-              `http://192.168.1.27:3000/api/energyConsumptionBySector/${widget.legendCode}`
+              `${backEndUrl}/api/energyConsumptionBySector/${widget.legendCode}`
             );
 
             if (!response.ok) {
