@@ -4,9 +4,9 @@ import SankeyChart from "../../../../../Charts/Sankey";
 const Diagram = () => {
   const chartInfo = {
     title_ge: "ნაკადები",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     title_en: "Flows",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     svg: (
       <svg
         width="28"

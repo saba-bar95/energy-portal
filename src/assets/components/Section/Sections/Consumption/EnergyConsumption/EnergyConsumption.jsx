@@ -15,8 +15,8 @@ const HotWater = () => {
       title_en: "Energy commodities consumed for household needs",
       icon: firstChartIcon,
       color: ["#3498DB", "#6CD68C", "#ED4C5C"],
-      measurement_ge: "ათასი ტონა ნავთობის ექვივალენტი",
-      measurement_en: "Ton of oil equivalent",
+      measurement_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
+      measurement_en: "Thousand Tonnes of Oil Equivalent",
     }),
     []
   );

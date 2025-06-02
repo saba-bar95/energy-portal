@@ -12,8 +12,8 @@ const Coal = () => {
     chartName: 3,
     title_ge: "ქვანახშირის წარმოება",
     title_en: "Coal production",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
-    unit_en: "Ton of oil equivalent",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     id: "electricity-1",
     colors: ["#2C3E50"],
     legend: false,
@@ -81,9 +81,9 @@ const Coal = () => {
     chartID: 17,
     chartName: 3,
     title_ge: "ქვანახშირის იმპორტი სახეების მიხედვით",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     title_en: "Coal imports by type",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#30B0C7", "#138C00", "#ED4C5C"],
     legend: true,
     svg: (
@@ -114,9 +114,9 @@ const Coal = () => {
     chartID: 18,
     chartName: 3,
     title_ge: "ქვანახშირის ექსპორტი",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     title_en: "Coal exports",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#3358EB"],
     legend: false,
 
@@ -155,9 +155,9 @@ const Coal = () => {
     chartName: 3,
     chartID: 19,
     title_ge: "ქვანახშირის საბოლოო მოხმარება სექტორების მიხედვით",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     title_en: "Final consumption of coal by sectors",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#5654D4", "#007C90", "#3FC8E4", "#ED4C5C"],
     svg: (
       <svg
@@ -188,9 +188,9 @@ const Coal = () => {
     chartName: 3,
     chartID: 9,
     title_ge: "ქვანახშირის საბოლოო მოხმარება სახეების მიხედვით",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     title_en: "Final consumption of coal by type",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#2C84FE", "#6CD68C", "#FFC060", "#EB4C4B"],
     svg: (
       <svg

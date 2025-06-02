@@ -5,10 +5,10 @@ const Exports = () => {
     chartName: 6,
     chartID: 30,
     title_ge: "ენერგორესურსების ექსპორტი",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     id: "exports-1",
     title_en: "Energy exports",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#5654D4", "#007C90", "#3FC8E4", "#ED4C5C", "#FF9F0A"],
     styles: {
       flexWrap: "wrap",

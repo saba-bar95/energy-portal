@@ -32,7 +32,7 @@ const SDGIndicators = () => {
       chartName: 90,
       title_ge: "ენერგოინტენსიურობა",
       unit_ge:
-        "ტონა ნავთობის ექვივალენტი/მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)",
+        "ტონა ნავთობის ეკვივალენტი/მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)",
       title_en: "Energy intensity",
       unit_en:
         "Ton of oil equivalent/GDP at constant 2019 prices (million GEL)",

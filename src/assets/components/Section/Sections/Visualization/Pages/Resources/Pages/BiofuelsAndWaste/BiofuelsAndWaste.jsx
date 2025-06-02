@@ -10,9 +10,9 @@ const BiofuelsAndWaste = () => {
     chartName: 5,
     chartID: 7,
     title_ge: "ბიოსაწვავის და ნარჩენებიდან წარმოებული ენერგია",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     title_en: "Energy from biofuels and waste",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#2C6552", "#339F8D", "#9EE9C4", "#ED4C5C"],
     svg: (
       <svg
@@ -44,9 +44,9 @@ const BiofuelsAndWaste = () => {
     chartName: 5,
     chartID: 26,
     title_ge: "ბიოსაწვავის და ნარჩენების საბოლოო მოხმარება სახეების მიხედვით",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     title_en: "Final consumption of biofuels and waste by type",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#5654D4", "#007C90", "#FF9F0A"],
     svg: (
       <svg
@@ -83,9 +83,9 @@ const BiofuelsAndWaste = () => {
     chartName: 5,
     chartID: 27,
     title_ge: "ბიოსაწვავის და ნარჩენების საბოლოო მოხმარება სექტორების მიხედვით",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     title_en: "Final consumption of biofuels and waste by type",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#2C84FE", "#084E99", "#994C8E", "#6CD68C", "#17864C"],
     svg: (
       <svg

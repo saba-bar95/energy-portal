@@ -6,9 +6,9 @@ const Imports = () => {
     chartID: 29,
     title_ge: "ენერგორესურსების იმპორტი",
     id: "imports-1",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     title_en: "Energy Imports",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#6FAEA9", "#5A9FDE", "#D5A43F", "#BE6433"],
     legend: true,
     svg: (

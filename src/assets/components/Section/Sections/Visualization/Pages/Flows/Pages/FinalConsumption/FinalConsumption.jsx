@@ -12,9 +12,9 @@ const FinalConsumption = () => {
     chartName: 6,
     title_ge: "ენერგორესურსების საბოლოო მოხმარება ენერგიის სახეების მიხედვით",
     title_en: "Final consumption of energy resources by type of energy",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     id: "final-1",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: [
       "#9747FF",
       "#244966",
@@ -63,8 +63,8 @@ const FinalConsumption = () => {
     id: "final-2",
     title_ge: "ენერგორესურსების საბოლოო მოხმარება სექტორების მიხედვით",
     title_en: "Final consumption of energy resources by sectors",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
-    unit_en: "Ton of oil equivalent",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: [
       "#5654D4",
       "#138C00",
@@ -105,8 +105,8 @@ const FinalConsumption = () => {
     id: "final-3",
     title_ge: "ენერგორესურსების საბოლოო მოხმარება მრეწველობის სექტორში",
     title_en: "Final consumption of energy resources in the industrial sector",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
-    unit_en: "Ton of oil equivalent",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: [
       "#084E99",
       "#016C7D",
@@ -163,9 +163,9 @@ const FinalConsumption = () => {
     chartName: 6,
     chartID: 34,
     title_ge: "ენერგორესურსების საბოლოო მოხმარება ტრანსპორტის სექტორში",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     title_en: "Final energy consumption in the transport sector",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#5654D4", "#3FC8E4", "#ED4C5C", "#007C90", "#FF9F0A", "#929497"],
 
     svg: (
@@ -215,10 +215,10 @@ const FinalConsumption = () => {
     chartID: 35,
     title_ge:
       "ენერგორესურსების საბოლოო მოხმარება ენერგეტიკული და არაენერგეტიკული მიზნებისთვის",
-    unit_ge: "ათასი ტონა ნავთობის ექვივალენტი",
+    unit_ge: "ათასი ტონა ნავთობის ეკვივალენტი",
     title_en:
       "Final consumption of energy resources for energy and non-energy purposes",
-    unit_en: "Ton of oil equivalent",
+    unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#ED4C5C", "#3FC8E4"],
 
     svg: (

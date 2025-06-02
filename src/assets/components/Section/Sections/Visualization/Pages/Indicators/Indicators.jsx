@@ -32,7 +32,7 @@ const Indicators = () => {
       chartName: 90,
       title_ge: "ენერგოინტენსიურობა",
       unit_ge:
-        "ტონა ნავთობის ექვივალენტი/მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)",
+        "ტონა ნავთობის ეკვივალენტი/მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)",
       title_en: "Energy intensity",
       unit_en:
         "Ton of oil equivalent/GDP at constant 2019 prices (million GEL)",
@@ -59,7 +59,7 @@ const Indicators = () => {
       chartName: 91,
       title_ge:
         "პირველადი ენერგიის მთლიანი მიწოდება საშუალოდ ერთ სულ მოსახლეზე",
-      unit_ge: "ტონა ნავთობის ექვივალენტი",
+      unit_ge: "ტონა ნავთობის ეკვივალენტი",
       title_en: "Total primary energy supply per capita ",
       unit_en: "Ton of oil equivalent",
       colors: ["#6FAEA9"],
@@ -84,7 +84,7 @@ const Indicators = () => {
       chartName: 92,
       title_ge: "ენერგოპროდუქტიულობა",
       unit_ge:
-        "მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)/ტონა ნავთობის ექვივალენტი",
+        "მშპ მუდმივ 2019 წლის ფასებში (მლნ. ლარი)/ტონა ნავთობის ეკვივალენტი",
       title_en: "Energy productivity",
       unit_en: "GDP at constant 2019 prices (mln. GEL)/Ton of oil equivalent",
       colors: ["#BE6433"],

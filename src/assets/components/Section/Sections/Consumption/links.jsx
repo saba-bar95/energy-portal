@@ -156,7 +156,7 @@ const links = {
   },
 
   en: {
-    header: "Energy Consumption",
+    header: "Energy Consumption ",
     links: [
       { name: "Heating", id: 1, link: "heating", svg: svg1() },
       {
