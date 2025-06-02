@@ -20,9 +20,28 @@ const MultipleLineChartByYears = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [hiddenBars, setHiddenBars] = useState(new Set()); // Track hidden bars
 
+  const toggleBarVisibility = (key) => {
+    setHiddenBars((prev) => {
+      const newSet = new Set(prev);
+
+      // If it's the last remaining visible bar, prevent hiding
+      if (newSet.size === dataKeys.length - 1 && !newSet.has(key)) {
+        return prev;
+      }
+
+      // Toggle visibility
+      if (newSet.has(key)) {
+        newSet.delete(key);
+      } else {
+        newSet.add(key);
+      }
+
+      return newSet;
+    });
+  };
   const id = language === "en" ? `${info.id}-${language}` : info.id;
 
   useEffect(() => {
@@ -108,15 +127,21 @@ const MultipleLineChartByYears = ({ info }) => {
     );
   };
 
-  const CustomLegend = ({ payload }) => {
+  const CustomLegend = () => {
     return (
       <div className="legend-container" style={info?.styles}>
-        {payload.map((entry, index) => {
-          const displayName = entry.dataKey; // Fallback to the original dataKey if no match
+        {dataKeys.map((key, index) => {
+          const isActive = !hiddenBars.has(key);
           return (
-            <p key={`item-${index}`}>
-              <span style={{ color: entry.color }}>■</span>
-              {displayName}
+            <p
+              key={index}
+              onClick={() => toggleBarVisibility(key)}
+              style={{
+                cursor: "pointer",
+                opacity: isActive ? 1 : 0.3,
+              }}>
+              <span style={{ color: info.colors[index] }}>■</span>
+              {key}
             </p>
           );
         })}
@@ -166,18 +191,18 @@ const MultipleLineChartByYears = ({ info }) => {
               <Tooltip content={CustomTooltip} />
               {windowWidth >= 820 && <Legend content={CustomLegend} />}
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
-              {dataKeys.map((el, i) => {
-                return (
+              {dataKeys.map((el, i) =>
+                hiddenBars.has(el) ? null : (
                   <Line
-                    // type="monotone"
                     dataKey={el}
                     key={el}
                     stroke={info.colors[i]}
-                    strokeWidth={2}
+                    strokeWidth={3}
                     dot={false} // Set to true if you want to show dots on the line
+                    filter={`url(#line-shadow-${info.colors[i]})`}
                   />
-                );
-              })}
+                )
+              )}
               <Brush
                 dataKey="year"
                 height={windowWidth < 768 ? 10 : 20}

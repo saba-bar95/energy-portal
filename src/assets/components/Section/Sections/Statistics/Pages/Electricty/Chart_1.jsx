@@ -17,16 +17,35 @@ import YearDropdown from "../../../../../YearDropdown/YearDropdown";
 import fetchDataWithMonthes from "../../../../../../../../fetchDataWithMonthes";
 
 const Chart_1 = () => {
+  const text = {
+    ge: {
+      title: "წარმოება",
+      unit: "გვტ.სთ",
+      hydro: "ჰიდროელექტროსადგურები",
+      thermal: "თბოელექტროსადგურები",
+      wind: "ქარი",
+    },
+    en: {
+      title: "Production",
+      unit: "GWh",
+      hydro: "Hydro Power Plants",
+      thermal: "Thermal Power Plants",
+      wind: "Wind",
+    },
+  };
   const [data, setData] = useState([]);
   const { language } = useParams();
   const [year, setYear] = useState(2024);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [activeKeys, setActiveKeys] = useState({
+    [text[language].hydro]: true,
+    [text[language].thermal]: true,
+    [text[language].wind]: true,
+  });
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
-
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -50,23 +69,6 @@ const Chart_1 = () => {
     { name_en: "Dec", name_ge: "დეკ" },
   ];
 
-  const text = {
-    ge: {
-      title: "წარმოება",
-      unit: "გვტ.სთ",
-      hydro: "ჰიდროელექტროსადგურები",
-      thermal: "თბოელექტროსადგურები",
-      wind: "ქარი",
-    },
-    en: {
-      title: "Production",
-      unit: "GWh",
-      hydro: "Hydro Power Plants",
-      thermal: "Thermal Power Plants",
-      wind: "Wind",
-    },
-  };
-
   useEffect(() => {
     const chartID = 7;
     const chartName = 43;
@@ -74,9 +76,7 @@ const Chart_1 = () => {
     const fetchData = async () => {
       try {
         const rawData = await fetchDataWithMonthes(year, chartID);
-
         const filteredData = rawData.filter((el) => el.name === chartName);
-
         setData(filteredData);
       } catch (err) {
         console.error(err);
@@ -86,7 +86,6 @@ const Chart_1 = () => {
     fetchData();
   }, [year]);
 
-  // Transform the data for Recharts using language-specific keys
   const chartData = months.map((month) => ({
     name: language === "ge" ? month.name_ge : month.name_en,
     [text[language].hydro]: data[0]?.[month.name_en] || 0,
@@ -94,64 +93,72 @@ const Chart_1 = () => {
     [text[language].wind]: data[2]?.[month.name_en] || 0,
   }));
 
-  const CustomTooltip = ({ active, payload }) => {
-    if (!active || !payload || !payload.length) return null;
+  const toggleBar = (key) => {
+    // Count how many bars are currently visible
+    const activeCount = Object.values(activeKeys).filter(Boolean).length;
 
-    return (
-      <div className="custom-tooltip">
-        <div className="tooltip-container">
-          {payload.map(({ name, value, color }, index) => {
-            const displayName = name;
-            return (
-              <p key={`item-${index}`} className="text">
-                <span style={{ color }} className="before-span">
-                  ■
-                </span>
-                {displayName} :
-                <span style={{ fontWeight: 900, marginLeft: "5px" }}>
-                  {value.toFixed(1)}
-                </span>
-              </p>
-            );
-          })}
-        </div>
-      </div>
-    );
+    // Ensure at least one bar remains visible
+    if (activeCount > 1 || !activeKeys[key]) {
+      setActiveKeys((prev) => ({
+        ...prev,
+        [key]: !prev[key],
+      }));
+    }
   };
 
-  const CustomLegend = ({ payload }) => {
+  const CustomLegend = () => {
+    const legendItems = [
+      { name: text[language].hydro, color: "#5654D4" },
+      { name: text[language].thermal, color: "#3FC8E4" },
+      { name: text[language].wind, color: "#ED4C5C" },
+    ];
+
     return (
-      <div
-        className="legend-container"
-        id="coal-chart-5"
-        style={{ marginTop: language === "en" ? "0px" : "0px" }}>
-        {payload.map((entry, index) => (
-          <p key={`item-${index}`}>
+      <div className="legend-container">
+        {legendItems.map((entry, index) => (
+          <p
+            key={`item-${index}`}
+            style={{
+              opacity: activeKeys[entry.name] ? 1 : 0.5,
+              cursor: "pointer",
+            }}
+            onClick={() => toggleBar(entry.name)}>
             <span style={{ color: entry.color }}>■</span>
-            {entry.dataKey}
+            {entry.name}
           </p>
         ))}
       </div>
     );
   };
 
-  const classN =
-    language === "en" ? "main-chart elec-1-en" : "main-chart elec-1";
+  const CustomTooltip = ({ active, payload }) => {
+    if (!active || !payload || !payload.length) return null;
+
+    return (
+      <div className="custom-tooltip">
+        <div className="tooltip-container">
+          {payload.map(({ name, value, color }, index) => (
+            <p key={`item-${index}`} className="text">
+              <span style={{ color }} className="before-span">
+                ■
+              </span>
+              {name} :
+              <span style={{ fontWeight: 900, marginLeft: "5px" }}>
+                {value.toFixed(1)}
+              </span>
+            </p>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <div className={classN}>
+    <div
+      className={
+        language === "en" ? "main-chart elec-1-en" : "main-chart elec-1"
+      }>
       <div className="header-container">
-        <svg
-          width="26"
-          height="26"
-          viewBox="0 0 26 26"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M25.2296 24.4873H22.4852L17.1407 7.09091H23.9296V8.60364C23.9296 9.02909 24.2667 9.36 24.7 9.36C25.1333 9.36 25.4704 9.02909 25.4704 8.60364V6.33455C25.4704 6.09818 25.3259 5.86182 25.1333 5.72L16.6593 0.236364C16.5148 0.0945454 16.3222 0 16.1296 0H9.91852C9.72593 0 9.53333 0.0945455 9.38889 0.189091L0.818519 5.67273C0.625926 5.81455 0.481481 6.05091 0.481481 6.33455V8.60364C0.481481 9.02909 0.818519 9.36 1.25185 9.36C1.68519 9.36 2.02222 9.02909 2.02222 8.60364V7.09091H8.81111L3.51482 24.4873H0.77037C0.337037 24.4873 0 24.8182 0 25.2436C0 25.6691 0.337037 26 0.77037 26H25.2296C25.663 26 26 25.6691 26 25.2436C26 24.8182 25.663 24.4873 25.2296 24.4873ZM9.62963 9.83273L11.7 11.2509L8.52222 13.4727L9.62963 9.83273ZM17.4778 13.52L14.3 11.2982L16.3704 9.88L17.4778 13.52ZM18.2963 16.2145L20.463 23.3527L14.3 19.0509L18.2963 16.2145ZM17.1889 15.1273L13 18.0582L8.81111 15.1273L13 12.1964L17.1889 15.1273ZM7.65556 16.2145L11.6519 19.0036L5.48889 23.3055L7.65556 16.2145ZM13 19.9491L19.4519 24.4873H6.54815L13 19.9491ZM10.6407 5.57818V1.51273H15.3593V5.57818H10.6407ZM9.1 5.57818H3.85185L9.1 2.17455V5.57818ZM16.9 2.17455L22.1481 5.57818H16.9V2.17455ZM15.5519 7.09091L15.937 8.32L13 10.3527L10.063 8.32L10.4481 7.09091H15.5519Z"
-            fill="#1E1E1E"
-          />
-        </svg>
         <div className="text-wrapper">
           <h2>{text[language].title}</h2>
           <h3>{text[language].unit}</h3>
@@ -187,31 +194,19 @@ const Chart_1 = () => {
           <Tooltip content={CustomTooltip} />
           {windowWidth >= 820 && <Legend content={CustomLegend} />}
           <CartesianGrid horizontal={false} strokeDasharray="3 3" />
-          <Bar
-            dataKey={text[language].hydro}
-            fill="#5654D4"
-            name={text[language].hydro}
-            stackId={1}
-            minPointSize={2}
-          />
-          <Bar
-            dataKey={text[language].thermal}
-            fill="#3FC8E4"
-            name={text[language].thermal}
-            minPointSize={2}
-            stackId={1}
-          />
-          <Bar
-            dataKey={text[language].wind}
-            fill="#ED4C5C"
-            name={text[language].wind}
-            minPointSize={2}
-            stackId={1}
-          />
+          {activeKeys[text[language].hydro] && (
+            <Bar dataKey={text[language].hydro} fill="#5654D4" stackId={1} />
+          )}
+          {activeKeys[text[language].thermal] && (
+            <Bar dataKey={text[language].thermal} fill="#3FC8E4" stackId={1} />
+          )}
+          {activeKeys[text[language].wind] && (
+            <Bar dataKey={text[language].wind} fill="#ED4C5C" stackId={1} />
+          )}
           <Brush
-            dataKey="name" // The key to brush on (e.g., months or years)
+            dataKey="name"
             height={windowWidth < 768 ? 10 : 20}
-            stroke="#115EFE" // Brush color
+            stroke="#115EFE"
           />
         </BarChart>
       </ResponsiveContainer>

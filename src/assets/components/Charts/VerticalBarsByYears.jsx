@@ -22,6 +22,27 @@ const VerticalBarsByYears = ({ info }) => {
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [hiddenBars, setHiddenBars] = useState(new Set());
+
+  const toggleBarVisibility = (key) => {
+    setHiddenBars((prev) => {
+      const newSet = new Set(prev);
+
+      // Ensure at least one bar remains visible
+      if (newSet.size === dataKeys.length - 1 && !newSet.has(key)) {
+        return prev;
+      }
+
+      // Toggle visibility
+      if (newSet.has(key)) {
+        newSet.delete(key);
+      } else {
+        newSet.add(key);
+      }
+
+      return newSet;
+    });
+  };
 
   const id = language === "en" ? `${info.id}-${language}` : info.id;
 
@@ -125,15 +146,21 @@ const VerticalBarsByYears = ({ info }) => {
     );
   };
 
-  const CustomLegend = ({ payload }) => {
+  const CustomLegend = () => {
     return (
       <div className="legend-container" style={info?.styles}>
-        {payload.map((entry, index) => {
-          const displayName = entry.dataKey; // Fallback to the original dataKey if no match
+        {dataKeys.map((key, index) => {
+          const isActive = !hiddenBars.has(key);
           return (
-            <p key={`item-${index}`}>
-              <span style={{ color: entry.color }}>■</span>
-              {displayName}
+            <p
+              key={index}
+              onClick={() => toggleBarVisibility(key)}
+              style={{
+                cursor: "pointer",
+                opacity: isActive ? 1 : 0.3,
+              }}>
+              <span style={{ color: info.colors[index] }}>■</span>
+              {key}
             </p>
           );
         })}
@@ -214,8 +241,8 @@ const VerticalBarsByYears = ({ info }) => {
                 <Legend content={CustomLegend} />
               )}
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
-              {dataKeys.map((el, i) => {
-                return (
+              {dataKeys.map((el, i) =>
+                hiddenBars.has(el) ? null : (
                   <Bar
                     dataKey={el}
                     key={el}
@@ -225,8 +252,8 @@ const VerticalBarsByYears = ({ info }) => {
                       <LabelList dataKey={el} content={renderCustomizedLabel} />
                     )}
                   </Bar>
-                );
-              })}
+                )
+              )}
               <Brush
                 dataKey="year"
                 height={windowWidth < 768 ? 10 : 20}

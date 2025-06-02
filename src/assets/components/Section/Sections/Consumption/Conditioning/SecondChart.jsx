@@ -18,6 +18,24 @@ const SecondChart = ({ data }) => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  const [activeKeys, setActiveKeys] = useState({
+    total: true,
+    city: true,
+    village: true,
+  });
+
+  const toggleBar = (key) => {
+    const activeCount = Object.values(activeKeys).filter(Boolean).length;
+
+    // Prevent hiding the last visible bar
+    if (activeCount > 1 || !activeKeys[key]) {
+      setActiveKeys((prev) => ({
+        ...prev,
+        [key]: !prev[key],
+      }));
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
 
@@ -27,21 +45,38 @@ const SecondChart = ({ data }) => {
   }, []);
 
   const CustomLegend = () => {
+    const legendItems = [
+      {
+        name: "total",
+        label: language === "ge" ? "სულ" : "Total",
+        color: data.color[0],
+      },
+      {
+        name: "city",
+        label: language === "ge" ? "ქალაქად" : "Urban",
+        color: data.color[1],
+      },
+      {
+        name: "village",
+        label: language === "ge" ? "სოფლად" : "Rural",
+        color: data.color[2],
+      },
+    ];
+
     return (
       <div className="legend-container">
-        <p>
-          <span style={{ color: data.color[0] }}></span>
-
-          {language === "ge" ? "სულ" : "Total"}
-        </p>
-        <p>
-          <span style={{ color: data.color[1] }}></span>
-          {language === "ge" ? "ქალაქად" : "Urban"}
-        </p>
-        <p>
-          <span style={{ color: data.color[2] }}></span>
-          {language === "ge" ? "სოფლად" : "Rural"}
-        </p>
+        {legendItems.map((entry, index) => (
+          <p
+            key={`item-${index}`}
+            style={{
+              opacity: activeKeys[entry.name] ? 1 : 0.5,
+              cursor: "pointer",
+            }}
+            onClick={() => toggleBar(entry.name)}>
+            <span style={{ color: entry.color }}>■</span>
+            {entry.label}
+          </p>
+        ))}
       </div>
     );
   };
@@ -163,9 +198,17 @@ const SecondChart = ({ data }) => {
           <Tooltip content={CustomTooltip} />
 
           {windowWidth >= 820 && <Legend content={CustomLegend} />}
-          <Bar dataKey="total" fill={data.color[0]} minPointSize={5} />
-          <Bar dataKey="city" fill={data.color[1]} minPointSize={10} />
-          <Bar dataKey="village" fill={data.color[2]} minPointSize={10} />
+          {activeKeys.total && (
+            <Bar dataKey="total" fill={data.color[0]} minPointSize={5} />
+          )}
+
+          {activeKeys.city && (
+            <Bar dataKey="city" fill={data.color[1]} minPointSize={10} />
+          )}
+
+          {activeKeys.village && (
+            <Bar dataKey="village" fill={data.color[2]} minPointSize={10} />
+          )}
         </BarChart>
       </ResponsiveContainer>
     </div>

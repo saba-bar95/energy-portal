@@ -25,6 +25,22 @@ const ChartWithFilters = ({ info }) => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  const [activeKeys, setActiveKeys] = useState(() =>
+    dataKeys.reduce((acc, key) => ({ ...acc, [key]: true }), {})
+  );
+
+  const toggleBar = (key) => {
+    const activeCount = Object.values(activeKeys).filter(Boolean).length;
+
+    // Ensure at least one bar remains visible
+    if (activeCount > 1 || !activeKeys[key]) {
+      setActiveKeys((prev) => ({
+        ...prev,
+        [key]: !prev[key],
+      }));
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
 
@@ -76,7 +92,9 @@ const ChartWithFilters = ({ info }) => {
         });
 
         setDataKeys(newDataKeys);
-
+        setActiveKeys(
+          newDataKeys.reduce((acc, key) => ({ ...acc, [key]: true }), {})
+        );
         const result = [];
 
         years.forEach((year) => {
@@ -136,18 +154,21 @@ const ChartWithFilters = ({ info }) => {
     );
   };
 
-  const CustomLegend = ({ payload }) => {
+  const CustomLegend = () => {
     return (
       <div className="legend-container" style={info?.styles}>
-        {payload.map((entry, index) => {
-          const displayName = entry.dataKey; // Fallback to the original dataKey if no match
-          return (
-            <p key={`item-${index}`}>
-              <span style={{ color: entry.color }}>■</span>
-              {displayName}
-            </p>
-          );
-        })}
+        {dataKeys.map((entry, index) => (
+          <p
+            key={`item-${index}`}
+            style={{
+              opacity: activeKeys[entry] ? 1 : 0.5,
+              cursor: "pointer",
+            }}
+            onClick={() => toggleBar(entry)}>
+            <span style={{ color: info.colors[index] }}>■</span>
+            {entry}
+          </p>
+        ))}
       </div>
     );
   };
@@ -234,18 +255,6 @@ const ChartWithFilters = ({ info }) => {
                           ? "VII-XII"
                           : ""}
                       </text>
-
-                      {/* Conditionally render tick line */}
-                      {/* {!info.tick && isTickLineVisible && (
-                        <line
-                          x1={x + 47} // Shift start of line 5px to the right
-                          x2={x + 47} // Shift end of line 5px to the right
-                          y1={y - 9}
-                          y2={y + 10} // Length of the tick line
-                          stroke="#A0A0A0"
-                          strokeWidth={2}
-                        />
-                      )} */}
                     </g>
                   );
                 }}
@@ -293,14 +302,17 @@ const ChartWithFilters = ({ info }) => {
 
               {windowWidth >= 820 && <Legend content={CustomLegend} />}
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
-              {dataKeys.map((el, i) => (
-                <Bar
-                  dataKey={el}
-                  key={el}
-                  fill={info.colors[i]}
-                  minPointSize={3}
-                />
-              ))}
+
+              {dataKeys.map((el, i) =>
+                activeKeys[el] ? (
+                  <Bar
+                    dataKey={el}
+                    key={el}
+                    fill={info.colors[i]}
+                    minPointSize={3}
+                  />
+                ) : null
+              )}
             </BarChart>
           </ResponsiveContainer>
         </div>

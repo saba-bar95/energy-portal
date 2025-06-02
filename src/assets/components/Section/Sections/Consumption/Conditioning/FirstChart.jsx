@@ -18,6 +18,24 @@ const SecondChart = ({ data }) => {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  const [activeKeys, setActiveKeys] = useState(() =>
+    Object.fromEntries(
+      data.data.map((entry) => [entry[`name_${language}`], true])
+    )
+  );
+
+  const toggleBar = (key) => {
+    const activeCount = Object.values(activeKeys).filter(Boolean).length;
+
+    // Prevent hiding the last visible bar
+    if (activeCount > 1 || !activeKeys[key]) {
+      setActiveKeys((prev) => ({
+        ...prev,
+        [key]: !prev[key],
+      }));
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
 
@@ -86,18 +104,21 @@ const SecondChart = ({ data }) => {
     justifyContent: "start",
   };
 
-  const CustomLegend = ({ payload }) => {
+  const CustomLegend = () => {
     return (
       <div className="legend-container" style={styles}>
-        {payload.map((entry, index) => {
-          const displayName = entry.dataKey; // Fallback to the original dataKey if no match
-          return (
-            <p key={`item-${index}`}>
-              <span style={{ color: entry.color }}>■</span>
-              {displayName}
-            </p>
-          );
-        })}
+        {data.data.map((entry, index) => (
+          <p
+            key={`item-${index}`}
+            style={{
+              opacity: activeKeys[entry[`name_${language}`]] ? 1 : 0.5,
+              cursor: "pointer",
+            }}
+            onClick={() => toggleBar(entry[`name_${language}`])}>
+            <span style={{ color: data.color[index] }}>■</span>
+            {entry[`name_${language}`]}
+          </p>
+        ))}
       </div>
     );
   };
@@ -138,22 +159,34 @@ const SecondChart = ({ data }) => {
           <YAxis
             tickLine={false}
             type="number"
-            domain={[0, 100]}
+            domain={[
+              0,
+              Math.max(
+                ...transformedData.flatMap((d) =>
+                  Object.keys(activeKeys)
+                    .filter((key) => activeKeys[key])
+                    .map((key) => d[key] || 0)
+                )
+              ),
+            ]}
             tickFormatter={(value) => Math.round(value)}
             tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
           />
+
           <Tooltip content={CustomTooltip} />
 
           {windowWidth >= 820 && <Legend content={CustomLegend} />}
-          {data.data.map((entry, index) => (
-            <Bar
-              key={index}
-              dataKey={entry[`name_${language}`]}
-              stackId="a"
-              fill={data.color[index]}
-              maxBarSize={80}
-            />
-          ))}
+          {data.data.map((entry, index) =>
+            activeKeys[entry[`name_${language}`]] ? (
+              <Bar
+                key={index}
+                dataKey={entry[`name_${language}`]}
+                stackId="a"
+                fill={data.color[index]}
+                maxBarSize={80}
+              />
+            ) : null
+          )}
         </BarChart>
       </ResponsiveContainer>
     </div>
