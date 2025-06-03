@@ -17,22 +17,26 @@ import YearDropdown from "../../../../../YearDropdown/YearDropdown";
 import fetchDataWithMonthes from "../../../../../../../../fetchDataWithMonthes";
 
 const Chart_1 = () => {
-  const text = {
-    ge: {
-      title: "წარმოება",
-      unit: "გვტ.სთ",
-      hydro: "ჰიდროელექტროსადგურები",
-      thermal: "თბოელექტროსადგურები",
-      wind: "ქარი",
-    },
-    en: {
-      title: "Production",
-      unit: "GWh",
-      hydro: "Hydro Power Plants",
-      thermal: "Thermal Power Plants",
-      wind: "Wind",
-    },
-  };
+  const text = useMemo(
+    () => ({
+      ge: {
+        title: "წარმოება",
+        unit: "გვტ.სთ",
+        hydro: "ჰიდროელექტროსადგურები",
+        thermal: "თბოელექტროსადგურები",
+        wind: "ქარი",
+      },
+      en: {
+        title: "Production",
+        unit: "GWh",
+        hydro: "Hydro Power Plants",
+        thermal: "Thermal Power Plants",
+        wind: "Wind",
+      },
+    }),
+    []
+  );
+
   const [data, setData] = useState([]);
   const { language } = useParams();
   const [year, setYear] = useState(2024);
@@ -152,6 +156,16 @@ const Chart_1 = () => {
       </div>
     );
   };
+
+  useEffect(() => {
+    if (text[language]) {
+      setActiveKeys({
+        [text[language]?.hydro]: true,
+        [text[language]?.thermal]: true,
+        [text[language]?.wind]: true,
+      });
+    }
+  }, [language, text]);
 
   return (
     <div

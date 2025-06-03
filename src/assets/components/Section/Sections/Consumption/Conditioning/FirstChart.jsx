@@ -37,6 +37,14 @@ const SecondChart = ({ data }) => {
   };
 
   useEffect(() => {
+    setActiveKeys(() =>
+      Object.fromEntries(
+        data.data.map((entry) => [entry[`name_${language}`], true])
+      )
+    );
+  }, [language, data.data]);
+
+  useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
 
     window.addEventListener("resize", handleResize);

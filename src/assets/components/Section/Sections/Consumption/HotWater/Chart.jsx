@@ -54,6 +54,14 @@ const Chart = ({ data }) => {
   const { language } = useParams();
   const sortedData = data.data.sort((a, b) => b.total - a.total);
 
+  useEffect(() => {
+    setActiveKeys({
+      total: true,
+      city: true,
+      village: true,
+    });
+  }, [language]);
+
   const CustomLegend = () => {
     const legendItems = [
       {

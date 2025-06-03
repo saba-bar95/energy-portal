@@ -44,6 +44,10 @@ const VerticalBarsByYears = ({ info }) => {
     });
   };
 
+  useEffect(() => {
+    setHiddenBars(new Set()); // Reset hiddenBars when language changes
+  }, [language]);
+
   const id = language === "en" ? `${info.id}-${language}` : info.id;
 
   useEffect(() => {

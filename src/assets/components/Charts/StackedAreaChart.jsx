@@ -42,6 +42,11 @@ const StackedAreaChart = ({ info }) => {
       return newSet;
     });
   };
+
+  useEffect(() => {
+    setHiddenBars(new Set()); // Reset hiddenBars when language changes
+  }, [language]);
+
   const id = language === "en" ? `${info.id}-${language}` : info.id;
 
   useEffect(() => {

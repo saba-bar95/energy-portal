@@ -37,6 +37,14 @@ const Chart = ({ data }) => {
     }
   };
 
+  useEffect(() => {
+    setActiveKeys({
+      total: true,
+      city: true,
+      village: true,
+    });
+  }, [language]);
+
   const barSize =
     data.householdID === 104
       ? windowWidth < 1200

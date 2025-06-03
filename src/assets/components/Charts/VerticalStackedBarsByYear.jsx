@@ -46,6 +46,10 @@ const VerticalStackedByYears = ({ info }) => {
   };
 
   useEffect(() => {
+    setHiddenBars(new Set()); // Reset hiddenBars when language changes
+  }, [language]);
+
+  useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
 
     window.addEventListener("resize", handleResize);

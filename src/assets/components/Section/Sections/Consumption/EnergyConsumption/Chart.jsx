@@ -15,6 +15,7 @@ import { useState, useEffect } from "react";
 
 const Chart = ({ data }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const { language } = useParams();
 
   const [activeKeys, setActiveKeys] = useState({
     total: true,
@@ -34,6 +35,14 @@ const Chart = ({ data }) => {
     }
   };
 
+  useEffect(() => {
+    setActiveKeys({
+      total: true,
+      city: true,
+      village: true,
+    });
+  }, [language]);
+
   const barSize =
     data.householdID === 100
       ? windowWidth < 1200
@@ -51,7 +60,6 @@ const Chart = ({ data }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const { language } = useParams();
   const sortedData = data.data.sort((a, b) => b.total - a.total);
 
   const CustomLegend = () => {
