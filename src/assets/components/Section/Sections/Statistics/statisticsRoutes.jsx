@@ -7,7 +7,7 @@ import OilProducts from "./Pages/OilProducts/OilProducts";
 // import OilProducts from "../Visualization/Pages/Resources/Pages/OilProducts/OilProducts";
 
 const statisticsRoutes = [
-  { path: "", element: <Navigate to="electricity" replace /> }, // Default to heating
+  { index: true, element: <Navigate to="electricity" replace /> }, // ✅ Redirect only when no sub-route is provided
   { path: "electricity", element: <Electricity /> },
   { path: "naturalgas", element: <NaturalGas /> },
   { path: "coal", element: <Coal /> },

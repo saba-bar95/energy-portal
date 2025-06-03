@@ -6,7 +6,7 @@ import FlowsDiagram from "./Pages/FlowsDiagram/FlowsDiagram";
 import Map from "./Pages/Map/Map";
 
 const indicatorsRoutes = [
-  { path: "", element: <Navigate to="production&consumption" replace /> }, // Default to heating
+  { index: true, element: <Navigate to="production&consumption" replace /> }, // ✅ Redirects
   { path: "production&consumption", element: <ProductionAndConsumption /> },
   { path: "prices", element: <Prices /> },
   { path: "sdg-indicators", element: <SDGIndicators /> },

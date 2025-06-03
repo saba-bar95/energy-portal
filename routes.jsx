@@ -13,7 +13,7 @@ import statisticsRoutes from "./src/assets/components/Section/Sections/Statistic
 import indicatorsRoutes from "./src/assets/components/Section/Sections/Indicators/indicatorsRoutes";
 
 const routes = [
-  { path: "/", element: <Navigate to="/ge" /> }, // Redirect to /ge
+  { path: "/", element: <Navigate to="/ge" replace /> }, // Redirect to /ge
   {
     path: "/:language",
     element: <App />,

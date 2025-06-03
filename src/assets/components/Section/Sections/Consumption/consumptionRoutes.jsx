@@ -6,7 +6,7 @@ import Cooking from "./Cooking/Cooking";
 import EnergyConsumption from "./EnergyConsumption/EnergyConsumption";
 
 const consumptionRoutes = [
-  { path: "", element: <Navigate to="heating" replace /> }, // Default to heating
+  { index: true, element: <Navigate to="heating" replace /> }, // ✅ Redirect only when no sub-route is provided
   { path: "heating", element: <Heating /> },
   { path: "air-conditioning", element: <Conditioning /> },
   { path: "water-heating", element: <HotWater /> },
