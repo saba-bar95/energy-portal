@@ -215,24 +215,28 @@ const SankeyChart = ({ info }) => {
 
   const chartContainerRef = useRef(null);
 
-  const initialWidth =
-    window.innerWidth >= 2301 && window.innerWidth <= 2700
-      ? window.innerWidth - 650
-      : window.innerWidth >= 1921 && window.innerWidth <= 2300
-      ? window.innerWidth - 500
-      : window.innerWidth >= 1600 && window.innerWidth <= 1920
-      ? window.innerWidth - 440
-      : window.innerWidth >= 1200 && window.innerWidth <= 1599
-      ? window.innerWidth - 210
-      : window.innerWidth >= 950 && window.innerWidth <= 1199
-      ? window.innerWidth - 100
-      : window.innerWidth >= 650 && window.innerWidth <= 949
-      ? window.innerWidth - 50 // Adjust as needed
-      : window.innerWidth >= 0 && window.innerWidth <= 649
-      ? window.innerWidth - 30
-      : window.innerWidth - 1000; // Default case
+  const getAdjustedWidth = () => {
+    const limitedInnerWidth = Math.min(window.innerWidth, 2200); // Cap max width at 1800
 
-  const [chartWidth, setChartWidth] = useState(initialWidth);
+    if (limitedInnerWidth >= 1600) return limitedInnerWidth - 440;
+    if (limitedInnerWidth >= 1200) return limitedInnerWidth - 210;
+    if (limitedInnerWidth >= 950) return limitedInnerWidth - 100;
+    if (limitedInnerWidth >= 650) return limitedInnerWidth - 50;
+    if (limitedInnerWidth >= 0) return limitedInnerWidth - 30;
+
+    return limitedInnerWidth - 400; // Default case
+  };
+
+  const [chartWidth, setChartWidth] = useState(getAdjustedWidth());
+
+  useEffect(() => {
+    const updateWidth = () => {
+      setChartWidth(getAdjustedWidth());
+    };
+
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
   useEffect(() => {
     const updateWidth = () => {
