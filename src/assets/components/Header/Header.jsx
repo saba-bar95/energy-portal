@@ -1,36 +1,25 @@
-import { useContext, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import sakstatLogo from "/src/assets/images/header/sakstat-logo.svg";
 import sakstatLogoEn from "/src/assets/images/header/sakstat-logo-en.png";
 import downVectorBlack from "/src/assets/images/header/down-vector-black.svg";
 import upVectorBlack from "/src/assets/images/header/up-vector-black.svg";
 import sections from "../../../../sections";
-import { SectionsContext } from "../../../App";
-import LanguageChanger from "../LanguageChanger/LanguageChanger";
 import Socials from "../Socials/Socials";
 import text from "./text";
+import { Link } from "react-router-dom";
+import LanguageChanger from "../LanguageChanger/LanguageChanger";
 
 const Header = () => {
   const [isSectionsOpen, setIsSectionsOpen] = useState(false);
-  const { sectionID, setSectionID } = useContext(SectionsContext);
-
-  const navigate = useNavigate();
   const { language } = useParams();
 
   const handleSectionOpen = () => {
     setIsSectionsOpen(!isSectionsOpen);
   };
 
-  const handleSectionSelect = (sectionID) => {
-    setSectionID(sectionID);
-    setIsSectionsOpen(false);
-  };
-
   const handleHeaderClick = () => {
     setIsSectionsOpen(false);
-    setSectionID(null);
-    navigate(`/${language}`);
-
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -39,7 +28,6 @@ const Header = () => {
   };
 
   const isEnglish = language === "en";
-
   const englishIMG = isEnglish ? "english-img" : "";
 
   return (
@@ -47,13 +35,15 @@ const Header = () => {
       <header>
         <div className="header-container">
           <div className="right">
-            <img
-              src={language === "ge" ? sakstatLogo : sakstatLogoEn}
-              alt="sakstat-logo"
-              onClick={handleHeaderClick}
-              style={{ cursor: "pointer", maxWidth: "120px" }}
-              className={englishIMG}
-            />
+            <Link to="/">
+              <img
+                src={language === "ge" ? sakstatLogo : sakstatLogoEn}
+                alt="sakstat-logo"
+                onClick={handleHeaderClick}
+                style={{ cursor: "pointer", maxWidth: "120px" }}
+                className={englishIMG}
+              />
+            </Link>
 
             {isEnglish ? (
               <h1>{text[language].sakstat}</h1>
@@ -75,9 +65,11 @@ const Header = () => {
           </div>
           <div className="left">
             <div className="texts">
-              <h1 onClick={handleHeaderClick} style={{ cursor: "pointer" }}>
-                {text[language].header1}
-              </h1>
+              <Link to="/">
+                <h1 onClick={handleHeaderClick} style={{ cursor: "pointer" }}>
+                  {text[language].header1}
+                </h1>
+              </Link>
               <h1
                 className={`choose-section ${isSectionsOpen ? "bold" : ""}`}
                 onClick={handleSectionOpen}>
@@ -90,16 +82,11 @@ const Header = () => {
                   <ul>
                     {sections.map((section, i) => {
                       return (
-                        <li
-                          key={i}
-                          onClick={() => handleSectionSelect(section.id)}>
-                          <p
-                            className={
-                              sectionID === section.id ? "selected" : ""
-                            }>
-                            {section[`name_${language}`]}
-                          </p>
-                        </li>
+                        <Link to={section.href} key={i}>
+                          <li key={i} onClick={() => setIsSectionsOpen(false)}>
+                            <p>{section[`name_${language}`]}</p>
+                          </li>
+                        </Link>
                       );
                     })}
                   </ul>

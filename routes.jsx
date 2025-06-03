@@ -6,7 +6,6 @@ import Statistics from "./src/assets/components/Section/Sections/Statistics/Stat
 import Consumption from "./src/assets/components/Section/Sections/Consumption/Consumption";
 import Indicators from "./src/assets/components/Section/Sections/Indicators/Indicators";
 import HomePage from "./src/assets/components/HomePage/HomePage";
-import LanguageCheck from "./LanguageCheck";
 import ErrorPage from "./src/assets/components/ErrorPage/ErrorPage";
 import consumptionRoutes from "./src/assets/components/Section/Sections/Consumption/consumptionRoutes";
 import visualizationRoutes from "./src/assets/components/Section/Sections/Visualization/visualizationRoutes";
@@ -17,13 +16,9 @@ const routes = [
   { path: "/", element: <Navigate to="/ge" /> }, // Redirect to /ge
   {
     path: "/:language",
-    element: (
-      <LanguageCheck>
-        <App />
-      </LanguageCheck>
-    ),
+    element: <App />,
     children: [
-      { path: "", element: <HomePage /> }, // Render home page
+      { index: true, element: <HomePage /> }, // ✅ Redirects
       {
         path: "balance",
         element: <Visualization />,

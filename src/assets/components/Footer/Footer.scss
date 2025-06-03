@@ -65,6 +65,11 @@ footer {
       }
 
       .sections-container {
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+
         ul {
           display: flex;
           flex-direction: column;
@@ -166,6 +171,7 @@ footer {
         h1 {
           font-size: 12px;
         }
+
         p {
           font-size: 11px;
         }

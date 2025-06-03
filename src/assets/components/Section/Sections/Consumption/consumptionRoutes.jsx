@@ -6,7 +6,7 @@ import Cooking from "./Cooking/Cooking";
 import EnergyConsumption from "./EnergyConsumption/EnergyConsumption";
 
 const consumptionRoutes = [
-  { path: "", element: <Navigate to="heating" /> }, // Default to heating
+  { path: "", element: <Navigate to="heating" replace /> }, // Default to heating
   { path: "heating", element: <Heating /> },
   { path: "air-conditioning", element: <Conditioning /> },
   { path: "water-heating", element: <HotWater /> },

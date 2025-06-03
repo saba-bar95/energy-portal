@@ -47,6 +47,16 @@ header {
           font-weight: 600;
         }
 
+        a {
+          text-decoration: none;
+          border: 1px solid transparent;
+          color: inherit;
+        }
+
+        a:visited {
+          color: inherit;
+        }
+
         h1 {
           font-size: 14px;
           font-weight: 500;
@@ -84,15 +94,16 @@ header {
               padding-bottom: 10px;
             }
           }
-
-          .selected {
-            background-color: #f2f6ff;
-            border: 1px solid #a0bfff;
-            border-radius: 6px;
-          }
           p {
             padding: 15px;
+            border: 1px solid transparent;
           }
+        }
+
+        .sections-container p:hover {
+          background-color: #f2f6ff;
+          border: 1px solid #a0bfff;
+          border-radius: 6px;
         }
       }
 

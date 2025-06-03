@@ -8,15 +8,12 @@ import text from "./text";
 
 const LanguageChanger = () => {
   const params = useParams();
-  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const [language, setLanguage] = useState(params.language);
-  const [width, setWidth] = useState(0);
-
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Create a ref for the wrapper element
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const [language, setLanguage] = useState(params.language);
   const wrapperRef = useRef(null);
+  const [width, setWidth] = useState(0);
 
   const handleLanguageChange = () => {
     setIsLanguageOpen(!isLanguageOpen);
@@ -26,26 +23,22 @@ const LanguageChanger = () => {
     const newLanguage = language === "ge" ? "en" : "ge";
     setLanguage(newLanguage);
     setIsLanguageOpen(false);
-  };
 
-  useEffect(() => {
+    // Preserve current path and update only the language
     const currentPath = location.pathname.split("/").slice(2).join("/");
-    navigate(`/${language}/${currentPath}`);
-  }, [language, location.pathname, navigate]);
+    navigate(`/${newLanguage}/${currentPath}`);
+  };
 
   useEffect(() => {
     setLanguage(params.language);
   }, [params.language]);
 
-  // Get the width of the wrapper element
   useEffect(() => {
     if (wrapperRef.current) {
       const width = wrapperRef.current.getBoundingClientRect().width;
       setWidth(width);
     }
-  }, [isLanguageOpen]); // You can also add dependencies if you want to measure on specific events
-
-  const hovered = isLanguageOpen ? "hovered" : "";
+  }, [isLanguageOpen]); // Ensures the width updates when the menu opens/closes
 
   return (
     <div
@@ -54,8 +47,6 @@ const LanguageChanger = () => {
       style={{ marginRight: width }}>
       <div className="language-changer">
         <div className="wrapper" ref={wrapperRef}>
-          {" "}
-          {/* Attach the ref here */}
           <img
             src={language === "ge" ? georgianFlag : britishFlag}
             className="flag-img"
@@ -69,7 +60,7 @@ const LanguageChanger = () => {
         </div>
         {isLanguageOpen && (
           <div className="language-options">
-            <div className={`wrapper ${hovered}`} onClick={toggleLanguage}>
+            <div className="wrapper hovered" onClick={toggleLanguage}>
               <img
                 src={language === "ge" ? britishFlag : georgianFlag}
                 alt="flag"

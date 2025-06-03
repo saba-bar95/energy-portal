@@ -1,19 +1,11 @@
 import { useParams } from "react-router-dom";
 import Socials from "../Socials/Socials";
 import sections from "../../../../sections";
-import { useContext } from "react";
-import { SectionsContext } from "../../../App";
 import text from "./text";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   let { language } = useParams();
-
-  const { setSectionID } = useContext(SectionsContext);
-
-  const handleSectionSelect = (sectionID) => {
-    sectionID;
-    setSectionID(sectionID);
-  };
 
   const openTermsOfDataUse = () => {
     const url = `https://www.geostat.ge/${
@@ -56,14 +48,14 @@ const Footer = () => {
             <ul>
               {sections.map((section, i) => {
                 return (
-                  <li
-                    key={i}
-                    onClick={() => {
-                      scrollToTop();
-                      handleSectionSelect(section.id);
-                    }}>
-                    <p>{section[`name_${language}`]}</p>
-                  </li>
+                  <Link to={section.href} key={i}>
+                    <li
+                      onClick={() => {
+                        scrollToTop();
+                      }}>
+                      <p>{section[`name_${language}`]}</p>
+                    </li>
+                  </Link>
                 );
               })}
             </ul>

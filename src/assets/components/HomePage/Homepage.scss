@@ -42,7 +42,9 @@
       gap: 30px;
       max-width: 1800px;
 
-      .wrapper {
+      a {
+        text-decoration: none;
+        color: inherit;
         padding: 30px 20px;
         border-radius: 40px;
         color: #1e1e1e;
@@ -54,7 +56,13 @@
         flex: 1;
         z-index: 1;
         font-family: FiraGORegular;
+      }
 
+      a:visited {
+        color: inherit;
+      }
+
+      a {
         &:hover {
           transform: translateY(-25px);
           cursor: pointer;
@@ -153,7 +161,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
 
-        .wrapper {
+        a {
           width: 90%;
           max-width: 420px;
           padding: 20px;
@@ -196,7 +204,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
 
-        .wrapper {
+        a {
           width: 90%;
           max-width: 320px;
           padding: 20px;
@@ -250,7 +258,7 @@
         align-items: center;
         justify-content: center;
 
-        .wrapper {
+        a {
           padding: 15px 20px;
           display: flex;
           justify-content: center;
