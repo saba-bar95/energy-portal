@@ -9,7 +9,7 @@
 - 📊 Interactive data visualizations of Georgia’s energy statistics
 - 🧭 User-friendly dashboards and charts
 - 🛠️ Breakdown by energy resources, indicators, balance tables, and more
-- 💾 Export options: download data and charts as PDF, Excel, SVG, and PNG
+- 💾 Export options: download data and charts as PDF, Excel, JPG, and PNG
 - 🌐 Bilingual interface (Georgian and English)
 - 📱 Responsive design for desktop, tablet, and mobile
 
