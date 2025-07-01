@@ -35,7 +35,7 @@ const Header = () => {
       <header>
         <div className="header-container">
           <div className="right">
-            <Link to="/">
+            <Link to={`/${language}`}>
               <img
                 src={language === "ge" ? sakstatLogo : sakstatLogoEn}
                 alt="sakstat-logo"
@@ -65,7 +65,7 @@ const Header = () => {
           </div>
           <div className="left">
             <div className="texts">
-              <Link to="/">
+              <Link to={`/${language}`}>
                 <h1 onClick={handleHeaderClick} style={{ cursor: "pointer" }}>
                   {text[language].header1}
                 </h1>
