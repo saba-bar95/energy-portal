@@ -18,7 +18,7 @@ import YearDropdown from "../../../../../YearDropdown/YearDropdown";
 const Chart_2 = () => {
   const [data, setData] = useState([]);
   const { language } = useParams();
-  const [year, setYear] = useState(2024);
+  const [year, setYear] = useState(2025);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -31,7 +31,7 @@ const Chart_2 = () => {
   }, []);
 
   const years = useMemo(
-    () => Array.from({ length: 2024 - 2018 + 1 }, (_, i) => 2018 + i),
+    () => Array.from({ length: 2025 - 2018 + 1 }, (_, i) => 2018 + i),
     []
   );
 
@@ -81,10 +81,15 @@ const Chart_2 = () => {
   }, [year]);
 
   // Transform the data for Recharts using language-specific keys
-  const chartData = months.map((month) => ({
-    name: language === "ge" ? month.name_ge : month.name_en,
-    [text[language].value]: data[0]?.[month.name_en] || 0,
-  }));
+  const chartData = months
+    .map((month) => {
+      const value = data[0]?.[month.name_en] || 0;
+      return {
+        name: language === "ge" ? month.name_ge : month.name_en,
+        [text[language].value]: value,
+      };
+    })
+    .filter((entry) => entry[text[language].value] > 0);
 
   const CustomTooltip = ({ active, payload }) => {
     if (!active || !payload || !payload.length) return null;

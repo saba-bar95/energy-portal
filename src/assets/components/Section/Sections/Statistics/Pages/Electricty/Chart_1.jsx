@@ -39,7 +39,7 @@ const Chart_1 = () => {
 
   const [data, setData] = useState([]);
   const { language } = useParams();
-  const [year, setYear] = useState(2024);
+  const [year, setYear] = useState(2025);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeKeys, setActiveKeys] = useState({
     [text[language].hydro]: true,
@@ -54,7 +54,7 @@ const Chart_1 = () => {
   }, []);
 
   const years = useMemo(
-    () => Array.from({ length: 2024 - 2018 + 1 }, (_, i) => 2018 + i),
+    () => Array.from({ length: 2025 - 2018 + 1 }, (_, i) => 2018 + i),
     []
   );
 
@@ -90,12 +90,25 @@ const Chart_1 = () => {
     fetchData();
   }, [year]);
 
-  const chartData = months.map((month) => ({
-    name: language === "ge" ? month.name_ge : month.name_en,
-    [text[language].hydro]: data[0]?.[month.name_en] || 0,
-    [text[language].thermal]: data[1]?.[month.name_en] || 0,
-    [text[language].wind]: data[2]?.[month.name_en] || 0,
-  }));
+  const chartData = months
+    .map((month) => {
+      const hydro = data[0]?.[month.name_en] || 0;
+      const thermal = data[1]?.[month.name_en] || 0;
+      const wind = data[2]?.[month.name_en] || 0;
+
+      return {
+        name: language === "ge" ? month.name_ge : month.name_en,
+        [text[language].hydro]: hydro,
+        [text[language].thermal]: thermal,
+        [text[language].wind]: wind,
+      };
+    })
+    .filter(
+      (monthData) =>
+        monthData[text[language].hydro] > 0 ||
+        monthData[text[language].thermal] > 0 ||
+        monthData[text[language].wind] > 0
+    );
 
   const toggleBar = (key) => {
     // Count how many bars are currently visible

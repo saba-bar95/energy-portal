@@ -20,7 +20,7 @@ const Chart_3 = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { language } = useParams();
-  const [year, setYear] = useState(2024);
+  const [year, setYear] = useState(2025);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -33,7 +33,7 @@ const Chart_3 = () => {
   }, []);
 
   const years = useMemo(
-    () => Array.from({ length: 2024 - 2018 + 1 }, (_, i) => 2018 + i),
+    () => Array.from({ length: 2025 - 2018 + 1 }, (_, i) => 2018 + i),
     []
   );
 

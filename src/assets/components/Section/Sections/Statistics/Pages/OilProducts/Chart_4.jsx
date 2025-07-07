@@ -20,7 +20,7 @@ const Chart_4 = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { language } = useParams();
-  const [year, setYear] = useState(2024);
+  const [year, setYear] = useState(2025);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -88,10 +88,15 @@ const Chart_4 = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   // Transform the data for Recharts using language-specific keys
-  const chartData = months.map((month) => ({
-    name: language === "ge" ? month.name_ge : month.name_en,
-    [text[language].value]: data[0]?.[month.name_en] || 0,
-  }));
+  const chartData = months
+    .map((month) => {
+      const value = data[0]?.[month.name_en] || 0;
+      return {
+        name: language === "ge" ? month.name_ge : month.name_en,
+        [text[language].value]: value,
+      };
+    })
+    .filter((entry) => entry[text[language].value] > 0);
 
   const CustomTooltip = ({ active, payload }) => {
     if (!active || !payload || !payload.length) return null;
