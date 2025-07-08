@@ -33,7 +33,7 @@ const Chart_4 = () => {
   }, []);
 
   const years = useMemo(
-    () => Array.from({ length: 2024 - 2018 + 1 }, (_, i) => 2018 + i),
+    () => Array.from({ length: 2025 - 2018 + 1 }, (_, i) => 2018 + i),
     []
   );
 
