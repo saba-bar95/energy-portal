@@ -42,13 +42,22 @@ const downloadPDF = (
         : `${yearValue} (VII-XII)`;
     };
 
-    // Modify data to format year and round numbers
+    // Helper function to safely format numeric values
+    const safeFormatValue = (value) => {
+      if (value === null || value === undefined || value === "N/A") {
+        return "N/A";
+      }
+      const numValue = Number(value);
+      return isNaN(numValue) ? "N/A" : numValue.toFixed(2);
+    };
+
+    // Modify data to format year and safely format numbers
     const modifiedData = data.map((entry) => ({
-      [yearHeader]: formattedYear(entry.year), // Format year dynamically
+      [yearHeader]: formattedYear(entry.year),
       ...Object.fromEntries(
         Object.entries(entry)
           .filter(([key]) => key !== "year")
-          .map(([key, value]) => [key, value.toFixed(2)]) // Round numbers
+          .map(([key, value]) => [key, safeFormatValue(value)])
       ),
     }));
 
@@ -60,7 +69,7 @@ const downloadPDF = (
 
     // Convert modified data into row format for autoTable
     const tableData = modifiedData.map((row) =>
-      headers.map((header) => row[header])
+      headers.map((header) => row[header] || "N/A")
     );
 
     // Generate the table in the PDF

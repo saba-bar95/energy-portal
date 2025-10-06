@@ -28,12 +28,21 @@ const downloadExcel = (
         : `${yearValue} (VII-XII)`;
     };
 
+    // Helper function to safely format numeric values
+    const safeFormatValue = (value) => {
+      if (value === null || value === undefined || value === "N/A") {
+        return "N/A";
+      }
+      const numValue = Number(value);
+      return isNaN(numValue) ? "N/A" : numValue.toFixed(2);
+    };
+
     const modifiedData = data.map((entry) => ({
       [yearHeader]: formattedYear(entry.year), // Format year dynamically
       ...Object.fromEntries(
         Object.entries(entry)
           .filter(([key]) => key !== "year")
-          .map(([key, value]) => [key, value.toFixed(2)]) // Round numbers
+          .map(([key, value]) => [key, safeFormatValue(value)]) // Safely format numbers
       ),
     }));
 

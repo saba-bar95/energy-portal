@@ -22,6 +22,7 @@ const ChartWithFilters = ({ info }) => {
   const [vatID, setVatID] = useState(144);
   const [typeID, setTypeID] = useState(142);
   const [dataKeys, setDataKeys] = useState([]);
+  const [lastYear, setLastYear] = useState(2023);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -72,22 +73,34 @@ const ChartWithFilters = ({ info }) => {
   };
 
   const years = useMemo(
-    () => Array.from({ length: 2024 - 2018 + 1 }, (_, i) => 2018 + i),
-    []
+    () => Array.from({ length: lastYear - 2018 + 1 }, (_, i) => 2018 + i),
+    [lastYear]
   );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const rawData = await fetchPrices(info.chartName, typeID);
-        const newDataKeys = []; // Start with the current dataKeys
+        const newDataKeys = [];
+
+        const getLastYear = (data) =>
+          Math.max(
+            ...data.flatMap((obj) =>
+              Object.keys(obj)
+                .filter((k) => k.startsWith("y_"))
+                .map((k) => +k.split("_")[2])
+            )
+          );
+
+        const lastYear = getLastYear(rawData);
+        setLastYear(lastYear);
 
         const infoNames = typeID === 142 ? info.names : info.names_n;
 
         infoNames.forEach((el) => {
           const name = el[`name_${language}`];
           if (name && !newDataKeys.includes(name)) {
-            newDataKeys.push(name); // Push to newDataKeys if it exists and is unique
+            newDataKeys.push(name);
           }
         });
 
@@ -98,14 +111,12 @@ const ChartWithFilters = ({ info }) => {
         const result = [];
 
         years.forEach((year) => {
-          const yearKey140 = `y_140_${year}`; // Key for the first six months
-          const yearKey141 = `y_141_${year}`; // Key for the last six months
+          const yearKey140 = `y_140_${year}`;
+          const yearKey141 = `y_141_${year}`;
 
-          // Create objects for each time period
           const yearData140 = { year: `${year}_140` };
           const yearData141 = { year: `${year}_141` };
 
-          // Loop through names to populate data
           infoNames.forEach(({ code, name_en, name_ge }) => {
             const matchingRawData = rawData.find(
               (data) => data.quantity === code && data.vat === vatID
@@ -113,12 +124,17 @@ const ChartWithFilters = ({ info }) => {
 
             const nameKey = language === "en" ? name_en : name_ge;
 
-            // Populate yearData140 and yearData141
-            yearData140[nameKey] = matchingRawData?.[yearKey140] || 0; // First 6 months
-            yearData141[nameKey] = matchingRawData?.[yearKey141] || 0; // Last 6 months
+            // Check if the key exists in matchingRawData, otherwise set to "N/A"
+            yearData140[nameKey] =
+              matchingRawData && yearKey140 in matchingRawData
+                ? matchingRawData[yearKey140]
+                : "N/A";
+            yearData141[nameKey] =
+              matchingRawData && yearKey141 in matchingRawData
+                ? matchingRawData[yearKey141]
+                : "N/A";
           });
 
-          // Push the processed data objects to the result array
           result.push(yearData140);
           result.push(yearData141);
         });
@@ -139,12 +155,13 @@ const ChartWithFilters = ({ info }) => {
         <div className="tooltip-container">
           {payload.map(({ name, value, color }, index) => {
             const displayName = name;
+            const displayValue = value === "N/A" ? "N/A" : value.toFixed(2);
             return (
               <p key={`item-${index}`} className="text">
                 <span style={{ color }} className="before-span"></span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
-                  {value.toFixed(2)}
+                  {displayValue}
                 </span>
               </p>
             );
@@ -228,24 +245,22 @@ const ChartWithFilters = ({ info }) => {
                 top: 20,
                 right: 30,
                 left: 20,
-                bottom: 50, // Add space for grouped year labels
+                bottom: 50,
               }}>
               <XAxis
                 className="sss"
                 dataKey="year"
                 axisLine={{ stroke: "#B7B7B7" }}
-                tickLine={false} // Disable default tick lines
+                tickLine={false}
                 interval={0}
                 tick={({ x, y, payload }) => {
-                  const strValue = String(payload.value); // Ensure value is a string
-                  // const isTickLineVisible = strValue.includes("_141"); // Check if tick line should be rendered
+                  const strValue = String(payload.value);
                   const fontsize = windowWidth < 1200 ? "10" : "14";
                   return (
                     <g className="tick">
-                      {/* Render the tick label */}
                       <text
                         x={x}
-                        y={y + 10} // Adjust position
+                        y={y + 10}
                         textAnchor="middle"
                         fontSize={fontsize}
                         fill="#000">
@@ -259,8 +274,6 @@ const ChartWithFilters = ({ info }) => {
                   );
                 }}
               />
-
-              {/* Shared year label */}
               <XAxis
                 dataKey="year"
                 xAxisId="groupedYears"
@@ -268,41 +281,39 @@ const ChartWithFilters = ({ info }) => {
                 axisLine={false}
                 interval={0}
                 tick={({ x, y, payload }) => {
-                  const strValue = String(payload.value); // Ensure value is a string
+                  const strValue = String(payload.value);
                   const year = strValue.includes("_140")
                     ? strValue.split("_")[0]
-                    : ""; // Show year only for _140
-
+                    : "";
                   const fontsize = windowWidth < 1200 ? "12px" : "16px";
                   const right = windowWidth < 1200 ? 5 : 50;
                   const top = windowWidth < 1200 ? 0 : 10;
 
                   return (
                     <text
-                      x={x + right} // Base x-coordinate
-                      y={y + top} // Adjust y-coordinate for positioning
+                      x={x + right}
+                      y={y + top}
                       fontSize={fontsize}
                       textAnchor="middle"
-                      fill="#1E1E1E" // Set font color
-                      fontWeight="900" // Make bold
-                    >
+                      fill="#1E1E1E"
+                      fontWeight="900">
                       {year}
                     </text>
                   );
                 }}
-                height={1} // Adjust height for the shared year indicator
+                height={1}
               />
               <YAxis
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
-                tickFormatter={(value) => parseFloat(value).toFixed(2)}
+                tickFormatter={(value) =>
+                  typeof value === "number" ? value.toFixed(2) : ""
+                }
                 tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
               <Tooltip content={<CustomTooltip />} />
-
               {windowWidth >= 820 && <Legend content={CustomLegend} />}
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
-
               {dataKeys.map((el, i) =>
                 activeKeys[el] ? (
                   <Bar
@@ -310,6 +321,9 @@ const ChartWithFilters = ({ info }) => {
                     key={el}
                     fill={info.colors[i]}
                     minPointSize={3}
+                    valueAccessor={(entry) =>
+                      entry[el] === "N/A" ? null : entry[el]
+                    }
                   />
                 ) : null
               )}
