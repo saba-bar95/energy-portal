@@ -52,6 +52,16 @@ const Chart_3 = () => {
     { name_en: "Dec", name_ge: "დეკ" },
   ];
 
+  // Filter months based on current year - only show up to June for 2025
+  const getFilteredMonths = () => {
+    if (year === 2025) {
+      // For 2025, only show months up to June (indices 0-5)
+      return months.slice(0, 7);
+    }
+    // For other years, show all months
+    return months;
+  };
+
   const text = {
     ge: {
       title: "ექსპორტი",
@@ -73,6 +83,7 @@ const Chart_3 = () => {
       try {
         const rawData = await fetchDataWithCodes(year, chartID);
         const filteredData = rawData.filter((el) => el.name === chartName);
+        console.log(filteredData);
         setData(filteredData);
       } catch (err) {
         setError(err);
@@ -87,8 +98,9 @@ const Chart_3 = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  // Transform the data for Recharts using language-specific keys
-  const chartData = months.map((month) => ({
+  // Use filtered months for chart data
+  const filteredMonths = getFilteredMonths();
+  const chartData = filteredMonths.map((month) => ({
     name: language === "ge" ? month.name_ge : month.name_en,
     [text[language].value]: data[0]?.[month.name_en] || 0,
   }));
