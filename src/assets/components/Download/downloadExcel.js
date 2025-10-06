@@ -21,6 +21,11 @@ const downloadExcel = (
   if (isFiltered) {
     const yearHeader = isGeorgian ? "წელი" : "Year";
 
+    // Language-specific "Not available" text
+    const notAvailableText = isGeorgian
+      ? "ჯერ არაა ხელმისაწვდომი"
+      : "Not available yet";
+
     const formattedYear = (year) => {
       const [yearValue, suffix] = year.split("_");
       return suffix === "140"
@@ -30,11 +35,11 @@ const downloadExcel = (
 
     // Helper function to safely format numeric values
     const safeFormatValue = (value) => {
-      if (value === null || value === undefined || value === "N/A") {
-        return "N/A";
+      if (value === null || value === undefined || value === notAvailableText) {
+        return notAvailableText;
       }
       const numValue = Number(value);
-      return isNaN(numValue) ? "N/A" : numValue.toFixed(2);
+      return isNaN(numValue) ? notAvailableText : numValue.toFixed(2);
     };
 
     const modifiedData = data.map((entry) => ({

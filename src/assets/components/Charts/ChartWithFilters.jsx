@@ -30,6 +30,10 @@ const ChartWithFilters = ({ info }) => {
     dataKeys.reduce((acc, key) => ({ ...acc, [key]: true }), {})
   );
 
+  // Language-specific "Not available" text
+  const notAvailableText =
+    language === "en" ? "Not available yet" : "ჯერ არაა ხელმისაწვდომი";
+
   const toggleBar = (key) => {
     const activeCount = Object.values(activeKeys).filter(Boolean).length;
 
@@ -124,15 +128,15 @@ const ChartWithFilters = ({ info }) => {
 
             const nameKey = language === "en" ? name_en : name_ge;
 
-            // Check if the key exists in matchingRawData, otherwise set to "N/A"
+            // Use notAvailableText instead of "N/A"
             yearData140[nameKey] =
               matchingRawData && yearKey140 in matchingRawData
                 ? matchingRawData[yearKey140]
-                : "N/A";
+                : notAvailableText;
             yearData141[nameKey] =
               matchingRawData && yearKey141 in matchingRawData
                 ? matchingRawData[yearKey141]
-                : "N/A";
+                : notAvailableText;
           });
 
           result.push(yearData140);
@@ -146,7 +150,7 @@ const ChartWithFilters = ({ info }) => {
     };
 
     fetchData();
-  }, [language, years, vatID, typeID, info]);
+  }, [language, years, vatID, typeID, info, notAvailableText]);
 
   const CustomTooltip = ({ active, payload }) => {
     if (!active || !payload || !payload.length) return null;
@@ -155,10 +159,15 @@ const ChartWithFilters = ({ info }) => {
         <div className="tooltip-container">
           {payload.map(({ name, value, color }, index) => {
             const displayName = name;
-            const displayValue = value === "N/A" ? "N/A" : value.toFixed(2);
+            const displayValue =
+              value === notAvailableText
+                ? notAvailableText
+                : Number(value).toFixed(2);
             return (
               <p key={`item-${index}`} className="text">
-                <span style={{ color }} className="before-span"></span>
+                <span style={{ color }} className="before-span">
+                  ■
+                </span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
                   {displayValue}
@@ -307,7 +316,11 @@ const ChartWithFilters = ({ info }) => {
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
                 tickFormatter={(value) =>
-                  typeof value === "number" ? value.toFixed(2) : ""
+                  value === notAvailableText
+                    ? notAvailableText
+                    : typeof value === "number"
+                    ? value.toFixed(2)
+                    : ""
                 }
                 tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
               />
@@ -322,7 +335,7 @@ const ChartWithFilters = ({ info }) => {
                     fill={info.colors[i]}
                     minPointSize={3}
                     valueAccessor={(entry) =>
-                      entry[el] === "N/A" ? null : entry[el]
+                      entry[el] === notAvailableText ? null : entry[el]
                     }
                   />
                 ) : null

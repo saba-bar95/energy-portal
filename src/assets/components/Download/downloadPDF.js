@@ -35,6 +35,11 @@ const downloadPDF = (
   if (isFiltered) {
     const yearHeader = isGeorgian ? "წელი" : "Year";
 
+    // Language-specific "Not available" text
+    const notAvailableText = isGeorgian
+      ? "ჯერ არაა ხელმისაწვდომი"
+      : "Not available yet";
+
     const formattedYear = (year) => {
       const [yearValue, suffix] = year.split("_");
       return suffix === "140"
@@ -44,11 +49,11 @@ const downloadPDF = (
 
     // Helper function to safely format numeric values
     const safeFormatValue = (value) => {
-      if (value === null || value === undefined || value === "N/A") {
-        return "N/A";
+      if (value === null || value === undefined || value === notAvailableText) {
+        return notAvailableText;
       }
       const numValue = Number(value);
-      return isNaN(numValue) ? "N/A" : numValue.toFixed(2);
+      return isNaN(numValue) ? notAvailableText : numValue.toFixed(2);
     };
 
     // Modify data to format year and safely format numbers
@@ -69,7 +74,7 @@ const downloadPDF = (
 
     // Convert modified data into row format for autoTable
     const tableData = modifiedData.map((row) =>
-      headers.map((header) => row[header] || "N/A")
+      headers.map((header) => row[header] || notAvailableText)
     );
 
     // Generate the table in the PDF
