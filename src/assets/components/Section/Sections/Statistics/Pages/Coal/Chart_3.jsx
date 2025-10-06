@@ -83,7 +83,6 @@ const Chart_3 = () => {
       try {
         const rawData = await fetchDataWithCodes(year, chartID);
         const filteredData = rawData.filter((el) => el.name === chartName);
-        console.log(filteredData);
         setData(filteredData);
       } catch (err) {
         setError(err);
