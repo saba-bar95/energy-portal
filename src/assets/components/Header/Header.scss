@@ -15,7 +15,7 @@ header {
   }
 
   .header-container {
-    padding: 20px 200px;
+    padding: 10px 200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -145,7 +145,7 @@ header {
 @media only screen and (min-width: $tablet) and (max-width: $mid) {
   header {
     .header-container {
-      padding: 20px 100px;
+      padding: 10px 100px;
 
       .left {
         gap: 90px;
@@ -157,7 +157,7 @@ header {
 @media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
   header {
     .header-container {
-      padding: 20px 50px;
+      padding: 10px 50px;
       gap: 20px;
 
       .right {
@@ -218,7 +218,7 @@ header {
 @media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
   header {
     .header-container {
-      padding: 30px;
+      padding: 20px 0;
       gap: 15px;
       display: flex;
       flex-direction: column;
