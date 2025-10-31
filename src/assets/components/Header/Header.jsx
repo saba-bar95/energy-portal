@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"; // UPDATED: Added useRef and useEffect
+import { useState, useRef, useEffect } from "react"; // UPDATED: Added useRef and useEffect (already present, no change)
 import { useParams } from "react-router-dom";
 import sakstatLogo from "/src/assets/images/header/sakstat-logo.svg";
 import sakstatLogoEn from "/src/assets/images/header/sakstat-logo-en.png";
@@ -17,6 +17,11 @@ const Header = () => {
 
   // NEW: Ref for the entire "texts" container (includes toggle and dropdown)
   const textsRef = useRef(null);
+
+  // NEW: State for header visibility based on scroll
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
 
   const handleSectionOpen = (event) => {
     // NEW: Stop propagation to prevent outside click handler from triggering
@@ -56,12 +61,43 @@ const Header = () => {
     };
   }, [isSectionsOpen]); // Re-runs when isSectionsOpen changes
 
+  // NEW: Scroll handler for header visibility
+  const handleScroll = () => {
+    if (!ticking.current) {
+      requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        const deltaY = currentScrollY - lastScrollY.current;
+
+        // Show header if scrolling up or at the top
+        if (deltaY < 0 || currentScrollY <= 0) {
+          setIsHeaderVisible(true);
+        } else {
+          // Hide header if scrolling down and not at top
+          setIsHeaderVisible(false);
+        }
+
+        lastScrollY.current = currentScrollY;
+        ticking.current = false;
+      });
+      ticking.current = true;
+    }
+  };
+
+  // NEW: useEffect for scroll listener
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const isEnglish = language === "en";
   const englishIMG = isEnglish ? "english-img" : "";
 
   return (
     <>
-      <header>
+      <header className={isHeaderVisible ? "visible" : "hidden"}>
         <div className="header-container">
           <div className="right">
             <Link to={`/${language}`}>
