@@ -292,7 +292,13 @@ const downloadPDF = (
       item.name,
       ...Object.keys(item)
         .filter((key) => key !== "name")
-        .map((key) => item[key].toFixed(1)), // Format values to one decimal place
+        .map((key) => {
+          const value = item[key];
+          if (value === null || value === undefined) {
+            return ""; // Blank cell for null/undefined
+          }
+          return value.toFixed(1); // Format non-null numbers to one decimal
+        }),
       year, // Add the year to each row
     ]);
 
