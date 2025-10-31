@@ -11,11 +11,7 @@ const Exports = () => {
     unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#5654D4", "#007C90", "#3FC8E4", "#ED4C5C", "#FF9F0A"],
     styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginLeft: "80px",
       justifyContent: "center",
-      width: "90%",
     },
     legend: true,
     svg: (

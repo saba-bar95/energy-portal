@@ -1,20 +1,10 @@
-import { useParams } from "react-router-dom";
 import "./Production&Consumption.scss";
 import MyTreeMap from "../../../../../Charts/TreeMap";
 import "./Production&Consumption";
 import PieChartComponent from "../../../../../Charts/PieChart";
 
 const ProductionAndConsumption = () => {
-  const { language } = useParams();
-
   const chart1Info = {
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language !== "en" ? "-30px" : "-40px",
-      marginLeft: "100px",
-      justifyContent: "start",
-    },
     chartID: 28,
     title_ge: "წარმოება",
     title_en: "Production",
@@ -73,12 +63,7 @@ const ProductionAndConsumption = () => {
 
   const chart2Info = {
     styles: {
-      flexWrap: "wrap",
-      gap: "10px",
-      marginTop: language !== "en" ? "-220px" : "-220px",
-      alignItems: "start",
-      flexDirection: "column",
-      justifyContent: "start",
+      marginLeft: 0,
     },
     chartID: 31,
     title_ge: "მოხმარება სახეების მიხედვით",
@@ -143,12 +128,8 @@ const ProductionAndConsumption = () => {
 
   const chart3Info = {
     styles: {
-      flexWrap: "wrap",
-      gap: "8px",
-      marginTop: language !== "en" ? "-240px" : "-240px",
-      alignItems: "start",
-      flexDirection: "column",
-      justifyContent: "start",
+      marginLeft: 0,
+      transform: "translateY(20px)",
     },
     chartID: 32,
     title_ge: "მოხმარება სექტორების მიხედვით",

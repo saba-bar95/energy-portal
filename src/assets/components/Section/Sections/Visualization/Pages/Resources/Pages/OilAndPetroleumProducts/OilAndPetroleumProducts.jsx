@@ -1,20 +1,13 @@
 import "./OilAndPetroleumProducts.scss";
 import VerticalStackedByYears from "../../../../../../../Charts/VerticalStackedBarsByYear";
 import LineChartByYears from "../../../../../../../Charts/LineChartByYears";
-import { useParams } from "react-router-dom";
 import StackedAreaChart from "../../../../../../../Charts/StackedAreaChart";
 import StackedAreaChartWithMultipleIDs from "../../../../../../../Charts/StackedAreaChartWithMultipleIDs";
 import HorizontalBarsByYears from "../../../../../../../Charts/HorizontalBarsByYears";
 
 const OilAndPetroleumProducts = () => {
-  const { language } = useParams();
-
   const chart1Info = {
     id: "oil-1",
-    styles: {
-      gap: "30px",
-      justifyContent: "center",
-    },
     chartName: 4,
     chartID: 7,
     title_ge: "ნავთობის მოპოვება და ნავთობპროდუქტების წარმოება",
@@ -35,6 +28,9 @@ const OilAndPetroleumProducts = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: window.innerWidth < 768 ? "start" : "center",
+    },
   };
 
   const chart2Info = {
@@ -149,13 +145,6 @@ const OilAndPetroleumProducts = () => {
         />
       </svg>
     ),
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language === "en" ? "-70px" : "-70px",
-      marginLeft: "60px",
-      justifyContent: "start",
-    },
   };
 
   const chart5Info = {
@@ -189,13 +178,6 @@ const OilAndPetroleumProducts = () => {
         />
       </svg>
     ),
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language === "en" ? "-70px" : "-70px",
-      marginLeft: "60px",
-      justifyContent: "start",
-    },
   };
 
   const chart6Info = {
@@ -222,8 +204,6 @@ const OilAndPetroleumProducts = () => {
       </svg>
     ),
     styles: {
-      marginLeft: "60px",
-      marginTop: language === "en" ? "0" : "-35px",
       justifyContent: "center",
     },
   };

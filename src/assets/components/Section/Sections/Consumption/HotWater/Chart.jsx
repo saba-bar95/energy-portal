@@ -82,7 +82,9 @@ const Chart = ({ data }) => {
     ];
 
     return (
-      <div className="legend-container">
+      <div
+        className="legend-container"
+        style={{ justifyContent: "center", marginTop: 0 }}>
         {legendItems.map((entry, index) => (
           <p
             key={`item-${index}`}
@@ -148,7 +150,7 @@ const Chart = ({ data }) => {
     Object.keys(activeKeys).find((key) => activeKeys[key]) || "total";
 
   return (
-    <div className="main-chart hot-water-chart">
+    <div className="main-chart hot-water-chart" style={{ paddingBottom: 0 }}>
       <div className="header-container">
         <svg
           width="20"
@@ -200,16 +202,28 @@ const Chart = ({ data }) => {
             type="number"
             ticks={[0, 20, 40, 60, 80, 100]}
             tickLine={false}
-            tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+            tick={{
+              style: {
+                fontSize:
+                  windowWidth < 768
+                    ? 12
+                    : windowWidth < 1200
+                    ? 14
+                    : windowWidth < 1600
+                    ? 15
+                    : 16,
+              },
+            }}
           />
           <YAxis
             dataKey={language === "ge" ? "name_ge" : "name_en"}
             type="category"
             tick={false}
             padding={{ top: 30 }}
+            width={windowWidth < 768 ? 20 : 50} // Adjust width based on screen size
           />
           <Tooltip content={CustomTooltip} />
-          {windowWidth >= 820 && <Legend content={CustomLegend} />}
+          <Legend content={CustomLegend} />
           {activeKeys.total && (
             <Bar
               dataKey="total"

@@ -1,10 +1,10 @@
 import { useEffect, useState, useMemo } from "react";
-import fetchLegendCodes from "../../../../../../../fetchData";
 import FirstChart from "./FirstChart";
 import SecondChart from "./SecondChart";
 import firstChartIcon from "/src/assets/images/sections/conditioning/1-chart-icon.svg";
 import secondChartIcon from "/src/assets/images/sections/conditioning/2-chart-icon.svg";
 import "./Chart.scss";
+import fetchData from "../../../../../fetchFunctions/fetchData";
 
 const Conditioning = () => {
   const [chartData, setChartData] = useState([null, null]);
@@ -51,10 +51,10 @@ const Conditioning = () => {
   );
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getData = async () => {
       const results = await Promise.all(
         chartsConfig.map(async (chart) => {
-          const respData = await fetchLegendCodes(chart.householdID);
+          const respData = await fetchData(chart.householdID);
           return chart.householdID === 101 ? respData.slice(0, -1) : respData;
         })
       );
@@ -62,7 +62,7 @@ const Conditioning = () => {
       setChartData(results);
     };
 
-    fetchData();
+    getData();
   }, [chartsConfig]); // chartsConfig is stable due to useMemo with []
 
   return (

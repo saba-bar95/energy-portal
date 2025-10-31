@@ -10,11 +10,10 @@ import {
   CartesianGrid,
 } from "recharts";
 import Download from "../Download/Download";
-import fetchPrices from "../../../../fetchPrices";
 import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import "./ChartWithFilters.scss";
 import Filter from "./Filter/Filter";
+import fetchPrices from "../../fetchFunctions/fetchPrices";
 
 const ChartWithFilters = ({ info }) => {
   const { language } = useParams();
@@ -23,7 +22,6 @@ const ChartWithFilters = ({ info }) => {
   const [typeID, setTypeID] = useState(142);
   const [dataKeys, setDataKeys] = useState([]);
   const [lastYear, setLastYear] = useState(2023);
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const [activeKeys, setActiveKeys] = useState(() =>
@@ -182,7 +180,13 @@ const ChartWithFilters = ({ info }) => {
 
   const CustomLegend = () => {
     return (
-      <div className="legend-container" style={info?.styles}>
+      <div
+        className="legend-container"
+        style={{
+          justifyContent: windowWidth > 768 ? "center" : "center",
+          transform: "translateY(30px)",
+          marginLeft: windowWidth > 768 ? 40 : 10,
+        }}>
         {dataKeys.map((entry, index) => (
           <p
             key={`item-${index}`}
@@ -322,10 +326,16 @@ const ChartWithFilters = ({ info }) => {
                     ? value.toFixed(2)
                     : ""
                 }
-                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+                tick={{
+                  style: {
+                    fontSize:
+                      windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+                  },
+                }}
+                width={windowWidth < 768 ? 20 : 30} // Adjust width based on screen size
               />
               <Tooltip content={<CustomTooltip />} />
-              {windowWidth >= 820 && <Legend content={CustomLegend} />}
+              <Legend content={CustomLegend} />
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
               {dataKeys.map((el, i) =>
                 activeKeys[el] ? (

@@ -11,15 +11,15 @@ import {
 } from "recharts";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import chartYears from "../../../../chartYears";
 import Download from "../Download/Download";
-import fetchDataIndicators from "../../../../fetchDataIndicators";
 import "./SingleAreaChart.scss";
+import fetchDataIndicators from "../../fetchFunctions/fetchDataIndicators";
 
 const SingleAreaChart = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
+  const [availableYears, setAvailableYears] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -35,6 +35,18 @@ const SingleAreaChart = ({ info }) => {
       try {
         const rawData = await fetchDataIndicators(info.chartName);
 
+        // Extract available years dynamically from the data
+        const yearKeys = Object.keys(rawData[0]).filter((key) =>
+          key.startsWith("y_")
+        );
+
+        const extractedYears = yearKeys
+          .map((key) => parseInt(key.replace("y_", "")))
+          .filter((year) => !isNaN(year))
+          .sort((a, b) => a - b);
+
+        setAvailableYears(extractedYears);
+
         const newDataKeys = []; // Start with the current dataKeys
 
         rawData.forEach((el) => {
@@ -48,13 +60,13 @@ const SingleAreaChart = ({ info }) => {
         // Update the state with the new array
         setDataKeys(newDataKeys);
 
-        const stackedData = chartYears.map((year) => {
+        const stackedData = extractedYears.map((year) => {
           const yearData = {
             year: year,
           };
 
           rawData.forEach((item) => {
-            yearData[item[`name_${language}`]] = item[`y_${year}`];
+            yearData[item[`name_${language}`]] = item[`y_${year}`] || 0;
           });
 
           return yearData;
@@ -63,6 +75,9 @@ const SingleAreaChart = ({ info }) => {
         setData(stackedData);
       } catch (error) {
         console.log("Fetch error:", error);
+        setAvailableYears([]);
+        setData([]);
+        setDataKeys([]);
       }
     };
     fetchData();
@@ -103,8 +118,10 @@ const SingleAreaChart = ({ info }) => {
 
   return (
     <>
-      {data.length > 0 && (
-        <div className="main-chart single-area-chart">
+      {data.length > 0 && availableYears.length > 0 && (
+        <div
+          className="main-chart single-area-chart"
+          style={{ paddingBottom: "20px" }}>
           <div className="header-container">
             {info.svg}
             <div className="info-wrapper">
@@ -153,13 +170,23 @@ const SingleAreaChart = ({ info }) => {
                 dataKey="year"
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
-                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+                tick={{
+                  style: {
+                    fontSize:
+                      windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+                  },
+                }}
               />
               <YAxis
                 tickLine={false}
                 padding={{ top: 30, bottom: 10 }}
                 axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
-                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+                tick={{
+                  style: {
+                    fontSize:
+                      windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+                  },
+                }}
               />
               <Tooltip content={CustomTooltip} />
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
@@ -179,7 +206,7 @@ const SingleAreaChart = ({ info }) => {
               })}
               <Brush
                 dataKey="year"
-                height={windowWidth < 768 ? 10 : 20}
+                height={windowWidth < 768 ? 10 : windowWidth < 1200 ? 15 : 20} // Reduce height by half
                 stroke="#115EFE"
                 tickFormatter={() => ""} // Hide year labels
               />

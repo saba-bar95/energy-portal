@@ -63,6 +63,10 @@ const Diagram = () => {
         />
       </svg>
     ),
+    styles: {
+      paddingBottom: "20px",
+      margin: "auto",
+    },
   };
 
   return (

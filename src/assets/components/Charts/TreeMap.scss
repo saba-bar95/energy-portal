@@ -1,6 +1,9 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .tree-map-chart {
   margin: auto;
   width: 80%;
+  padding: 30px 30px 40px 30px;
 
   .year-wrapper {
     display: flex;
@@ -11,5 +14,30 @@
 
   .download-container {
     flex: none;
+  }
+}
+
+@media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
+  .tree-map-chart {
+    padding: 15px 15px 25px 15px;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .tree-map-chart {
+    padding: 10px 10px 25px 10px;
+
+    .header-container {
+      flex-direction: row;
+      margin-bottom: 10px;
+      align-items: center;
+
+      .year-wrapper {
+        align-items: center;
+        gap: 5px;
+      }
+    }
   }
 }

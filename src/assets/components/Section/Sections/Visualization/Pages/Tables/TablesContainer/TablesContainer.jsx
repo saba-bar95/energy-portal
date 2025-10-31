@@ -4,8 +4,8 @@ import "./TablesContainer.scss";
 import TablesFilter from "./TablesFilter/TablesFilter";
 import TableDownloadBtn from "./TableDownloadBtn/TableDownloadBtn";
 import { useEffect, useState } from "react";
-import fetchTableData from "../../../../../../../../../fetchTableData";
 import { useRef } from "react";
+import fetchTableData from "../../../../../../../fetchFunctions/fetchTableData";
 
 const TablesContainer = ({ info }) => {
   const { language } = useParams();

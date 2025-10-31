@@ -19,30 +19,6 @@
   }
 }
 
-.elec-1 {
-  .recharts-responsive-container {
-    .recharts-legend-wrapper {
-      .legend-container {
-        margin-left: 40px;
-        justify-content: start;
-        margin-left: 100px;
-      }
-    }
-  }
-}
-
-.elec-1-en {
-  .recharts-responsive-container {
-    .recharts-legend-wrapper {
-      .legend-container {
-        margin-left: 40px;
-        justify-content: start;
-        margin-left: 100px;
-      }
-    }
-  }
-}
-
 @media only screen and (min-width: $tablet) and (max-width: $mid) {
   .electricity {
     .ss-container {
@@ -64,9 +40,9 @@
         }
 
         .main-chart {
-          padding: 20px 20px 30px 0;
-          width: 80%;
-          max-width: 700px;
+          padding: 20px 20px 0 0;
+          width: 100%;
+          // max-width: 700px;
           margin: auto;
 
           .header-container {
@@ -89,7 +65,7 @@
 @media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
   .electricity {
     .ss-container {
-      padding: 30px 30px 100px 30px;
+      padding: 30px 15px 100px 15px;
 
       .div {
         flex-direction: column;
@@ -99,10 +75,9 @@
         }
 
         .main-chart {
-          padding: 10px 10px 10px 0px;
+          padding: 10px 10px 0 0px;
           width: 90%;
           margin: auto;
-          max-width: 400px;
 
           .header-container {
             gap: 10px;
@@ -126,94 +101,6 @@
               }
             }
           }
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: $mobile) and (max-width: 1046px) {
-  .elec-1 {
-    .recharts-responsive-container {
-      .recharts-legend-wrapper {
-        .legend-container {
-          gap: 15px;
-          margin-top: -40px !important;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 1047px) and (max-width: calc($tablet - 1px)) {
-  .elec-1 {
-    .recharts-responsive-container {
-      .recharts-legend-wrapper {
-        .legend-container {
-          gap: 15px;
-          margin-top: -10px !important;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: $tablet) and (max-width: $ultrawide) {
-  .elec-1 {
-    .recharts-responsive-container {
-      .recharts-legend-wrapper {
-        .legend-container {
-          margin-top: -40px !important;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: $mobile) and (max-width: 881px) {
-  .elec-1-en {
-    .recharts-responsive-container {
-      .recharts-legend-wrapper {
-        .legend-container {
-          gap: 15px;
-          margin-top: -40px !important;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 882px) and (max-width: calc($tablet - 1px)) {
-  .elec-1-en {
-    .recharts-responsive-container {
-      .recharts-legend-wrapper {
-        .legend-container {
-          gap: 15px;
-          margin-top: -10px !important;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: $tablet) and (max-width: 1390px) {
-  .elec-1-en {
-    .recharts-responsive-container {
-      .recharts-legend-wrapper {
-        .legend-container {
-          margin-top: -40px !important;
-        }
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 1391px) and (max-width: $ultrawide) {
-  .elec-1-en {
-    .recharts-responsive-container {
-      .recharts-legend-wrapper {
-        .legend-container {
-          margin-top: 0 !important;
         }
       }
     }

@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import AnimatedNumber from "./AnimatedNumber";
-import backEndUrl from "../../../../../backEndUrl";
+import backEndUrl from "../../../fetchFunctions/backEndUrl";
 
 const Svg1 = () => {
   return (

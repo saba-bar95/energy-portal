@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
-import fetchData from "../../../../../../../fetchData";
 import Chart from "./Chart";
 import firstChartIcon from "/src/assets/images/sections/consumption/1-chart-icon.svg";
+import fetchData from "../../../../../fetchFunctions/fetchData";
 
 const HotWater = () => {
   const [chartData, setChartData] = useState(null); // Changed to single value instead of array

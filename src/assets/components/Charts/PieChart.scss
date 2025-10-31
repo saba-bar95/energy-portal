@@ -1,3 +1,5 @@
+@use "/src/styles/_breakpoints.scss" as *;
+
 .pie-chart {
   width: 100%;
 
@@ -24,5 +26,20 @@
       width: max-content;
       margin-top: 40px;
     }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
+  .pie-chart {
+    width: 80% !important;
+    .header-container {
+      flex-direction: row;
+    }
+  }
+}
+
+@media only screen and (min-width: 0) and (max-width: 400px) {
+  .pie-chart {
+    width: 100% !important;
   }
 }

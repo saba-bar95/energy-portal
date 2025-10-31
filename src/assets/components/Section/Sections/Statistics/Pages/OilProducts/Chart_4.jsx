@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useMemo } from "react";
-import fetchDataWithCodes from "../../../../../../../../fetchDataWithMonthes";
 import { useParams } from "react-router-dom";
 import {
   BarChart,
@@ -14,6 +13,7 @@ import {
 } from "recharts";
 import Download from "../../../../../Download/Download";
 import YearDropdown from "../../../../../YearDropdown/YearDropdown";
+import fetchDataWithMonthes from "../../../../../../fetchFunctions/fetchDataWithMonthes";
 
 const Chart_4 = () => {
   const [data, setData] = useState([]);
@@ -71,7 +71,7 @@ const Chart_4 = () => {
 
     const fetchData = async () => {
       try {
-        const rawData = await fetchDataWithCodes(year, chartID);
+        const rawData = await fetchDataWithMonthes(year, chartID);
         const filteredData = rawData.filter((el) => el.name === chartName);
         setData(filteredData);
       } catch (err) {
@@ -121,7 +121,7 @@ const Chart_4 = () => {
   };
 
   return (
-    <div className="main-chart">
+    <div className="main-chart" style={{ paddingBottom: "20px" }}>
       <div className="header-container">
         <svg
           width="26"
@@ -163,11 +163,19 @@ const Chart_4 = () => {
           <XAxis
             dataKey="name"
             tickLine={false}
-            tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+            tick={{
+              style: {
+                fontSize: windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+              },
+            }}
           />
           <YAxis
             tickLine={false}
-            tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+            tick={{
+              style: {
+                fontSize: windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+              },
+            }}
           />
           <Tooltip content={CustomTooltip} />
           <CartesianGrid horizontal={false} strokeDasharray="3 3" />
@@ -179,7 +187,7 @@ const Chart_4 = () => {
           />
           <Brush
             dataKey="name" // The key to brush on (e.g., months or years)
-            height={windowWidth < 768 ? 10 : 20}
+            height={windowWidth < 768 ? 10 : windowWidth < 1200 ? 15 : 20} // Reduce height by half
             stroke="#115EFE" // Brush color
           />
         </BarChart>

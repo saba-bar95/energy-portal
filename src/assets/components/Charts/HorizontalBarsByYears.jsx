@@ -12,14 +12,14 @@ import {
 } from "recharts";
 import Download from "../Download/Download";
 import YearDropdown from "../YearDropdown/YearDropdown";
-import fetchDataWithCodes from "../../../../fetchDataWithCodes";
 import { useParams } from "react-router-dom";
-import chartYears from "../../../../chartYears";
+import fetchDataWithCodes from "../../fetchFunctions/fetchDataWithCodes";
 
 const HorizontalBarsByYears = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
-  const [year, setYear] = useState(2023);
+  const [year, setYear] = useState(null);
+  const [availableYears, setAvailableYears] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -41,12 +41,32 @@ const HorizontalBarsByYears = ({ info }) => {
             item.chart_id === info.chartID &&
             item.name_ge !== "სულ"
         );
+
+        // Extract available years dynamically from the data
+        const yearKeys = Object.keys(rawData[0]).filter((key) =>
+          key.startsWith("y_")
+        );
+        const extractedYears = yearKeys
+          .map((key) => parseInt(key.replace("y_", "")))
+          .filter((year) => !isNaN(year))
+          .sort((a, b) => a - b);
+
+        setAvailableYears(extractedYears);
+
+        // Set initial year to the most recent one if not already set
+        if (!year && extractedYears.length > 0) {
+          setYear(extractedYears[extractedYears.length - 1]);
+        }
+
         const chartData = () => {
+          if (!year || extractedYears.length === 0) return [];
+
           return filteredData
             .map((item) => ({
               name: item[`name_${language}`],
-              value: item[`y_${year}`],
+              value: item[`y_${year}`] || 0,
             }))
+            .filter((item) => item.value !== undefined && item.value !== null) // Filter out undefined/null values
             .sort((a, b) => {
               const aContainsOther =
                 a.name.includes("სხვა") || a.name.includes("Other");
@@ -57,14 +77,16 @@ const HorizontalBarsByYears = ({ info }) => {
               if (aContainsOther) return 1;
               if (bContainsOther) return -1;
 
-              // If neither contains "Other"/"სხვა", sort by value in ascending order
+              // If neither contains "Other"/"სხვა", sort by value in descending order
               return b.value - a.value;
             });
         };
 
-        setData(chartData);
+        setData(chartData());
       } catch (error) {
         console.log("Fetch error:", error);
+        setAvailableYears([]);
+        setData([]);
       }
     };
     fetchData();
@@ -72,7 +94,14 @@ const HorizontalBarsByYears = ({ info }) => {
 
   const customNameLabel = (props) => {
     const { x, y, value } = props;
-    const fontSize = window.innerWidth < 768 ? 11 : 16; // Adjust font size based on window width
+    const fontSize =
+      windowWidth < 768
+        ? 11
+        : windowWidth < 1200
+        ? 13
+        : windowWidth < 1600
+        ? 14
+        : 16; // Adjust font size based on window width
 
     return (
       <text x={x + 5} y={y - 10} fontSize={fontSize}>
@@ -84,9 +113,23 @@ const HorizontalBarsByYears = ({ info }) => {
   const renderCustomizedLabel = (props) => {
     const { x, y, width, value } = props;
     const rectWidth = 50; // Width of the rectangle
-    const rectHeight = window.innerWidth < 768 ? 18 : 25; // Set this to match the barSize
+    const rectHeight =
+      windowWidth < 768
+        ? 18
+        : windowWidth < 1200
+        ? 20
+        : windowWidth < 1600
+        ? 23
+        : 25; // Set this to match the barSize
 
-    const fontSize = window.innerWidth < 768 ? 11 : 16; // Adjust font size based on window width
+    const fontSize =
+      windowWidth < 768
+        ? 11
+        : windowWidth < 1200
+        ? 13
+        : windowWidth < 1600
+        ? 14
+        : 16; // Adjust font size based on window width
 
     return (
       <g>
@@ -135,7 +178,7 @@ const HorizontalBarsByYears = ({ info }) => {
 
   return (
     <>
-      {data.length > 0 && (
+      {data.length > 0 && availableYears.length > 0 && (
         <div className="main-chart" id={info?.id}>
           <div className="header-container">
             {info.svg}
@@ -144,7 +187,11 @@ const HorizontalBarsByYears = ({ info }) => {
               <h3>{info[`unit_${language}`]}</h3>
             </div>
             <div className="years-wrapper">
-              <YearDropdown years={chartYears} year={year} setYear={setYear} />
+              <YearDropdown
+                years={availableYears}
+                year={year}
+                setYear={setYear}
+              />
               <Download
                 data={data}
                 filename={info[`title_${language}`]}
@@ -155,7 +202,7 @@ const HorizontalBarsByYears = ({ info }) => {
           </div>
           <ResponsiveContainer
             height={
-              window.innerWidth < 768
+              windowWidth < 768
                 ? info?.mobileHeight
                 : info?.height
                 ? info.height
@@ -172,13 +219,18 @@ const HorizontalBarsByYears = ({ info }) => {
               <XAxis
                 type="number"
                 tickLine={false}
-                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+                tick={{
+                  style: {
+                    fontSize:
+                      windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+                  },
+                }}
               />
               <YAxis
                 dataKey={"name"}
                 type="category"
                 tick={false}
-                padding={{ top: 30, bottom: 20 }}
+                padding={{ top: 15, bottom: 10 }}
                 axisLine={false}
               />
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />

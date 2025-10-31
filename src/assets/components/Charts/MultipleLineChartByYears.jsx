@@ -11,15 +11,15 @@ import {
   Brush,
 } from "recharts";
 import Download from "../Download/Download";
-import fetchDataWithCodes from "../../../../fetchDataWithCodes";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import chartYears from "../../../../chartYears";
+import fetchDataWithCodes from "../../fetchFunctions/fetchDataWithCodes";
 
 const MultipleLineChartByYears = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
+  const [availableYears, setAvailableYears] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [hiddenBars, setHiddenBars] = useState(new Set()); // Track hidden bars
 
@@ -61,12 +61,25 @@ const MultipleLineChartByYears = ({ info }) => {
     const fetchData = async () => {
       try {
         const rawData = await fetchDataWithCodes(info.chartID);
+
         const filteredData = rawData.filter(
           (item) =>
             item.name === info.chartName &&
             item.chart_id === info.chartID &&
             item.name_ge !== "სულ"
         );
+
+        // Extract available years dynamically from the data
+        const yearKeys = Object.keys(rawData[0]).filter((key) =>
+          key.startsWith("y_")
+        );
+
+        const extractedYears = yearKeys
+          .map((key) => parseInt(key.replace("y_", "")))
+          .filter((year) => !isNaN(year))
+          .sort((a, b) => a - b);
+
+        setAvailableYears(extractedYears);
 
         let newDataKeys = []; // Start with an empty array
 
@@ -90,13 +103,13 @@ const MultipleLineChartByYears = ({ info }) => {
         // Update the state with the sorted array
         setDataKeys(newDataKeys);
 
-        const stackedData = chartYears.map((year) => {
+        const stackedData = extractedYears.map((year) => {
           const yearData = {
             year: year,
           };
 
           filteredData.forEach((item) => {
-            yearData[item[`name_${language}`]] = item[`y_${year}`];
+            yearData[item[`name_${language}`]] = item[`y_${year}`] || 0;
           });
 
           return yearData;
@@ -105,6 +118,9 @@ const MultipleLineChartByYears = ({ info }) => {
         setData(stackedData);
       } catch (error) {
         console.log("Fetch error:", error);
+        setAvailableYears([]);
+        setData([]);
+        setDataKeys([]);
       }
     };
     fetchData();
@@ -122,7 +138,7 @@ const MultipleLineChartByYears = ({ info }) => {
                 <span style={{ color }} className="before-span"></span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
-                  {value.toFixed(1)}
+                  {value ? value.toFixed(1) : 0}
                 </span>
               </p>
             );
@@ -156,7 +172,7 @@ const MultipleLineChartByYears = ({ info }) => {
 
   return (
     <>
-      {data.length > 0 && (
+      {data.length > 0 && availableYears.length > 0 && (
         <div className="main-chart" id={id}>
           <div className="header-container">
             {info.svg}
@@ -185,16 +201,26 @@ const MultipleLineChartByYears = ({ info }) => {
                 dataKey="year"
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
-                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+                tick={{
+                  style: {
+                    fontSize:
+                      windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+                  },
+                }}
               />
               <YAxis
                 tickLine={false}
                 padding={{ top: 30, bottom: 10 }}
                 axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
-                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+                tick={{
+                  style: {
+                    fontSize:
+                      windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+                  },
+                }}
               />
               <Tooltip content={CustomTooltip} />
-              {windowWidth >= 820 && <Legend content={CustomLegend} />}
+              <Legend content={CustomLegend} />
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
               {dataKeys.map((el, i) =>
                 hiddenBars.has(el) ? null : (
@@ -210,7 +236,7 @@ const MultipleLineChartByYears = ({ info }) => {
               )}
               <Brush
                 dataKey="year"
-                height={windowWidth < 768 ? 10 : 20}
+                height={windowWidth < 768 ? 10 : windowWidth < 1200 ? 15 : 20} // Reduce height by half
                 stroke="#115EFE"
                 tickFormatter={() => ""} // Hide year labels
               />

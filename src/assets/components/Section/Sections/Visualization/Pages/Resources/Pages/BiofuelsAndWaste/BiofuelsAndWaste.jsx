@@ -1,10 +1,7 @@
 import "./BiofuelsAndWaste.scss";
-import { useParams } from "react-router-dom";
 import VerticalStackedByYears from "../../../../../../../Charts/VerticalStackedBarsByYear";
 
 const BiofuelsAndWaste = () => {
-  const { language } = useParams();
-
   const chart1Info = {
     id: "biofuel-1",
     chartName: 5,
@@ -31,16 +28,13 @@ const BiofuelsAndWaste = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   const chart2Info = {
     id: "biofuel-2",
-    styles: {
-      gap: "15px",
-      marginLeft: "90px",
-      justifyContent: "start",
-      marginTop: language !== "en" ? "-40px" : "0",
-    },
     chartName: 5,
     chartID: 26,
     title_ge: "ბიოსაწვავის და ნარჩენების საბოლოო მოხმარება სახეების მიხედვით",
@@ -69,17 +63,13 @@ const BiofuelsAndWaste = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   const chart3Info = {
     id: "biofuel-3",
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language !== "en" ? "-70px" : "-40px",
-      marginLeft: "100px",
-      justifyContent: "start",
-    },
     chartName: 5,
     chartID: 27,
     title_ge: "ბიოსაწვავის და ნარჩენების საბოლოო მოხმარება სექტორების მიხედვით",

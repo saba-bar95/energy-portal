@@ -104,17 +104,15 @@ const SecondChart = ({ data }) => {
     );
   };
 
-  const styles = {
-    flexWrap: "wrap",
-    gap: "20px",
-    marginTop: language === "en" ? "-30px" : "-30px",
-    marginLeft: "60px",
-    justifyContent: "start",
-  };
-
   const CustomLegend = () => {
     return (
-      <div className="legend-container" style={styles}>
+      <div
+        className="legend-container"
+        style={{
+          justifyContent: windowWidth < 768 ? "start" : "center",
+          marginLeft: "20px",
+          marginTop: 0,
+        }}>
         {data.data.map((entry, index) => (
           <p
             key={`item-${index}`}
@@ -135,7 +133,7 @@ const SecondChart = ({ data }) => {
     language === "en" ? "main-chart first-chart-en" : "main-chart first-chart";
 
   return (
-    <div style={{ width: "100%" }} className={classN}>
+    <div style={{ width: "100%", paddingBottom: 0 }} className={classN}>
       <div className="header-container">
         <img src={data.icon} alt="" />
         <div className="text-wrapper">
@@ -162,9 +160,21 @@ const SecondChart = ({ data }) => {
             type="category"
             dataKey="category"
             tickLine={false}
-            tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+            tick={{
+              style: {
+                fontSize:
+                  windowWidth < 768
+                    ? 12
+                    : windowWidth < 1200
+                    ? 14
+                    : windowWidth < 1600
+                    ? 15
+                    : 16,
+              },
+            }}
           />
           <YAxis
+            width={windowWidth < 768 ? 20 : 50} // Adjust width based on screen size
             tickLine={false}
             type="number"
             domain={[
@@ -178,12 +188,23 @@ const SecondChart = ({ data }) => {
               ),
             ]}
             tickFormatter={(value) => Math.round(value)}
-            tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+            tick={{
+              style: {
+                fontSize:
+                  windowWidth < 768
+                    ? 12
+                    : windowWidth < 1200
+                    ? 14
+                    : windowWidth < 1600
+                    ? 15
+                    : 16,
+              },
+            }}
           />
 
           <Tooltip content={CustomTooltip} />
 
-          {windowWidth >= 820 && <Legend content={CustomLegend} />}
+          <Legend content={CustomLegend} />
           {data.data.map((entry, index) =>
             activeKeys[entry[`name_${language}`]] ? (
               <Bar

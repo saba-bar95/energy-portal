@@ -12,15 +12,15 @@ import {
   Brush,
 } from "recharts";
 import Download from "../Download/Download";
-import fetchDataWithCodes from "../../../../fetchDataWithCodes";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import chartYears from "../../../../chartYears";
+import fetchDataWithCodes from "../../fetchFunctions/fetchDataWithCodes";
 
 const VerticalBarsByYears = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
+  const [availableYears, setAvailableYears] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [hiddenBars, setHiddenBars] = useState(new Set());
 
@@ -63,6 +63,18 @@ const VerticalBarsByYears = ({ info }) => {
       try {
         const rawData = await fetchDataWithCodes(info.chartID);
 
+        // Extract available years dynamically from the data
+        const yearKeys = Object.keys(rawData[0]).filter((key) =>
+          key.startsWith("y_")
+        );
+
+        const extractedYears = yearKeys
+          .map((key) => parseInt(key.replace("y_", "")))
+          .filter((year) => !isNaN(year))
+          .sort((a, b) => a - b);
+
+        setAvailableYears(extractedYears);
+
         // Filter Data and Modify "სხვა ბიტუმოვანი"
         let filteredData = rawData
           .filter(
@@ -80,6 +92,7 @@ const VerticalBarsByYears = ({ info }) => {
           }));
 
         // Sort filteredData so "Other" or "სხვა" always appears last
+        const latestYearKey = `y_${extractedYears[extractedYears.length - 1]}`;
         filteredData = filteredData.sort((a, b) => {
           const aContainsOther =
             a.name_ge.includes("სხვა") || a.name_en.includes("Other");
@@ -90,11 +103,8 @@ const VerticalBarsByYears = ({ info }) => {
           if (aContainsOther) return 1;
           if (bContainsOther) return -1;
 
-          // If neither contains "Other"/"სხვა", sort by value in ascending order
-          return (
-            b[`y_${chartYears[chartYears.length - 1]}`] -
-            a[`y_${chartYears[chartYears.length - 1]}`]
-          );
+          // If neither contains "Other"/"სხვა", sort by value in descending order
+          return (b[latestYearKey] || 0) - (a[latestYearKey] || 0);
         });
 
         // Extract unique data keys
@@ -109,11 +119,11 @@ const VerticalBarsByYears = ({ info }) => {
         setDataKeys(newDataKeys);
 
         // Create stacked data grouped by years
-        const stackedData = chartYears.map((year) => {
+        const stackedData = extractedYears.map((year) => {
           const yearData = { year: year };
 
           filteredData.forEach((item) => {
-            yearData[item[`name_${language}`]] = item[`y_${year}`];
+            yearData[item[`name_${language}`]] = item[`y_${year}`] || 0;
           });
 
           return yearData;
@@ -122,6 +132,9 @@ const VerticalBarsByYears = ({ info }) => {
         setData(stackedData);
       } catch (error) {
         console.log("Fetch error:", error);
+        setAvailableYears([]);
+        setData([]);
+        setDataKeys([]);
       }
     };
 
@@ -140,7 +153,7 @@ const VerticalBarsByYears = ({ info }) => {
                 <span style={{ color }} className="before-span"></span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
-                  {value.toFixed(1)}
+                  {value ? value.toFixed(1) : 0}
                 </span>
               </p>
             );
@@ -175,9 +188,22 @@ const VerticalBarsByYears = ({ info }) => {
   const renderCustomizedLabel = (props) => {
     const { x, y, width, value } = props;
     const rectWidth = width; // Width of the rectangle
-    const rectHeight = window.innerWidth < 768 ? 18 : 25; // Set this to match the barSize
-
-    const fontSize = window.innerWidth < 768 ? 11 : 16; // Adjust font size based on window width
+    const rectHeight =
+      window.innerWidth < 768
+        ? 18
+        : window.innerWidth < 1200
+        ? 20
+        : window.innerWidth < 1600
+        ? 22
+        : 25; // Set this to match the barSize
+    const fontSize =
+      window.innerWidth < 768
+        ? 11
+        : window.innerWidth < 1200
+        ? 13
+        : window.innerWidth < 1600
+        ? 14
+        : 16; // Adjust font size based on window width
 
     return (
       <g>
@@ -196,7 +222,7 @@ const VerticalBarsByYears = ({ info }) => {
           fill="#1E1E1E" // Text color
           textAnchor="middle"
           dominantBaseline="middle">
-          {value.toFixed(1)}
+          {value ? value.toFixed(1) : 0}
         </text>
       </g>
     );
@@ -204,8 +230,8 @@ const VerticalBarsByYears = ({ info }) => {
 
   return (
     <>
-      {data.length > 0 && (
-        <div className="main-chart" id={id}>
+      {data.length > 0 && availableYears.length > 0 && (
+        <div className="main-chart" id={id} style={info.styles}>
           <div className="header-container">
             {info.svg}
             <div className="info-wrapper">
@@ -232,18 +258,26 @@ const VerticalBarsByYears = ({ info }) => {
                 dataKey="year"
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
-                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+                tick={{
+                  style: {
+                    fontSize:
+                      windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+                  },
+                }}
               />
               <YAxis
                 tickLine={false}
                 padding={{ top: 30 }}
                 axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
-                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+                tick={{
+                  style: {
+                    fontSize:
+                      windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+                  },
+                }}
               />
               <Tooltip content={CustomTooltip} />
-              {info.legend && windowWidth >= 820 && (
-                <Legend content={CustomLegend} />
-              )}
+              <Legend content={CustomLegend} />
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
               {dataKeys.map((el, i) =>
                 hiddenBars.has(el) ? null : (
@@ -260,7 +294,7 @@ const VerticalBarsByYears = ({ info }) => {
               )}
               <Brush
                 dataKey="year"
-                height={windowWidth < 768 ? 10 : 20}
+                height={windowWidth < 768 ? 10 : windowWidth < 1200 ? 15 : 20} // Reduce height by half
                 stroke="#115EFE"
                 tickFormatter={() => ""} // Hide year labels
               />

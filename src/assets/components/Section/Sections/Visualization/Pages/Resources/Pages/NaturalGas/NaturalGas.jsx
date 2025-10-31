@@ -1,12 +1,8 @@
-import "./NaturalGas.scss";
 import VerticalBarsByYears from "../../../../../../../Charts/VerticalBarsByYears";
-import { useParams } from "react-router-dom";
 import StackedAreaChart from "../../../../../../../Charts/StackedAreaChart";
 import HorizontalBarsByYears from "../../../../../../../Charts/HorizontalBarsByYears";
 
 const NaturalGas = () => {
-  const { language } = useParams();
-
   const chart1Info = {
     chartID: 7,
     chartName: 2,
@@ -59,6 +55,9 @@ const NaturalGas = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   const chart2Info = {
@@ -84,6 +83,9 @@ const NaturalGas = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   const chart3Info = {
@@ -118,13 +120,6 @@ const NaturalGas = () => {
         />
       </svg>
     ),
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language === "en" ? "-30px" : "-70px",
-      marginLeft: "60px",
-      justifyContent: "start",
-    },
   };
 
   const chart4Info = {
@@ -139,7 +134,6 @@ const NaturalGas = () => {
     initialYear: 2023,
     height: 800,
     mobileHeight: 600,
-
     legend: true,
     svg: (
       <svg

@@ -12,14 +12,14 @@ import {
 } from "recharts";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import chartYears from "../../../../chartYears";
 import Download from "../Download/Download";
-import fetchDataWithCodes from "../../../../fetchDataWithCodes";
+import fetchDataWithCodes from "../../fetchFunctions/fetchDataWithCodes";
 
 const StackedAreaChartWithMultipleIDs = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
   const [dataKeys, setDataKeys] = useState([]);
+  const [availableYears, setAvailableYears] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [hiddenBars, setHiddenBars] = useState(new Set());
 
@@ -67,6 +67,17 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
         const allRawData = await Promise.all(promises);
         const combinedRawData = allRawData.flat();
 
+        // Extract available years dynamically from the data
+        const yearKeys = Object.keys(combinedRawData[0]).filter((key) =>
+          key.startsWith("y_")
+        );
+        const extractedYears = yearKeys
+          .map((key) => parseInt(key.replace("y_", "")))
+          .filter((year) => !isNaN(year))
+          .sort((a, b) => a - b);
+
+        setAvailableYears(extractedYears);
+
         let filteredData = combinedRawData.filter((el) => {
           if (el.chart_id === 10) {
             return el.name === 4;
@@ -75,8 +86,11 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
           }
         });
 
-        // Sort data in ascending order based on y_2023
-        filteredData.sort((a, b) => b.y_2023 - a.y_2023);
+        // Sort data in descending order based on the latest available year
+        const latestYearKey = `y_${extractedYears[extractedYears.length - 1]}`;
+        filteredData.sort(
+          (a, b) => (b[latestYearKey] || 0) - (a[latestYearKey] || 0)
+        );
 
         const newDataKeys = [];
 
@@ -89,11 +103,11 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
 
         setDataKeys(newDataKeys);
 
-        const stackedData = chartYears.map((year) => {
+        const stackedData = extractedYears.map((year) => {
           const yearData = { year: year };
 
           filteredData.forEach((item) => {
-            yearData[item[`name_${language}`]] = item[`y_${year}`];
+            yearData[item[`name_${language}`]] = item[`y_${year}`] || 0;
           });
 
           return yearData;
@@ -102,6 +116,9 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
         setData(stackedData);
       } catch (error) {
         console.log("Fetch error:", error);
+        setAvailableYears([]);
+        setData([]);
+        setDataKeys([]);
       }
     };
 
@@ -122,7 +139,7 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
                 </span>
                 {displayName} :
                 <span style={{ fontWeight: 900, marginLeft: "5px" }}>
-                  {value.toFixed(1)}
+                  {value ? value.toFixed(1) : 0}
                 </span>
               </p>
             );
@@ -156,7 +173,7 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
 
   return (
     <>
-      {data.length > 0 && (
+      {data.length > 0 && availableYears.length > 0 && (
         <div className="main-chart" id={id}>
           <div className="header-container">
             {info.svg}
@@ -180,14 +197,24 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
                 tickLine={false}
                 axisLine={{ stroke: "#B7B7B7" }}
                 tickMargin={5}
-                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+                tick={{
+                  style: {
+                    fontSize:
+                      windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+                  },
+                }}
               />
               <YAxis
                 padding={{ top: 20 }}
                 tickLine={false}
                 tickMargin={10}
                 axisLine={{ stroke: "#B7B7B7", strokeDasharray: "3 3" }}
-                tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+                tick={{
+                  style: {
+                    fontSize:
+                      windowWidth < 768 ? 12 : windowWidth < 1600 ? 14 : 16,
+                  },
+                }}
               />
               <Tooltip content={CustomTooltip} />
               <CartesianGrid horizontal={false} strokeDasharray="3 3" />
@@ -206,13 +233,11 @@ const StackedAreaChartWithMultipleIDs = ({ info }) => {
                   />
                 )
               )}
-              {info.legend && windowWidth >= 820 && (
-                <Legend content={CustomLegend} />
-              )}
+              <Legend content={CustomLegend} />
               <Brush
                 dataKey="year"
                 stroke="#115EFE"
-                height={windowWidth < 768 ? 10 : 20}
+                height={windowWidth < 768 ? 10 : windowWidth < 1200 ? 15 : 20} // Reduce height by half
                 tickFormatter={() => ""} // Hide year labels
               />
             </AreaChart>

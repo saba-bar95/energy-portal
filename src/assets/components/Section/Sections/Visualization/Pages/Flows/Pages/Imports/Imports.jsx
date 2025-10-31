@@ -32,6 +32,9 @@ const Imports = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   return (

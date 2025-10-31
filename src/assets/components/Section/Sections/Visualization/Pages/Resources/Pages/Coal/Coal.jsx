@@ -1,12 +1,8 @@
-import "./Coal.scss";
-import { useParams } from "react-router-dom";
 import VerticalStackedByYears from "../../../../../../../Charts/VerticalStackedBarsByYear";
 import LineChartByYears from "../../../../../../../Charts/LineChartByYears";
 import VerticalBarsByYears from "../../../../../../../Charts/VerticalBarsByYears";
 
 const Coal = () => {
-  const { language } = useParams();
-
   const chart1Info = {
     chartID: 7,
     chartName: 3,
@@ -43,6 +39,9 @@ const Coal = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   const chart2Info = {
@@ -68,16 +67,13 @@ const Coal = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   const chart3Info = {
     id: "coal-3",
-    styles: {
-      flexWrap: "wrap",
-      marginLeft: "100px",
-      justifyContent: "start",
-      marginTop: language !== "en" ? "-50px" : "-70px",
-    },
     chartID: 17,
     chartName: 3,
     title_ge: "ქვანახშირის იმპორტი სახეების მიხედვით",
@@ -107,6 +103,9 @@ const Coal = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   const chart4Info = {
@@ -119,7 +118,6 @@ const Coal = () => {
     unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#3358EB"],
     legend: false,
-
     svg: (
       <svg
         width="30"
@@ -141,17 +139,13 @@ const Coal = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   const chart5Info = {
     id: "coal-5",
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language !== "en" ? "-30px" : "-30px",
-      marginLeft: "100px",
-      justifyContent: "start",
-    },
     chartName: 3,
     chartID: 19,
     title_ge: "ქვანახშირის საბოლოო მოხმარება სექტორების მიხედვით",
@@ -178,13 +172,6 @@ const Coal = () => {
 
   const chart6Info = {
     id: "coal-6",
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language !== "en" ? "-30px" : "0px",
-      marginLeft: "100px",
-      justifyContent: "start",
-    },
     chartName: 3,
     chartID: 9,
     title_ge: "ქვანახშირის საბოლოო მოხმარება სახეების მიხედვით",

@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import "./TablesFilter.scss";
 import svg from "./Svg";
-import chartYears from "../../../../../../../../../../chartYears";
 import TablesYearDropdown from "./TablesYearDropdown/TablesYearDropdown";
 import TablesNameDropdown from "./TablesNameDropdown/TablesNameDropdown";
 
@@ -19,6 +18,8 @@ const TablesFilter = ({
   const { language } = useParams();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null); // Create a ref for the dropdown
+
+  const Years = Array.from({ length: 2023 - 2013 + 1 }, (_, i) => 2013 + i);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -100,7 +101,7 @@ const TablesFilter = ({
           <div className="year-section">
             <h3>{text[`${language}`].year} </h3>
             <TablesYearDropdown
-              years={chartYears}
+              years={Years}
               setYear={setYear}
               year={year}
               setParentOpen={setOpen}

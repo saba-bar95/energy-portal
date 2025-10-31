@@ -2,13 +2,10 @@ import Chart_1 from "./Chart_1";
 import Chart_2 from "./Chart_2";
 import Chart_3 from "./Chart_3";
 import Chart_4 from "./Chart_4";
-import { useParams } from "react-router-dom";
 import ChartWithFilters from "../../../../../Charts/ChartWithFilters";
 import "./Electricity.scss";
 
 const Electricity = () => {
-  const { language } = useParams();
-
   const chart1Info = {
     chartName: "electricityPriceGel",
     title_ge: "ელექტროენერგიის ფასი",
@@ -51,14 +48,7 @@ const Electricity = () => {
         />
       </svg>
     ),
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language === "en" ? "0px" : "-10px",
-      marginLeft: "60px",
-      fontWeight: 600,
-      // justifyContent: "start",
-    },
+
     names: [
       {
         code: 158,

@@ -3,13 +3,13 @@
 .main-chart {
   background-color: #fff;
   border-radius: 24px;
-  padding: 30px 30px 40px 0;
+  padding: 30px 30px 0 0;
 
   .years-wrapper {
     display: flex;
     flex: 1;
     justify-content: end;
-    gap: 30px;
+    gap: 15px;
 
     .download-container {
       flex: 0;
@@ -59,74 +59,57 @@
       background-color: currentColor;
     }
   }
+}
 
-  .custom-tooltip {
-    padding: 20px 40px 20px 20px !important;
-    background-color: #111729;
-    color: #ffffff;
-    border-radius: 14px;
-
-    .tooltip-container {
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .main-chart {
+    .years-wrapper {
       display: flex;
-      flex-direction: column;
+      flex: 1;
+      justify-content: end;
       gap: 15px;
+
+      .download-container {
+        flex: 0;
+      }
     }
-  }
 
-  .recharts-responsive-container {
-    .recharts-legend-wrapper {
-      position: initial !important;
+    .header-container {
+      display: flex;
+      padding-left: 30px;
+      margin-bottom: 5px;
+      gap: 30px;
+      align-items: start;
 
-      .legend-container {
+      svg {
+        flex-shrink: 0;
+      }
+
+      .text-wrapper {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 25px;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        min-height: 70px;
 
-        p {
-          display: flex;
-          gap: 5px;
+        h2 {
           font-size: 14px;
-          // height: 14px;
+        }
 
-          span {
-            width: 14px;
-            height: 14px;
-            background-color: currentColor;
-          }
+        h3 {
+          font-size: 13px;
         }
       }
     }
   }
 }
 
-@media only screen and (min-width: $tablet) and (max-width: $mid) {
-  .consumption {
-    .text-1 {
-      font-size: 12px !important;
-    }
-  }
-}
-
 @media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
-  .consumption {
-    .recharts-surface {
-      margin-left: -40px !important;
-    }
-  }
-
   .consumption {
     .main-chart {
       padding: 15px 15px 20px 0;
       max-width: 550px;
       width: 80%;
       margin: auto;
-
-      .legend-container {
-        margin-top: -15px !important;
-      }
 
       img {
         width: 20px;
@@ -141,23 +124,10 @@
         font-size: 12px !important;
       }
     }
-    .first-chart,
-    .first-chart-en,
-    .second-chart {
-      .recharts-surface {
-        margin-left: -20px !important;
-      }
-    }
   }
 }
 
 @media only screen and (min-width: 0) and (max-width: $mobile) {
-  .consumption {
-    .recharts-surface {
-      margin-left: -40px !important;
-    }
-  }
-
   .consumption {
     .main-chart {
       img {
@@ -165,110 +135,8 @@
         height: 20px;
       }
 
-      h2 {
-        font-size: 13px !important;
-      }
-
-      h3 {
-        font-size: 12px !important;
-      }
-
       .text-1 {
         font-size: 10px !important;
-      }
-
-      padding: 15px 15px 0 0;
-      max-width: 400px;
-      width: 80%;
-      margin: auto;
-      .custom-tooltip {
-        padding: 10px 20px 10px 10px !important;
-        .tooltip-container {
-          gap: 10px;
-
-          p {
-            font-size: 12px;
-            align-items: center;
-
-            .before-span {
-              width: 8px;
-              height: 8px;
-            }
-          }
-        }
-      }
-    }
-
-    .first-chart,
-    .first-chart-en,
-    .second-chart {
-      .recharts-surface {
-        margin-left: -20px !important;
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 820px) and (max-width: calc($tablet - 1px)) {
-  .consumption {
-    .first-chart,
-    .first-chart-en {
-      .legend-container {
-        margin-top: -90px !important;
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: $tablet) and (max-width: $tablet) {
-  .consumption {
-    .first-chart,
-    .first-chart-en {
-      .legend-container {
-        margin-top: -110px !important;
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 1201px) and (max-width: 1470px) {
-  .consumption {
-    .first-chart,
-    .first-chart-en {
-      .legend-container {
-        margin-top: -80px !important;
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 1471px) and (max-width: $mid) {
-  .consumption {
-    .first-chart,
-    .first-chart-en {
-      .legend-container {
-        margin-top: -40px !important;
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 1601px) and (max-width: 1670px) {
-  .consumption {
-    .first-chart,
-    .first-chart-en {
-      .legend-container {
-        margin-top: -80px !important;
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 1649px) and (max-width: 1670px) {
-  .consumption {
-    .first-chart-en {
-      .legend-container {
-        margin-top: -40px !important;
       }
     }
   }

@@ -4,11 +4,8 @@ import LineChartByYears from "../../../../../../../Charts/LineChartByYears";
 import VerticalBarsByYears from "../../../../../../../Charts/VerticalBarsByYears";
 import StackedAreaChart from "../../../../../../../Charts/StackedAreaChart";
 import HorizontalBarsByYears from "../../../../../../../Charts/HorizontalBarsByYears";
-import { useParams } from "react-router-dom";
 
 const ElectricityAndThermalEnergy = () => {
-  const { language } = useParams();
-
   const chart1Info = {
     chartID: 7,
     chartName: 1,
@@ -31,14 +28,6 @@ const ElectricityAndThermalEnergy = () => {
         />
       </svg>
     ),
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: "-40px",
-      marginLeft: "100px",
-      justifyContent: "start",
-      width: "90%",
-    },
   };
 
   const chart2Info = {
@@ -70,6 +59,9 @@ const ElectricityAndThermalEnergy = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   const chart3Info = {
@@ -84,7 +76,7 @@ const ElectricityAndThermalEnergy = () => {
     colors: ["#30B0C7", "#138C00", "#ED4C5C"],
     legend: true,
     styles: {
-      marginLeft: "50px",
+      justifyContent: "center",
     },
     svg: (
       <svg
@@ -171,13 +163,6 @@ const ElectricityAndThermalEnergy = () => {
         />
       </svg>
     ),
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language === "en" ? "-30px" : "-70px",
-      marginLeft: "60px",
-      justifyContent: "start",
-    },
   };
 
   return (

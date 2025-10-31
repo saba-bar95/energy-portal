@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
 import { Tooltip, ResponsiveContainer, Treemap } from "recharts";
 import Download from "../Download/Download";
-import fetchMainDataIndicators from "../../../../fetchMainIndicators";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import chartYears from "../../../../chartYears";
 import YearDropdown from "../YearDropdown/YearDropdown";
 import "./TreeMap.scss";
+import fetchMainDataIndicators from "../../fetchFunctions/fetchMainIndicators";
 
 const TreeMap = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
-  const [year, setYear] = useState(2023);
+  const [year, setYear] = useState(null);
+  const [availableYears, setAvailableYears] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,10 +19,26 @@ const TreeMap = ({ info }) => {
         const rawData = await fetchMainDataIndicators(info.chartID);
         const result = [];
 
-        chartYears.forEach((year) => {
-          const yearKey = `y_${year}`; // Key for the first six months
+        // Extract available years dynamically from the data
+        const yearKeys = Object.keys(rawData[0]).filter((key) =>
+          key.startsWith("y_")
+        );
+        const extractedYears = yearKeys
+          .map((key) => parseInt(key.replace("y_", "")))
+          .filter((year) => !isNaN(year))
+          .sort((a, b) => a - b);
+
+        setAvailableYears(extractedYears);
+
+        // Set initial year to the most recent one if not already set
+        if (!year && extractedYears.length > 0) {
+          setYear(extractedYears[extractedYears.length - 1]);
+        }
+
+        extractedYears.forEach((yearNum) => {
+          const yearKey = `y_${yearNum}`; // Key for the first six months
           // Create objects for each time period
-          const yearData = { year: `${year}` };
+          const yearData = { year: `${yearNum}` };
 
           // Loop through names to populate data
           info.names.forEach(({ code, name_en, name_ge }) => {
@@ -39,24 +55,31 @@ const TreeMap = ({ info }) => {
           result.push(yearData);
         });
 
-        const currentYear = result.find((entry) => +entry.year === +year);
+        // Only process data if we have a valid year
+        if (year && result.length > 0) {
+          const currentYear = result.find((entry) => +entry.year === +year);
 
-        const transformedData = [
-          {
-            children: Object.keys(currentYear)
-              .filter((key) => key !== "year") // Exclude the 'year' key
-              .map((key, index) => ({
-                name: key,
-                value: currentYear[key], // Only non-zero values will be included
-                color: info.colors[index] || "#8884d8",
-              }))
-              .filter((entry) => entry.value > 0), // Remove entries where value is 0
-          },
-        ];
+          const transformedData = [
+            {
+              children: Object.keys(currentYear)
+                .filter((key) => key !== "year") // Exclude the 'year' key
+                .map((key, index) => ({
+                  name: key,
+                  value: currentYear[key], // Only non-zero values will be included
+                  color: info.colors[index] || "#8884d8",
+                }))
+                .filter((entry) => entry.value > 0), // Remove entries where value is 0
+            },
+          ];
 
-        setData(transformedData);
+          setData(transformedData);
+        } else {
+          setData([]);
+        }
       } catch (error) {
         console.log("Fetch error:", error);
+        setAvailableYears([]);
+        setData([]);
       }
     };
     fetchData();
@@ -126,12 +149,8 @@ const TreeMap = ({ info }) => {
 
   return (
     <>
-      {data.length > 0 && (
-        <div
-          className="main-chart tree-map-chart"
-          style={{
-            padding: "30px 30px 40px 30px",
-          }}>
+      {data.length > 0 && availableYears.length > 0 && year && (
+        <div className="main-chart tree-map-chart">
           <div className="header-container" style={{ padding: 0 }}>
             {info.svg}
             <div className="info-wrapper">
@@ -140,7 +159,11 @@ const TreeMap = ({ info }) => {
               </div>
             </div>
             <div className="year-wrapper">
-              <YearDropdown years={chartYears} year={year} setYear={setYear} />
+              <YearDropdown
+                years={availableYears}
+                year={year}
+                setYear={setYear}
+              />
               <Download
                 data={data}
                 filename={info[`title_${language}`]}

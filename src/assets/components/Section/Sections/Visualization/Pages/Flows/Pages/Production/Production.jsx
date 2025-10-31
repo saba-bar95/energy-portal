@@ -10,13 +10,6 @@ const Production = () => {
     title_en: "Energy production",
     unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#6FAEA9", "#556EB0", "#BE6433", "#5A9FDE", "#D5A43F"],
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginLeft: "80px",
-      justifyContent: "center",
-      width: "90%",
-    },
     svg: (
       <svg
         width="26"
@@ -38,6 +31,9 @@ const Production = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   return (

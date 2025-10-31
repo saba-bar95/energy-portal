@@ -3,10 +3,9 @@ import { Sankey, Tooltip } from "recharts";
 import { useParams } from "react-router-dom";
 import Download from "../Download/Download";
 import { useState, useEffect, useMemo } from "react";
-import fetchSankeyData from "../../../../fetchSankeyData";
 import YearDropdown from "../YearDropdown/YearDropdown";
-import chartYears from "../../../../chartYears";
 import { useRef } from "react";
+import fetchSankeyData from "../../fetchFunctions/fetchSankeyData";
 
 const SankeyChart = ({ info }) => {
   const MyCustomNode = ({ x, y, width, height, payload }) => {
@@ -35,7 +34,14 @@ const SankeyChart = ({ info }) => {
 
     const fillColor = colorMap[payload.name_en] || "#93c5fd"; // Fallback color
 
-    const fontsize = chartWidth >= 600 ? 13 : 10;
+    const fontsize =
+      window.innerWidth < 768
+        ? 10
+        : window.innerWidth < 1200
+        ? 11
+        : window.innerWidth < 1500
+        ? 12
+        : 13;
 
     return (
       <g>
@@ -49,9 +55,9 @@ const SankeyChart = ({ info }) => {
           fill={fillColor} // Dynamic fill color
         />
         <text
-          x={isRightNode ? x + width + 10 : x - 10} // Adjust text position based on node side
+          x={isRightNode ? x + width * 5 : x - 10} // Adjust text position based on node side
           y={y + height / 2} // Center text vertically
-          textAnchor={isRightNode ? "start" : "end"} // Align text appropriately
+          textAnchor={isRightNode ? "end" : "start"} // Align text appropriately
           fill="black"
           fontWeight="bold"
           fontSize={fontsize}>
@@ -207,59 +213,41 @@ const SankeyChart = ({ info }) => {
     []
   );
 
+  const Years = Array.from({ length: 2023 - 2013 + 1 }, (_, i) => 2013 + i);
+
   const { language } = useParams();
   const [hoveredLinkIndex, setHoveredLinkIndex] = useState(null);
   const [year, setYear] = useState(2023);
   const [data, setData] = useState(null);
   const [excelData, setExcelData] = useState(null);
-
   const chartContainerRef = useRef(null);
-
-  const getAdjustedWidth = () => {
-    const limitedInnerWidth = Math.min(window.innerWidth, 2200); // Cap max width at 1800
-
-    if (limitedInnerWidth >= 1600) return limitedInnerWidth - 440;
-    if (limitedInnerWidth >= 1200) return limitedInnerWidth - 210;
-    if (limitedInnerWidth >= 950) return limitedInnerWidth - 100;
-    if (limitedInnerWidth >= 650) return limitedInnerWidth - 50;
-    if (limitedInnerWidth >= 0) return limitedInnerWidth - 30;
-
-    return limitedInnerWidth - 400; // Default case
-  };
-
-  const [chartWidth, setChartWidth] = useState(getAdjustedWidth());
-
-  useEffect(() => {
-    const updateWidth = () => {
-      setChartWidth(getAdjustedWidth());
-    };
-
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, []);
+  const [chartWidth, setChartWidth] = useState(0);
 
   useEffect(() => {
     const updateWidth = () => {
       if (chartContainerRef.current) {
-        setChartWidth(chartContainerRef.current.offsetWidth - 50);
+        const newWidth = chartContainerRef.current.offsetWidth - 50;
+        setChartWidth(newWidth > 0 ? newWidth : 800); // fallback minimum
       }
     };
 
-    // Set initial width when the component mounts
+    // Run immediately after mount
     updateWidth();
 
-    // Update width dynamically on window resize
-    window.addEventListener("resize", updateWidth);
-
-    return () => {
-      window.removeEventListener("resize", updateWidth);
+    const handleResize = () => {
+      updateWidth();
     };
-  }, []);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [data]); // Re-run when data loads (ensures container exists)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const rawData = await fetchSankeyData(year);
+
         setExcelData(rawData);
 
         const nodes = [];
@@ -319,17 +307,27 @@ const SankeyChart = ({ info }) => {
   return (
     <>
       {data && (
-        <div className="main-chart sankey-1" ref={chartContainerRef}>
+        <div
+          className="main-chart sankey-1"
+          ref={chartContainerRef}
+          style={info.styles}>
           <div className="header-container">
-            <div className="info-wrapper">
+            <div
+              className="info-wrapper"
+              style={{
+                flexDirection: window.innerWidth < 768 ? "column" : "row",
+                gap: window.innerWidth < 768 ? "5px" : "",
+              }}>
               {info.svg}
               <div className="text-wrapper">
                 <h2>{info[`title_${language}`]}</h2>
                 <h3>{info[`unit_${language}`]}</h3>
               </div>
             </div>
-            <div className="year-wrapper">
-              <YearDropdown years={chartYears} year={year} setYear={setYear} />
+            <div
+              className="year-wrapper"
+              style={{ flexDirection: "row", alignItems: "center" }}>
+              <YearDropdown years={Years} year={year} setYear={setYear} />
               <Download
                 data={excelData}
                 filename={info[`title_${language}`]}
@@ -340,16 +338,15 @@ const SankeyChart = ({ info }) => {
             </div>
           </div>
           <Sankey
-            width={window.innerWidth >= 800 ? chartWidth : window.innerWidth}
-            // width={chartWidth}
+            width={chartWidth}
             height={500}
             data={data}
             node={<MyCustomNode />}
             nodePadding={20}
-            margin={{ right: 260, left: 80, top: 0, bottom: 0 }}
+            margin={{ right: 30, left: 30 }}
             link={<CustomizedLink />} // Use CustomizedLink here
           >
-            <Tooltip content={<CustomTooltip />} />{" "}
+            <Tooltip content={<CustomTooltip />} />
           </Sankey>
         </div>
       )}

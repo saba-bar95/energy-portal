@@ -1,12 +1,9 @@
 import "./FinalConsumption.scss";
 import VerticalStackedByYears from "../../../../../../../Charts/VerticalStackedBarsByYear";
-import { useParams } from "react-router-dom";
 import StackedAreaChart from "../../../../../../../Charts/StackedAreaChart";
 import MultipleLineChartByYears from "../../../../../../../Charts/MultipleLineChartByYears";
 
 const FinalConsumption = () => {
-  const { language } = useParams();
-
   const chart1Info = {
     chartID: 31,
     chartName: 6,
@@ -48,13 +45,6 @@ const FinalConsumption = () => {
         />
       </svg>
     ),
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language === "en" ? "-20px" : "-20px",
-      marginLeft: "60px",
-      justifyContent: "start",
-    },
   };
 
   const chart2Info = {
@@ -90,13 +80,6 @@ const FinalConsumption = () => {
         />
       </svg>
     ),
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language === "en" ? "-20px" : "-60px",
-      marginLeft: "60px",
-      justifyContent: "start",
-    },
   };
 
   const chart3Info = {
@@ -142,24 +125,10 @@ const FinalConsumption = () => {
         />
       </svg>
     ),
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language === "en" ? "-100px" : "-160px",
-      marginLeft: "60px",
-      justifyContent: "start",
-    },
   };
 
   const chart4Info = {
     id: "final-4",
-    styles: {
-      flexWrap: "wrap",
-      gap: "20px",
-      marginTop: language !== "en" ? "-30px" : "-40px",
-      marginLeft: "100px",
-      justifyContent: "start",
-    },
     chartName: 6,
     chartID: 34,
     title_ge: "ენერგორესურსების საბოლოო მოხმარება ტრანსპორტის სექტორში",
@@ -167,7 +136,6 @@ const FinalConsumption = () => {
     title_en: "Final energy consumption in the transport sector",
     unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#5654D4", "#3FC8E4", "#ED4C5C", "#007C90", "#FF9F0A", "#929497"],
-
     svg: (
       <svg
         width="32"
@@ -220,7 +188,6 @@ const FinalConsumption = () => {
       "Final consumption of energy resources for energy and non-energy purposes",
     unit_en: "Thousand Tonnes of Oil Equivalent",
     colors: ["#ED4C5C", "#3FC8E4"],
-
     svg: (
       <svg
         width="27"
@@ -234,6 +201,9 @@ const FinalConsumption = () => {
         />
       </svg>
     ),
+    styles: {
+      justifyContent: "center",
+    },
   };
 
   return (

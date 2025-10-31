@@ -64,7 +64,13 @@ const SecondChart = ({ data }) => {
     ];
 
     return (
-      <div className="legend-container">
+      <div
+        className="legend-container"
+        style={{
+          justifyContent: "center",
+          marginLeft: "20px",
+          marginTop: 0,
+        }}>
         {legendItems.map((entry, index) => (
           <p
             key={`item-${index}`}
@@ -124,16 +130,47 @@ const SecondChart = ({ data }) => {
   };
 
   const CustomXAxisTick = ({ x, y, payload }) => {
+    const rawLabel = payload.value ?? "";
+    const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth < 1200;
+    const fontSize = isMobile ? 9 : isTablet ? 11 : 13;
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    ctx.font = `${fontSize}px FiraGO, Arial, sans-serif`;
+
+    const availableWidth = window.innerWidth * (isMobile ? 0.65 : 0.8);
+    let displayLabel = rawLabel;
+    if (ctx.measureText(rawLabel).width > availableWidth) {
+      let low = 0;
+      let high = rawLabel.length;
+      let best = rawLabel.length;
+      while (low <= high) {
+        const mid = Math.floor((low + high) / 2);
+        const test = `${rawLabel.slice(0, mid)}…`;
+        if (ctx.measureText(test).width <= availableWidth) {
+          best = mid;
+          low = mid + 1;
+        } else {
+          high = mid - 1;
+        }
+      }
+      displayLabel = `${rawLabel.slice(0, Math.max(best, 3))}…`;
+    }
+
     return (
-      <text
-        x={x}
-        y={y}
-        dy={16}
-        textAnchor="middle"
-        fill="#1E1E1E"
-        fontSize={14}>
-        {payload.value}
-      </text>
+      <g transform={`translate(${x},${y})`}>
+        <text
+          x={0}
+          y={0}
+          dy={isMobile ? 14 : 16}
+          textAnchor="middle"
+          fill="#1E1E1E"
+          fontSize={fontSize}
+          fontWeight={500}>
+          {displayLabel}
+        </text>
+      </g>
     );
   };
 
@@ -149,7 +186,15 @@ const SecondChart = ({ data }) => {
         dx={-20}
         textAnchor="middle"
         fill="#A0A0A0"
-        fontSize="14" // Font size
+        fontSize={
+          windowWidth < 768
+            ? 12
+            : windowWidth < 1200
+            ? 14
+            : windowWidth < 1600
+            ? 15
+            : 16
+        }
         fontFamily="Arial, sans-serif">
         {formattedValue} {payload.value > 0 && data[`chart_unit_${language}`]}
       </text>
@@ -157,7 +202,9 @@ const SecondChart = ({ data }) => {
   };
 
   return (
-    <div style={{ width: "100%" }} className="main-chart second-chart">
+    <div
+      style={{ width: "100%", paddingBottom: 0 }}
+      className="main-chart second-chart">
       <div className="header-container">
         <img src={data.icon} alt="" />
         <div className="text-wrapper">
@@ -194,10 +241,11 @@ const SecondChart = ({ data }) => {
             tickLine={false}
             domain={[0, 6]}
             padding={{ top: 15 }}
+            width={windowWidth < 768 ? 30 : 50} // Adjust width based on screen size
           />
           <Tooltip content={CustomTooltip} />
 
-          {windowWidth >= 820 && <Legend content={CustomLegend} />}
+          <Legend content={CustomLegend} />
           {activeKeys.total && (
             <Bar dataKey="total" fill={data.color[0]} minPointSize={5} />
           )}

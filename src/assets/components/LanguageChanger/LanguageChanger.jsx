@@ -12,14 +12,15 @@ const LanguageChanger = () => {
   const location = useLocation();
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [language, setLanguage] = useState(params.language);
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef(null); // Now refs the entire .language-changer
   const [width, setWidth] = useState(0);
 
   const handleLanguageChange = () => {
     setIsLanguageOpen(!isLanguageOpen);
   };
 
-  const toggleLanguage = () => {
+  const toggleLanguage = (event) => {
+    event.stopPropagation(); // Prevent bubbling to parent onClick
     const newLanguage = language === "ge" ? "en" : "ge";
     setLanguage(newLanguage);
     setIsLanguageOpen(false);
@@ -40,13 +41,32 @@ const LanguageChanger = () => {
     }
   }, [isLanguageOpen]); // Ensures the width updates when the menu opens/closes
 
+  // Handle clicks outside the dropdown to close it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setIsLanguageOpen(false);
+      }
+    };
+
+    if (isLanguageOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isLanguageOpen]);
+
   return (
     <div
       className="language-changer-container"
       onClick={handleLanguageChange}
       style={{ marginRight: width }}>
-      <div className="language-changer">
-        <div className="wrapper" ref={wrapperRef}>
+      <div className="language-changer" ref={wrapperRef}>
+        {" "}
+        {/* Ref moved here */}
+        <div className="wrapper">
           <img
             src={language === "ge" ? georgianFlag : britishFlag}
             className="flag-img"

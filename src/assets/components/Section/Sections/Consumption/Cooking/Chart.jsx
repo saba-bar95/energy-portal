@@ -14,10 +14,7 @@ import Download from "../../../../Download/Download";
 import { useState, useEffect } from "react";
 
 const Chart = ({ data }) => {
-  //
-
   const { language } = useParams();
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeKeys, setActiveKeys] = useState({
     total: true,
@@ -95,7 +92,9 @@ const Chart = ({ data }) => {
     ];
 
     return (
-      <div className="legend-container">
+      <div
+        className="legend-container"
+        style={{ justifyContent: "center", marginTop: 0 }}>
         {legendItems.map((entry, index) => (
           <p
             key={`item-${index}`}
@@ -162,7 +161,7 @@ const Chart = ({ data }) => {
     Object.keys(activeKeys).find((key) => activeKeys[key]) || "total";
 
   return (
-    <div style={{ width: "100%" }} className="main-chart">
+    <div style={{ width: "100%", paddingBottom: 0 }} className="main-chart">
       <div className="header-container">
         <img src={data.icon} alt="" />
         <div className="text-wrapper">
@@ -183,16 +182,28 @@ const Chart = ({ data }) => {
           <XAxis
             type="number"
             tickLine={false}
-            tick={{ style: { fontSize: windowWidth < 768 ? 12 : 16 } }}
+            tick={{
+              style: {
+                fontSize:
+                  windowWidth < 768
+                    ? 12
+                    : windowWidth < 1200
+                    ? 14
+                    : windowWidth < 1600
+                    ? 15
+                    : 16,
+              },
+            }}
           />
           <YAxis
             dataKey={language === "ge" ? "name_ge" : "name_en"}
             type="category"
             tick={false}
             padding={{ top: 30 }}
+            width={windowWidth < 768 ? 20 : 50} // Adjust width based on screen size
           />
           <Tooltip content={CustomTooltip} />
-          {windowWidth >= 820 && <Legend content={CustomLegend} />}
+          <Legend content={CustomLegend} />
           {activeKeys.total && (
             <Bar
               dataKey="total"

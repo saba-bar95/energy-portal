@@ -44,12 +44,11 @@
 @media only screen and (min-width: 0) and (max-width: calc($mobile - 1px)) {
   .container-ss {
     .heating-container {
-      padding: 30px 30px 100px 30px;
+      padding: 30px 15px 100px 15px;
       flex-direction: column;
 
       .hot-water-chart {
         width: 100%;
-        max-width: 400px;
       }
     }
   }

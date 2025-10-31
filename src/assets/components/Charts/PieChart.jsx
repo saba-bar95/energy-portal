@@ -8,17 +8,17 @@ import {
   Legend,
 } from "recharts";
 import Download from "../Download/Download";
-import fetchMainDataIndicators from "../../../../fetchMainIndicators";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import chartYears from "../../../../chartYears";
 import YearDropdown from "../YearDropdown/YearDropdown";
 import "./PieChart.scss";
+import fetchMainDataIndicators from "../../fetchFunctions/fetchMainIndicators";
 
 const PieChartComponent = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
-  const [year, setYear] = useState(2023);
+  const [year, setYear] = useState(null);
+  const [availableYears, setAvailableYears] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,9 +26,26 @@ const PieChartComponent = ({ info }) => {
         const rawData = await fetchMainDataIndicators(info.chartID);
         const result = [];
 
-        chartYears.forEach((year) => {
-          const yearKey = `y_${year}`;
-          const yearData = { year: `${year}` };
+        // Extract available years dynamically from the data
+        const yearKeys = Object.keys(rawData[0]).filter((key) =>
+          key.startsWith("y_")
+        );
+
+        const extractedYears = yearKeys
+          .map((key) => parseInt(key.replace("y_", "")))
+          .filter((year) => !isNaN(year))
+          .sort((a, b) => a - b);
+
+        setAvailableYears(extractedYears);
+
+        // Set initial year to the most recent one if not already set
+        if (!year && extractedYears.length > 0) {
+          setYear(extractedYears[extractedYears.length - 1]);
+        }
+
+        extractedYears.forEach((yearNum) => {
+          const yearKey = `y_${yearNum}`;
+          const yearData = { year: `${yearNum}` };
 
           info.names.forEach(({ code, name_en, name_ge }) => {
             const matchingRawData = rawData.find(
@@ -43,20 +60,27 @@ const PieChartComponent = ({ info }) => {
           result.push(yearData);
         });
 
-        const currentYear = result.find((entry) => +entry.year === +year);
+        // Only process data if we have a valid year
+        if (year && result.length > 0) {
+          const currentYear = result.find((entry) => +entry.year === +year);
 
-        const transformedData = Object.keys(currentYear)
-          .filter((key) => key !== "year")
-          .map((key, index) => ({
-            name: key,
-            value: currentYear[key], // Include only non-zero values
-            color: info.colors[index] || "#8884d8",
-          }))
-          .filter((entry) => entry.value > 0);
+          const transformedData = Object.keys(currentYear)
+            .filter((key) => key !== "year")
+            .map((key, index) => ({
+              name: key,
+              value: currentYear[key], // Include only non-zero values
+              color: info.colors[index] || "#8884d8",
+            }))
+            .filter((entry) => entry.value > 0);
 
-        setData(transformedData);
+          setData(transformedData);
+        } else {
+          setData([]);
+        }
       } catch (error) {
         console.log("Fetch error:", error);
+        setAvailableYears([]);
+        setData([]);
       }
     };
     fetchData();
@@ -157,7 +181,7 @@ const PieChartComponent = ({ info }) => {
 
   return (
     <>
-      {data.length > 0 && (
+      {data.length > 0 && availableYears.length > 0 && year && (
         <div
           className={classN}
           style={{
@@ -179,7 +203,7 @@ const PieChartComponent = ({ info }) => {
               />
             </div>
           </div>
-          <YearDropdown years={chartYears} year={year} setYear={setYear} />
+          <YearDropdown years={availableYears} year={year} setYear={setYear} />
           <ResponsiveContainer height={520}>
             <PieChart>
               <Pie
