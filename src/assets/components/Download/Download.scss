@@ -75,6 +75,30 @@
   }
 }
 
+@media only screen and (min-width: $tablet) and (max-width: $mid) {
+  .download-container {
+    .svg-container {
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    .dropdown-content {
+      padding: 15px 12px;
+
+      .upper,
+      .lower {
+        .wrapper {
+          p {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media only screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
   .download-container {
     .svg-container {
@@ -101,11 +125,9 @@
 
 @media only screen and (min-width: 0) and (max-width: $mobile) {
   .download-container {
-    .svg-container {
-      svg {
-        width: 24px;
-        height: 24px;
-      }
+    .down-svg {
+      width: 15px !important;
+      height: 15px !important;
     }
 
     .dropdown-content {
