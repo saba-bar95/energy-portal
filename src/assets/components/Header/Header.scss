@@ -7,11 +7,12 @@ header {
   z-index: 99;
   top: 0;
   box-shadow: 0 4px 8px #0003;
-  transition: transform 0.3s ease-in-out; // ← NEW: smooth hide/show
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.35s ease;
 
-  /* When NOT visible → slide up out of view */
   &:not(.header--visible) {
     transform: translateY(-100%);
+    box-shadow: 0 2px 4px #00000005; // Softer shadow when hidden
   }
 
   .header-container {

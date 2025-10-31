@@ -25,6 +25,19 @@ const Header = () => {
   // 1. Scroll-direction detection WITH SENSITIVITY
   // --------------------------------------------------------------
   useEffect(() => {
+    const header = document.querySelector("header");
+    let headerHeight = 0;
+
+    const updateHeaderHeight = () => {
+      headerHeight = header?.offsetHeight || 0;
+    };
+
+    // Initial height
+    updateHeaderHeight();
+
+    // Update on resize (important for responsive!)
+    window.addEventListener("resize", updateHeaderHeight);
+
     const handleScroll = () => {
       if (ticking.current) return;
       ticking.current = true;
@@ -32,19 +45,26 @@ const Header = () => {
       requestAnimationFrame(() => {
         const currentY = window.scrollY;
         const atTop = currentY <= 0;
+        const scrolledPastHeader = currentY > headerHeight;
 
         if (currentY < lastScrollY.current) {
           // SCROLLING UP
           const scrolledUp = lastScrollY.current - currentY;
           scrollBuffer.current += scrolledUp;
 
+          // Show header if scrolling up enough OR at top
           if (scrollBuffer.current >= SCROLL_THRESHOLD || atTop) {
             setIsHeaderVisible(true);
+            scrollBuffer.current = 0; // Optional: reset or keep for momentum
           }
         } else if (currentY > lastScrollY.current) {
           // SCROLLING DOWN
-          setIsHeaderVisible(false);
-          scrollBuffer.current = 0; // Reset buffer
+          scrollBuffer.current = 0; // Reset upward buffer
+
+          // Only hide if we've scrolled PAST the header
+          if (scrolledPastHeader && !atTop) {
+            setIsHeaderVisible(false);
+          }
         }
 
         lastScrollY.current = currentY;
@@ -53,8 +73,11 @@ const Header = () => {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []); // Only one useEffect!
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updateHeaderHeight);
+    };
+  }, []);
 
   // --------------------------------------------------------------
   // 2. Dropdown toggle
