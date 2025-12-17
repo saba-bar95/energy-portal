@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import AnimatedNumber from "./AnimatedNumber";
@@ -87,7 +88,7 @@ const Svg5 = () => {
   );
 };
 
-const EnergyProduction = () => {
+const EnergyProduction = ({ setLatestYear }) => {
   const { language } = useParams();
   const [data, setData] = useState([]);
 
@@ -159,13 +160,23 @@ const EnergyProduction = () => {
         );
 
         setData(allData);
+
+        if (allData.length > 0 && allData[0].data.length > 0) {
+          const itemData = allData[0].data[0]; // Use first widget's first item
+          const yearKeys = Object.keys(itemData).filter((key) =>
+            key.startsWith("y_")
+          );
+          const years = yearKeys.map((key) => parseInt(key.slice(2), 10));
+          const lastYear = Math.max(...years);
+          setLatestYear(lastYear); // ← Now safe: inside useEffect
+        }
       } catch (error) {
         console.log("Fetch error:", error);
       }
     };
 
     fetchData();
-  }, [widgets]);
+  }, [widgets, setLatestYear]);
 
   return (
     <div className="widget-container">

@@ -214,11 +214,12 @@ const SankeyChart = ({ info }) => {
     []
   );
 
-  const Years = Array.from({ length: 2024 - 2013 + 1 }, (_, i) => 2013 + i);
+  const minYear = 2013;
 
   const { language } = useParams();
   const [hoveredLinkIndex, setHoveredLinkIndex] = useState(null);
-  const [year, setYear] = useState(2024);
+  const [year, setYear] = useState(null); // Start as null – will be set to latest available
+  const [availableYears, setAvailableYears] = useState([]); // Only years with data
   const [data, setData] = useState(null);
   const [excelData, setExcelData] = useState(null);
   const chartContainerRef = useRef(null);
@@ -244,7 +245,49 @@ const SankeyChart = ({ info }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [data]); // Re-run when data loads (ensures container exists)
 
+  // Effect to automatically detect and set the latest available year on mount
   useEffect(() => {
+    if (availableYears.length > 0) return; // Only run once
+
+    const currentYear = new Date().getFullYear(); // 2025
+
+    const discoverYears = async () => {
+      const yearsWithData = [];
+
+      for (let y = currentYear; y >= minYear; y--) {
+        try {
+          const rawData = await fetchSankeyData(y);
+          if (rawData && Array.isArray(rawData) && rawData.length > 0) {
+            yearsWithData.push(y);
+          }
+          // If no data or error → skip this year (not included in dropdown)
+        } catch (error) {
+          console.warn(`${error.message} -  No data for year ${y}`);
+          // Continue to older years
+        }
+      }
+
+      if (yearsWithData.length > 0) {
+        setAvailableYears(yearsWithData.sort((a, b) => a - b)); // Oldest first
+        setYear(yearsWithData[yearsWithData.length - 1]); // Latest
+        console.log(
+          `Available years: ${yearsWithData.join(", ")}. Showing latest: ${
+            yearsWithData[yearsWithData.length - 1]
+          }`
+        );
+      } else {
+        console.error("No data found for any year!");
+        // Optional fallback
+        setYear(minYear);
+      }
+    };
+
+    discoverYears();
+  }, [availableYears]);
+
+  useEffect(() => {
+    if (year === null || availableYears.length === 0) return;
+
     const fetchData = async () => {
       try {
         const rawData = await fetchSankeyData(year);
@@ -372,11 +415,11 @@ const SankeyChart = ({ info }) => {
     };
 
     fetchData();
-  }, [year, nodeMap]); // Runs effect when `year` changes
+  }, [year, nodeMap, availableYears]); // Runs effect when `year` changes
 
   return (
     <>
-      {data && (
+      {data && year !== null && availableYears.length > 0 && (
         <div
           className="main-chart sankey-1"
           ref={chartContainerRef}
@@ -397,7 +440,11 @@ const SankeyChart = ({ info }) => {
             <div
               className="year-wrapper"
               style={{ flexDirection: "row", alignItems: "center" }}>
-              <YearDropdown years={Years} year={year} setYear={setYear} />
+              <YearDropdown
+                years={availableYears}
+                year={year}
+                setYear={setYear}
+              />
               <Download
                 data={excelData}
                 filename={info[`title_${language}`]}

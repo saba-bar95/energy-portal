@@ -8,6 +8,8 @@ import Resources from "./Resources";
 const Slider = () => {
   const { language } = useParams();
 
+  const [latestYear, setLatestYear] = useState(null);
+
   const slides = [
     { header_ge: "ენერგორესურსების წარმოება", header_en: "Energy Production" },
     {
@@ -33,7 +35,7 @@ const Slider = () => {
   };
 
   const slideContents = [
-    <EnergyProduction key="energy-production" />,
+    <EnergyProduction key="energy-production" setLatestYear={setLatestYear} />,
     <Consumption key="consumption" />,
     <Resources key="resources" />,
   ];
@@ -52,7 +54,9 @@ const Slider = () => {
             ))}
           </div>
           <div className="slide">
-            <h2>{slides[currentIndex][`header_${language}`]} - 2024</h2>
+            <h2>
+              {slides[currentIndex][`header_${language}`]} - {latestYear}
+            </h2>
           </div>
           <div className="navigation">
             <button
