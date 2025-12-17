@@ -30,6 +30,7 @@ const SankeyChart = ({ info }) => {
       Other: "#6a2dda",
       "International Marine Bunkers": "#bdcabe",
       "International aviation bunkers": "#243325",
+      Electricity: "#c690ebff", // Gold/yellow — stands out nicely from "Electricity and heat"
     };
 
     const fillColor = colorMap[payload.name_en] || "#93c5fd"; // Fallback color
@@ -213,11 +214,11 @@ const SankeyChart = ({ info }) => {
     []
   );
 
-  const Years = Array.from({ length: 2023 - 2013 + 1 }, (_, i) => 2013 + i);
+  const Years = Array.from({ length: 2024 - 2013 + 1 }, (_, i) => 2013 + i);
 
   const { language } = useParams();
   const [hoveredLinkIndex, setHoveredLinkIndex] = useState(null);
-  const [year, setYear] = useState(2023);
+  const [year, setYear] = useState(2024);
   const [data, setData] = useState(null);
   const [excelData, setExcelData] = useState(null);
   const chartContainerRef = useRef(null);
@@ -274,19 +275,88 @@ const SankeyChart = ({ info }) => {
         };
 
         rawData.forEach((entry) => {
-          const sourceIndex =
-            entry.column_name === 201 ? getNodeIndex(entry.res_chart_id) : null;
-          const targetIndex =
-            entry.column_name === 202 ? getNodeIndex(entry.res_chart_id) : null;
-          const middleIndex = getNodeIndex(entry.res_legend_code);
+          let leftOrRightName = entry.res_chart_id?.trim(); // Production, Imports, Exports, Industry, etc.
+          let fuelName = entry.res_legend_code?.trim(); // Electricity, Electricity and heat, Natural gas, etc.
 
-          if (sourceIndex !== null) {
-            links.push({
-              source: sourceIndex,
-              target: middleIndex,
-              value: entry.value,
-            });
-          } else if (targetIndex !== null) {
+          if (!leftOrRightName || !fuelName) return;
+
+          // Get node indices
+          const middleIndex = getNodeIndex(fuelName);
+
+          if (entry.column_name === 201) {
+            // Expected: Supply → Fuel (left → middle)
+            const normalized = leftOrRightName.toLowerCase();
+
+            // Normal valid supply nodes
+            if (
+              normalized === "production" ||
+              normalized === "imports" ||
+              normalized === "imports "
+            ) {
+              const sourceIndex = getNodeIndex(leftOrRightName);
+              links.push({
+                source: sourceIndex,
+                target: middleIndex,
+                value: entry.value,
+              });
+              return;
+            }
+
+            // Special fix: Misclassified electricity export — Exports wrongly used as source
+            // Should be Electricity → Exports, so reverse it
+            if (normalized === "exports" && fuelName === "Electricity") {
+              const targetIndex = getNodeIndex(leftOrRightName); // "Exports"
+              links.push({
+                source: middleIndex, // Electricity →
+                target: targetIndex, // → Exports
+                value: entry.value,
+              });
+              console.log(
+                `Fixed electricity export direction: Electricity → Exports (${entry.value})`
+              );
+              return;
+            }
+
+            // Anything else in column 201 is invalid
+            console.warn(
+              `Skipping invalid supply entry: "${leftOrRightName}" → "${fuelName}" (${entry.value})`
+            );
+          } else if (entry.column_name === 202) {
+            // Expected: Fuel → Consumption (middle → right)
+            const normalized = leftOrRightName.toLowerCase();
+
+            // Special fix: Misclassified electricity import — Imports wrongly used as target
+            // Should be Imports → Electricity, so reverse it
+            if (
+              (normalized === "imports" || normalized === "imports ") &&
+              fuelName === "Electricity"
+            ) {
+              const sourceIndex = getNodeIndex(leftOrRightName); // "Imports "
+              links.push({
+                source: sourceIndex, // Imports →
+                target: middleIndex, // → Electricity
+                value: entry.value,
+              });
+              console.log(
+                `Fixed electricity import direction: Imports → Electricity (${entry.value})`
+              );
+              return;
+            }
+
+            // Block real invalid cases (e.g. fuel → Production)
+            if (
+              normalized === "production" ||
+              normalized === "imports" ||
+              normalized === "imports "
+            ) {
+              console.warn(
+                `Skipping invalid consumption target: "${fuelName}" → "${leftOrRightName}" (${entry.value})`
+              );
+              return;
+            }
+
+            // Normal valid consumption
+            const targetIndex = getNodeIndex(leftOrRightName);
             links.push({
               source: middleIndex,
               target: targetIndex,
