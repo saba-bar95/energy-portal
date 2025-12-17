@@ -52,7 +52,7 @@ const Slider = () => {
             ))}
           </div>
           <div className="slide">
-            <h2>{slides[currentIndex][`header_${language}`]} - 2023</h2>
+            <h2>{slides[currentIndex][`header_${language}`]} - 2024</h2>
           </div>
           <div className="navigation">
             <button

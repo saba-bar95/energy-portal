@@ -166,7 +166,6 @@ const Svg6 = () => {
 const EnergyConsumption = () => {
   const { language } = useParams();
   const [data, setData] = useState([]);
-  const lastYear = 2023;
 
   const widgets = useMemo(
     () => [
@@ -218,7 +217,6 @@ const EnergyConsumption = () => {
         unit_ge: "პროცენტი",
         unit_en: "percent",
       },
-
       {
         name_ge: "სხვა",
         name_en: "Other",
@@ -266,22 +264,30 @@ const EnergyConsumption = () => {
       {data.map((widgetData, index) => {
         const currentName = widgetData[`name_${language}`];
 
+        // Find matching widget to get svg and unit
         const isNameInWidgets = widgets.find(
           (widget) => widget[`name_${language}`] === currentName
         );
+
+        // Dynamically determine the last year from the data
+        const itemData = widgetData.data[0];
+        const yearKeys = Object.keys(itemData).filter((key) =>
+          key.startsWith("y_")
+        );
+        const years = yearKeys.map((key) => parseInt(key.slice(2), 10));
+        const lastYear = Math.max(...years);
+
+        const value = itemData[`y_${lastYear}`];
+
         return (
           <div className="widget-wrapper" key={index}>
             <div className="top">
-              {isNameInWidgets?.svg}{" "}
-              {/* Optional chaining to avoid errors if isNameInWidgets is undefined */}
+              {isNameInWidgets?.svg}
               <h3>{currentName}</h3>
             </div>
             <div className="middle">
               <h2>
-                <AnimatedNumber
-                  targetValue={widgetData.data[0][`y_${lastYear}`]}
-                  duration={1000}
-                />
+                <AnimatedNumber targetValue={value} duration={1000} />
               </h2>
               <h3>{isNameInWidgets[`unit_${language}`]}</h3>
             </div>

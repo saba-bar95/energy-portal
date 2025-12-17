@@ -90,7 +90,6 @@ const Svg5 = () => {
 const EnergyProduction = () => {
   const { language } = useParams();
   const [data, setData] = useState([]);
-  const lastYear = 2023;
 
   const widgets = useMemo(
     () => [
@@ -172,7 +171,17 @@ const EnergyProduction = () => {
     <div className="widget-container">
       {data.map((widgetData, index) => {
         const currentName = widgetData[`name_${language}`];
-        const percentageChange = widgetData.data[0].growthRate;
+
+        // Dynamically determine the last year from the data keys
+        const itemData = widgetData.data[0];
+        const yearKeys = Object.keys(itemData).filter((key) =>
+          key.startsWith("y_")
+        );
+        const years = yearKeys.map((key) => parseInt(key.slice(2), 10));
+        const lastYear = Math.max(...years);
+
+        const value = itemData[`y_${lastYear}`];
+        const percentageChange = itemData[`growthRate_${lastYear}`];
 
         const isNameInWidgets = widgets.find(
           (widget) => widget[`name_${language}`] === currentName
@@ -187,10 +196,7 @@ const EnergyProduction = () => {
             </div>
             <div className="middle">
               <h2>
-                <AnimatedNumber
-                  targetValue={widgetData.data[0][`y_${lastYear}`]}
-                  duration={1000}
-                />
+                <AnimatedNumber targetValue={value} duration={1000} />
               </h2>
               <h3>{isNameInWidgets[`unit_${language}`]}</h3>
             </div>

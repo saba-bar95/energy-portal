@@ -90,7 +90,6 @@ const Svg5 = () => {
 const EnergyConsumption = () => {
   const { language } = useParams();
   const [data, setData] = useState([]);
-  const lastYear = 2023;
 
   const widgets = useMemo(
     () => [
@@ -119,7 +118,7 @@ const EnergyConsumption = () => {
         unit_en: "thousand tons",
       },
       {
-        name_ge: "ნავთობპროდუქტები",
+        name_ge: "ნავთოვპროდუქტები",
         name_en: "Oil and Petroleum Products",
         legendCode: 36,
         svg: <Svg4 />,
@@ -146,11 +145,9 @@ const EnergyConsumption = () => {
             const response = await fetch(
               `${backEndUrl}/api/energyConsumption/${widget.legendCode}`
             );
-
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
+            if (!response.ok) throw new Error("Network response was not ok");
             const rawData = await response.json();
+
             return {
               name_ge: widget.name_ge,
               name_en: widget.name_en,
@@ -158,10 +155,9 @@ const EnergyConsumption = () => {
             };
           })
         );
-
         setData(allData);
       } catch (error) {
-        console.log("Fetch error:", error);
+        console.error("Fetch error:", error);
       }
     };
 
@@ -172,32 +168,52 @@ const EnergyConsumption = () => {
     <div className="widget-container">
       {data.map((widgetData, index) => {
         const currentName = widgetData[`name_${language}`];
-        const percentageChange = widgetData.data[0].growthRate;
+        const itemData = widgetData.data[0];
 
-        const isNameInWidgets = widgets.find(
-          (widget) => widget[`name_${language}`] === currentName
+        // Find config for SVG and unit
+        const widgetConfig = widgets.find(
+          (w) => w[`name_${language}`] === currentName
         );
+
+        // Extract all years dynamically
+        const yearKeys = Object.keys(itemData)
+          .filter((key) => key.startsWith("y_"))
+          .map((key) => parseInt(key.slice(2), 10))
+          .sort((a, b) => b - a); // newest first
+
+        if (yearKeys.length === 0) return null;
+
+        const latestYear = yearKeys[0];
+        const latestValue = itemData[`y_${latestYear}`];
+
+        // Get growth rate for the latest year: prefer growthRate_2024, fallback to generic growthRate
+        let percentageChange =
+          itemData[`growthRate_${latestYear}`] ?? itemData.growthRate ?? 0;
+
+        const isPositive = percentageChange >= 0;
 
         return (
           <div className="widget-wrapper" key={index}>
             <div className="top">
-              {isNameInWidgets?.svg}{" "}
-              {/* Optional chaining to avoid errors if isNameInWidgets is undefined */}
+              {widgetConfig?.svg}
               <h3>{currentName}</h3>
             </div>
+
             <div className="middle">
               <h2>
                 <AnimatedNumber
-                  targetValue={widgetData.data[0][`y_${lastYear}`]}
+                  targetValue={latestValue}
                   duration={1000}
+                  decimals={1}
                 />
               </h2>
-              <h3>{isNameInWidgets[`unit_${language}`]}</h3>
+              <h3>{widgetConfig?.[`unit_${language}`]}</h3>
             </div>
+
             <div className="bottom">
               <div className="left">
                 <p>
-                  {percentageChange >= 0 ? (
+                  {isPositive ? (
                     <svg
                       width="14"
                       height="9"
@@ -243,14 +259,16 @@ const EnergyConsumption = () => {
                     </svg>
                   )}
                 </p>
-                <p className={percentageChange > 0 ? "green" : "red"}>
+
+                <p className={isPositive ? "green" : "red"}>
                   <AnimatedNumber
-                    targetValue={percentageChange.toFixed(1)}
+                    targetValue={Math.abs(percentageChange).toFixed(1)}
                     duration={1000}
                   />
                   %
                 </p>
               </div>
+
               <span>
                 {language === "ge"
                   ? "წინა წელთან შედარებით"
