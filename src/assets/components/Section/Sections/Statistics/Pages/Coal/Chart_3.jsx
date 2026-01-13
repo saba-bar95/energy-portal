@@ -55,10 +55,8 @@ const Chart_3 = () => {
   // Filter months based on current year - only show up to June for 2025
   const getFilteredMonths = () => {
     if (year === 2025) {
-      // For 2025, only show months up to June (indices 0-5)
-      return months.slice(0, 7);
+      return months.slice(0, 10);
     }
-    // For other years, show all months
     return months;
   };
 

@@ -270,11 +270,11 @@ const SankeyChart = ({ info }) => {
       if (yearsWithData.length > 0) {
         setAvailableYears(yearsWithData.sort((a, b) => a - b)); // Oldest first
         setYear(yearsWithData[yearsWithData.length - 1]); // Latest
-        console.log(
-          `Available years: ${yearsWithData.join(", ")}. Showing latest: ${
-            yearsWithData[yearsWithData.length - 1]
-          }`
-        );
+        // console.log(
+        //   `Available years: ${yearsWithData.join(", ")}. Showing latest: ${
+        //     yearsWithData[yearsWithData.length - 1]
+        //   }`
+        // );
       } else {
         console.error("No data found for any year!");
         // Optional fallback
@@ -354,9 +354,9 @@ const SankeyChart = ({ info }) => {
                 target: targetIndex, // → Exports
                 value: entry.value,
               });
-              console.log(
-                `Fixed electricity export direction: Electricity → Exports (${entry.value})`
-              );
+              // console.log(
+              //   `Fixed electricity export direction: Electricity → Exports (${entry.value})`
+              // );
               return;
             }
 
@@ -380,9 +380,9 @@ const SankeyChart = ({ info }) => {
                 target: middleIndex, // → Electricity
                 value: entry.value,
               });
-              console.log(
-                `Fixed electricity import direction: Imports → Electricity (${entry.value})`
-              );
+              // console.log(
+              //   `Fixed electricity import direction: Imports → Electricity (${entry.value})`
+              // );
               return;
             }
 

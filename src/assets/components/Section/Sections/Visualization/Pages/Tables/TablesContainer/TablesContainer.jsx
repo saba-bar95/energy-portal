@@ -10,7 +10,7 @@ import fetchTableData from "../../../../../../../fetchFunctions/fetchTableData";
 const TablesContainer = ({ info }) => {
   const { language } = useParams();
   const [data, setData] = useState(null);
-  const [year, setYear] = useState(2023); // Track the selected year
+  const [year, setYear] = useState(2024); // Track the selected year
   const [unit, setUnit] = useState(0); // Track the selected unit
   const [name, setName] = useState(null); // Track the selected name
 
