@@ -21,72 +21,20 @@ const TablesContainer = ({ info }) => {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const rawData = await fetchTableData(info.name, year);
-
-        const filteredData = rawData.filter(
-          (row) => row.source_table === info.sourceTables[unit]
-        );
-
-        setData(filteredData);
-      } catch (error) {
-        console.log("Fetch error:", error);
+    const handleScroll = () => {
+      if (containerRef.current && headerRef.current) {
+        const scrollAmount = containerRef.current.scrollLeft;
+        headerRef.current.style.transform = `translateX(${scrollAmount}px)`;
       }
     };
-    fetchData();
-  }, [year, info.sourceTables, info.name, unit]);
 
-  useEffect(() => {
-    if (data) {
-      const rows = [
-        ...new Set(data.map((item) => item[`object_name_${language}`])),
-      ]; // Unique row headers
-      let columns = [
-        ...new Set(data.map((item) => item[`item_name_${language}`])),
-      ]; // Unique column headers
+    const container = containerRef.current;
+    container.addEventListener("scroll", handleScroll);
 
-      // Move "Total" to the last position
-      // Determine correct column label based on language
-      const totalColumnName = language === "ge" ? "სულ" : "Total";
-
-      // Move only the correct "Total" or "სულ" to the last position
-      if (columns.includes(totalColumnName)) {
-        columns = columns
-          .filter((col) => col !== "Total" && col !== "სულ")
-          .concat(totalColumnName);
-      }
-
-      const values = {};
-
-      rows.forEach((row) => {
-        values[row] = {};
-        columns.forEach((column) => {
-          const item = data.find(
-            (item) =>
-              item[`object_name_${language}`] === row &&
-              item[`item_name_${language}`] === column
-          );
-          values[row][column] = item?.number || 0; // Ensure there's a default value
-        });
-      });
-
-      setTableData({ rows, columns, values });
-    }
-  }, [data, language]);
-
-  const filteredRows = name
-    ? tableData.rows.filter((row) => row === name)
-    : tableData.rows;
-
-  const unitHeader = {
-    ge: {
-      header: "ფიზიკური ერთეული",
-    },
-    en: {
-      header: "Physical unit",
-    },
-  };
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const unitsArray = [
     {
@@ -133,24 +81,155 @@ const TablesContainer = ({ info }) => {
     },
   ];
 
+  const unitHeader = {
+    ge: {
+      header: "ფიზიკური ერთეული",
+    },
+
+    en: {
+      header: "Physical unit",
+    },
+  };
+
   const containerRef = useRef(null);
   const headerRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (containerRef.current && headerRef.current) {
-        const scrollAmount = containerRef.current.scrollLeft;
-        headerRef.current.style.transform = `translateX(${scrollAmount}px)`;
+    const fetchData = async () => {
+      try {
+        const rawData = await fetchTableData(info.name, year);
+        const filteredData = rawData.filter(
+          (row) => row.source_table === info.sourceTables[unit],
+        );
+
+        setData(filteredData);
+      } catch (error) {
+        console.log("Fetch error:", error);
       }
     };
+    fetchData();
+  }, [year, info.sourceTables, info.name, unit]);
 
-    const container = containerRef.current;
-    container.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    if (data) {
+      // Deduplicate rows by sub_code + name
+      const rowsMap = new Map();
+      data.forEach((item) => {
+        const key = `${item.sub_code}_${item[`object_name_${language}`]}`;
+        if (!rowsMap.has(key)) {
+          rowsMap.set(key, {
+            sub_code: item.sub_code,
+            name: item[`object_name_${language}`],
+          });
+        }
+      });
+      let rows = Array.from(rowsMap.values());
 
-    return () => {
-      container.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      // --- NEW LOGIC: place _c rows below their _b parent ---
+      function placeChildrenBelowParents(rows) {
+        const childrenByPrefix = {};
+        rows.forEach((row) => {
+          if (!row.sub_code) return;
+          const [prefix, suffix] = row.sub_code.split("_");
+          if (suffix === "c") {
+            if (!childrenByPrefix[prefix]) childrenByPrefix[prefix] = [];
+            childrenByPrefix[prefix].push(row);
+          }
+        });
+
+        const ordered = [];
+        const seen = new Set();
+
+        rows.forEach((row) => {
+          const rowKey = `${row.sub_code}_${row.name}`;
+          if (seen.has(rowKey)) return;
+
+          ordered.push(row);
+          seen.add(rowKey);
+
+          if (row.sub_code) {
+            const [prefix, suffix] = row.sub_code.split("_");
+            if (suffix === "b" && childrenByPrefix[prefix]) {
+              childrenByPrefix[prefix].forEach((child) => {
+                const childKey = `${child.sub_code}_${child.name}`;
+                if (!seen.has(childKey)) {
+                  ordered.push(child);
+                  seen.add(childKey);
+                }
+              });
+            }
+          }
+        });
+
+        return ordered;
+      }
+
+      rows = placeChildrenBelowParents(rows);
+
+      // --- EXTRA STEP: move "Other"/"სხვა" _b row to the end ---
+      const otherIndex = rows.findIndex(
+        (row) =>
+          row.sub_code?.endsWith("_b") &&
+          (row.name === "Other" || row.name === "სხვა"),
+      );
+
+      if (otherIndex !== -1) {
+        const [otherRow] = rows.splice(otherIndex, 1);
+
+        // also collect its children if any
+        const otherPrefix = otherRow.sub_code.split("_")[0];
+        const otherChildren = rows.filter(
+          (r) =>
+            r.sub_code?.startsWith(otherPrefix) && r.sub_code?.endsWith("_c"),
+        );
+
+        // remove children from current position
+        rows = rows.filter(
+          (r) =>
+            !(
+              r.sub_code?.startsWith(otherPrefix) && r.sub_code?.endsWith("_c")
+            ),
+        );
+
+        // push parent + children at the end
+        rows.push(otherRow, ...otherChildren);
+      }
+
+      // Columns
+      let columns = [
+        ...new Set(data.map((item) => item[`item_name_${language}`])),
+      ];
+      const totalColumnName = language === "ge" ? "სულ" : "Total";
+      if (columns.includes(totalColumnName)) {
+        columns = columns
+          .filter((col) => col !== "Total" && col !== "სულ")
+          .concat(totalColumnName);
+      }
+
+      // Values
+      const values = {};
+      rows.forEach((row) => {
+        const rowKey = `${row.sub_code}_${row.name}`;
+        values[rowKey] = {};
+        columns.forEach((column) => {
+          const item = data.find(
+            (item) =>
+              item.sub_code === row.sub_code &&
+              item[`object_name_${language}`] === row.name &&
+              item[`item_name_${language}`] === column,
+          );
+          values[rowKey][column] = item?.number || 0;
+        });
+      });
+
+      setTableData({ rows, columns, values });
+    }
+  }, [data, language]);
+
+  const filteredRows = name
+    ? tableData.rows.filter((row) => row.name === name)
+    : tableData.rows;
+
 
   return (
     <>
@@ -185,44 +264,40 @@ const TablesContainer = ({ info }) => {
             </tr>
           </thead>
           <tbody>
-            {filteredRows.map((row, rowIndex) => {
-              const rowItem = data.find(
-                (item) => item[`object_name_${language}`] === row
-              );
+            {filteredRows.map((row) => {
+              const rowKey = `${row.sub_code}_${row.name}`;
 
               return (
-                <tr key={rowIndex}>
+                <tr key={rowKey}>
                   <td
                     style={{
-                      fontWeight: rowItem?.sub_code?.endsWith("b")
+                      fontWeight: row.sub_code?.endsWith("b")
                         ? "bold"
                         : "normal",
-
-                      padding: rowItem?.sub_code?.endsWith("b")
+                      padding: row.sub_code?.endsWith("b")
                         ? "10px"
                         : "10px 10px 10px 20px",
                     }}>
-                    {row}
+                    {row.name}
                   </td>
-                  {tableData.columns.map((column, colIndex) => {
-                    const item = data.find(
-                      (item) =>
-                        item[`object_name_${language}`] === row &&
-                        item[`item_name_${language}`] === column
-                    );
-
-                    return (
-                      <td
-                        key={colIndex}
-                        style={{
-                          fontWeight: item?.sub_code?.endsWith("b")
-                            ? "bold"
-                            : "normal",
-                        }}>
-                        {tableData.values[row][column]}
-                      </td>
-                    );
-                  })}
+                  {tableData.columns.map((column, colIndex) => (
+                    <td
+                      key={colIndex}
+                      style={{
+                        fontWeight: data
+                          .find(
+                            (item) =>
+                              item.sub_code === row.sub_code &&
+                              item[`object_name_${language}`] === row.name &&
+                              item[`item_name_${language}`] === column,
+                          )
+                          ?.sub_code?.endsWith("b")
+                          ? "bold"
+                          : "normal",
+                      }}>
+                      {tableData.values[rowKey][column]}
+                    </td>
+                  ))}
                 </tr>
               );
             })}

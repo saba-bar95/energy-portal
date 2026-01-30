@@ -5,14 +5,19 @@ import { useParams } from "react-router-dom";
 
 const TablesNameDropdown = ({ name, names, setName, setParentOpen }) => {
   const [open, setOpen] = useState(false);
-  const dropdownRef = useRef(null); // Create a ref for the dropdown
-  const [selectedName, setSelectedName] = useState(name); // Track the selected year
+  const dropdownRef = useRef(null);
+  const [selectedName, setSelectedName] = useState(name);
 
   const { language } = useParams();
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
+
+  // Deduplicate names by their "name" property (trimmed to avoid \r\n issues)
+  const uniqueNames = Array.from(
+    new Set(names.map((item) => item.name.trim())),
+  ).map((uniqueName) => names.find((item) => item.name.trim() === uniqueName));
 
   useEffect(() => {
     if (open) {
@@ -21,7 +26,7 @@ const TablesNameDropdown = ({ name, names, setName, setParentOpen }) => {
       if (selectedElement) {
         selectedElement.scrollIntoView({
           behavior: "smooth",
-          block: "center", // Align the selected element in the center of the dropdown
+          block: "center",
         });
       }
     }
@@ -77,24 +82,26 @@ const TablesNameDropdown = ({ name, names, setName, setParentOpen }) => {
 
       {open && (
         <div className="dropdown-content" ref={dropdownRef}>
-          {names.map((name, i) => {
+          {uniqueNames.map((item, i) => {
             return (
               <div
-                className={`wrapper ${selectedName === name ? "selected" : ""}`}
+                className={`wrapper ${
+                  selectedName === item.name.trim() ? "selected" : ""
+                }`}
                 key={i}
                 onClick={() => {
-                  if (selectedName === name) {
-                    setName(null); // Deselect the name
-                    setSelectedName(null); // Update the state to deselect
+                  if (selectedName === item.name.trim()) {
+                    setName(null);
+                    setSelectedName(null);
                     setParentOpen(false);
                   } else {
-                    setName(name); // Select the name
-                    setSelectedName(name); // Update the state to the new selection
+                    setName(item.name.trim());
+                    setSelectedName(item.name.trim());
                     setParentOpen(false);
                   }
-                  setOpen(false); // Close the dropdown
+                  setOpen(false);
                 }}>
-                {selectedName === name ? (
+                {selectedName === item.name.trim() ? (
                   <svg
                     width="16"
                     height="16"
@@ -137,7 +144,7 @@ const TablesNameDropdown = ({ name, names, setName, setParentOpen }) => {
                     />
                   </svg>
                 )}
-                <p>{name}</p>
+                <p>{item.name.trim()}</p>
               </div>
             );
           })}

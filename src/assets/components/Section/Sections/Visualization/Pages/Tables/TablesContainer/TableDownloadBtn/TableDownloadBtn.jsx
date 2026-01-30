@@ -5,6 +5,7 @@ import * as XLSX from "xlsx";
 
 const TableDownloadBtn = ({ data, title }) => {
   const { language } = useParams();
+
   const text = {
     en: {
       header: "Download",
@@ -14,28 +15,44 @@ const TableDownloadBtn = ({ data, title }) => {
     },
   };
 
-  const handleDownload = (data) => {
-    if (!data) return;
+  const handleDownload = () => {
+    // no need to pass data again
+    if (!data?.rows || !data?.columns || !data?.values) return;
 
     const workbook = XLSX.utils.book_new();
+
     const nameHeader = language === "ge" ? "დასახელება" : "Name";
-    // Define headers (first row: column names)
+
+    // Build rows for Excel
     const worksheetData = [
-      [nameHeader, ...data.columns], // Column headers
-      ...data.rows.map((row) => [
-        row, // Row name
-        ...data.columns.map((column) => data.values[row]?.[column] || "-"), // Row values
-      ]),
+      // Header row
+      [nameHeader, ...data.columns],
+
+      // Data rows
+      ...data.rows.map((rowObj) => {
+        const key = `${rowObj.sub_code}_${rowObj.name}`;
+
+        return [
+          rowObj.name, // ← display only the Georgian/visible name
+
+          ...data.columns.map((col) => {
+            const value = data.values[key]?.[col];
+            return value ?? "-"; // null/undefined → "-"
+          }),
+        ];
+      }),
     ];
 
-    // Create worksheet
     const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
 
-    // Append worksheet to workbook
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+    // Optional: auto-size columns (better readability)
+    worksheet["!cols"] = worksheetData[0].map(() => ({ wch: 18 }));
 
-    // Generate and download the Excel file
-    XLSX.writeFile(workbook, `${title}.xlsx`);
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Energy Balance");
+
+    // Use title or fallback
+    const filename = title ? `${title}.xlsx` : "Energy_Balance.xlsx";
+    XLSX.writeFile(workbook, filename);
   };
 
   const svg = () => {
