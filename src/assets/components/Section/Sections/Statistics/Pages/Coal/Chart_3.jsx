@@ -21,6 +21,7 @@ const Chart_3 = () => {
   const [error, setError] = useState(null);
   const { language } = useParams();
   const [year, setYear] = useState(2025);
+  const [rawdata, setRawdata] = useState([]);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -34,7 +35,7 @@ const Chart_3 = () => {
 
   const years = useMemo(
     () => Array.from({ length: 2025 - 2018 + 1 }, (_, i) => 2018 + i),
-    []
+    [],
   );
 
   const months = [
@@ -53,11 +54,11 @@ const Chart_3 = () => {
   ];
 
   // Filter months based on current year - only show up to June for 2025
-  const getFilteredMonths = () => {
-    if (year === 2025) {
-      return months.slice(0, 10);
-    }
-    return months;
+  const getFilteredMonths = (rawdata) => {
+    return months.filter((month) => {
+      // keep month if at least one object has a non-null value
+      return rawdata.some((item) => item[month] !== null);
+    });
   };
 
   const text = {
@@ -80,6 +81,8 @@ const Chart_3 = () => {
     const fetchData = async () => {
       try {
         const rawData = await fetchDataWithMonthes(year, chartID);
+        setRawdata(rawData);
+
         const filteredData = rawData.filter((el) => el.name === chartName);
         setData(filteredData);
       } catch (err) {
@@ -96,7 +99,7 @@ const Chart_3 = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   // Use filtered months for chart data
-  const filteredMonths = getFilteredMonths();
+  const filteredMonths = getFilteredMonths(rawdata);
   const chartData = filteredMonths.map((month) => ({
     name: language === "ge" ? month.name_ge : month.name_en,
     [text[language].value]: data[0]?.[month.name_en] || 0,
