@@ -169,8 +169,7 @@ const TablesContainer = ({ info }) => {
       // --- EXTRA STEP: move "Other"/"სხვა" _b row to the end ---
       const otherIndex = rows.findIndex(
         (row) =>
-          row.sub_code?.endsWith("_b") &&
-          (row.name === "Other" || row.name === "სხვა"),
+          row.sub_code?.endsWith("_b") && (row.name === "" || row.name === ""),
       );
 
       if (otherIndex !== -1) {
@@ -229,7 +228,6 @@ const TablesContainer = ({ info }) => {
   const filteredRows = name
     ? tableData.rows.filter((row) => row.name === name)
     : tableData.rows;
-
 
   return (
     <>
